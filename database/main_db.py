@@ -19,3 +19,6 @@ class mysqldb:
     def close_connection(self):
         self.session.close()
         self.connection.close()
+    
+    def test(self):
+        print("test")
