@@ -1,3 +1,5 @@
 from database.main_db import mysqldb
 
-mysqldb.test()
+db = mysqldb()
+
+db.add_user('test', 'test')

@@ -8,9 +8,9 @@ class mysqldb:
     def open_connection(self):
         db = mysql.connector.connect(
             host='localhost',
-            user='root',
-            password='password',
-            database='testdb'
+            user='vaccinedb',
+            password='vaccine',
+            database='vaccinedb'
         )
 
         self.connection = db
@@ -20,5 +20,15 @@ class mysqldb:
         self.session.close()
         self.connection.close()
     
-    def test(self):
-        print("test")
+    def add_user(self, email, password):
+        self.open_connection()
+
+        self.session.execute("INSERT INTO users (email, password) VALUES (%s, %s)",
+                            (email, password))
+
+        self.connection.commit()
+
+        self.close_connection()
+
+    def isEmailExists(self, email):
+        pass
