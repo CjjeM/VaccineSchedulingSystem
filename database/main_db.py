@@ -2,8 +2,8 @@ import mysql.connector
 
 class mysqldb:
     def __init__(self):
-        connection = None
-        session = None
+        self.connection = None
+        self.session = None
     
     def open_connection(self):
         db = mysql.connector.connect(
