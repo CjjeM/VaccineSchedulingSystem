@@ -5,7 +5,7 @@ from database.main_db import mysqldb
 
 db = mysqldb()
 
-class LoginView(MethodView):
+class LoginView(MethodView): #incomplete
     def get(self):
         return render_template("Login.html")
 
@@ -16,7 +16,7 @@ class LoginView(MethodView):
         return redirect(url_for("Home"))
 
 
-class RegisterView(MethodView):
+class RegisterView(MethodView): #incomplete
     """
     # check first if email exists
         email = request.form["email"]
