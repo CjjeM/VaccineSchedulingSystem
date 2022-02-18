@@ -41,5 +41,5 @@ app.add_url_rule('/Login', methods=['GET', 'POST'], view_func=login_view)
 schedule_appointment_view = ScheduleAppointmentView.as_view('ScheduleAppointment')
 app.add_url_rule('/ScheduleAppointment', methods=['GET', 'POST'], view_func=schedule_appointment_view)
 
-view_appointment_view = ScheduleAppointmentView.as_view('ViewAppointment')
+view_appointment_view = ViewAppointmentView.as_view('ViewAppointment')
 app.add_url_rule('/ViewAppointment', methods=['GET', 'POST'], view_func=view_appointment_view)
