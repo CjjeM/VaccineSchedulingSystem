@@ -1,0 +1,37 @@
+<div class="modal fade" id="Modal-finsched"
+tabindex="-1"
+aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+ <div class="modal-header">
+   <h5 class="modal-title" id="ModalLabel">
+     Update
+   </h5>
+   <button type="button" class="close"
+           data-dismiss="modal" aria-label="Close">
+     <span aria-hidden="true">&times;</span>
+   </button>
+ </div>
+ <div class="modal-body">
+   <form method="POST">
+     {{ udsched.hidden_tag() }}
+     <h4 class="text-center">
+       Are you sure you want to update this schedule?
+     </h4>
+     <br>
+     <h6 class="text-center">
+       By clicking update, you will update this item from your hospital
+     </h6>
+     <br>
+     <input id="finalize_schedule" name="finalize_schedule" type="hidden" value="update">
+     {{ udsched.addtime(class="btn btn-lg btn-block btn-primary") }}
+   </form>
+ </div>
+ <div class="modal-footer">
+   <button type="button" class="btn btn-secondary"
+           data-dismiss="modal">Close
+   </button>
+ </div>
+</div>
+</div>
+</div>

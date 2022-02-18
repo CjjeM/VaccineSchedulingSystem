@@ -1,0 +1,81 @@
+
+<div class="modal fade" id="Modal-update-{{ item.vaccine_id }}"
+     tabindex="-1"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ModalLabel">
+          <!-- -->
+          {{ item.vaccine_name }}
+        </h5>
+        <button type="button" class="close"
+                data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="POST">
+          {{ form1.hidden_tag() }}
+          <h4 class="text-center">
+            Are you sure you want to edit {{ item.vaccine_name }}?
+          </h4>
+          <br>
+          <h6 class="text-center">
+            By clicking Update, you will edit this item.
+          </h6>
+          <br>
+          <input id="current_vaccine" name="current_vaccine" type="hidden" value="{{item.vaccine_id}}">
+          {{ form1.submit(class="btn btn-outline-success btn-block") }}
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary"
+                data-dismiss="modal">Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="Modal-delete-{{ item.vaccine_id }}"
+     tabindex="-1"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ModalLabel">
+          <!-- -->
+          {{ item.vaccine_name }}
+        </h5>
+        <button type="button" class="close"
+                data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="POST">
+          {{ form2.hidden_tag() }}
+          <h4 class="text-center">
+            Are you sure you want to delete {{ item.vaccine_name }}?
+          </h4>
+          <br>
+          <h6 class="text-center">
+            By clicking Delete, you will delete this item from your hospital
+          </h6>
+          <br>
+          <input id="delete_vaccine" name="delete_vaccine" type="hidden" value="{{item.vaccine_id}}">
+          {{ form2.delete(class="btn btn-outline-danger btn-block") }}
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary"
+                data-dismiss="modal">Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
