@@ -88,32 +88,14 @@ def index():
         flash(f'Deleted Vaccine: {items1.vaccine_name}', category='success')
         
 
-    #items1 =  vaccine.query.filter_by(vaccine_name='man').first()
-    #assoc = availability_details(v=items1, h=items)
-    #u=  vaccine(vaccine_name='man')
-    #m=  hospital(hosp_name='asas Rosa Hospital',hosp_address='masdasd')
-
-    #items1.following.append(items)
-    #db.session.commit()
-       
-    #vaccine1= items.followers #outputs vaccine affiliated with 'items'
-    #hosp1=items1.following #outputs hospital affiliated with 'items1'
-    #for i in items.availability_details:
-    #    if i.v is None:
-    #        continue
-        
-    #    else:
-            #print(i.h," hos")
-            #print(i.v," vac")
-    #        s.append(i.v)
+  
 
     for i in items3:
         if i is None:
             continue
         
         else:
-            #print(i.h," hos")
-            #print(i," vac")
+           
             s.append(i)
     
     return render_template('index.html',s=s,form1=form1,form2=form2)
@@ -124,9 +106,6 @@ def register():
     form = RegisterForm()
     if form.validate_on_submit():
         
-        #email_address = user_information.query.filter_by(email_address=form.email_address.data).first()
-        #if email_address:
-        #    raise ValidationError('Email Address already exists! Please try a different email address')
         user=user_information(first_name=form.first_name.data,middle_name=form.middle_name.data,last_name=form.last_name.data,
         city=form.city.data,home_address=form.home_address.data,email_address=form.email_address.data,pwd=form.password.data,
         contact_number=form.contact_number.data,birthdate=form.birthdate.data)
@@ -231,8 +210,7 @@ def addvaccine():
         flash(f'Success! You have added: {user.vaccine_name}', category='success')
         flash(f'Add schedule to finish', category='success')
         return redirect(url_for('updatevaccine'))
-        #else:
-         #   flash('Username and password are not match! Please try again', category='danger')
+        
     return render_template('add.html', adform=adform)
 
 
