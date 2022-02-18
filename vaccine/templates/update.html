@@ -1,0 +1,107 @@
+{% extends 'base_admin.html' %}
+{% block title %}
+List of Vaccines
+{% endblock %}
+{% block content %}
+    <div class="row" style="margin-top:20px; margin-left:20px">
+    
+        
+        <div class="col-8">
+            <div class="container mt-5 mb-5">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                    <div class="card">
+                        <header class="card-header">
+                            <h4 class="card-title mt-2">Update Vaccine</h4>
+                        </header>
+                        <article class="card-body">
+                            <div class="form-row mt-3">
+                                <div class="col form-group">
+                                <h6 class="card-text">Hospital Name:</h6>
+                                <div class="row">
+                                    <div class="col">
+                                        {{ items.hosp_name }}
+                                    </div>
+                                </div>
+                                <h6 class="card-text">Vaccine Name:</h6>
+                                <div class="row">
+                                    <div class="col">
+                                        {{ items1.vaccine_name }}
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                            <form method="POST" class="form-signin" >
+                                {{ udsched.hidden_tag() }}
+                            <div class="form-row mt-3">
+                                <div class="col form-group">
+                                <h6 class="card-text">Schedule Date:</h6>
+                                <div class="row">
+                                    <div class="col">
+                                        {{ udsched.vaccinedate(class="form-control") }}
+                                    </div>
+                                    <div class="col">
+                                    </div>
+                                    <div class="col">
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="form-row mt-3">
+                                <div class="col form-group">
+                                <h6 class="card-text">Schedule Time:</h6>
+                                <div class="row">
+                                    <div class="col">
+                                        {{ udsched.time1(class="form-control") }}
+                                    </div>
+                                    TO
+                                    <div class="col">
+                                        {{ udsched.time2( class="form-control") }}
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    
+                                    {{ udsched.addtime(class="btn btn-lg btn-block btn-primary") }}
+                                </div>
+                                <div class="col">
+                                    {{ adsched.add(class="btn btn-lg btn-block btn-primary") }}
+                                </div>
+                              </div>
+                                
+                            </form>
+                    </div>
+                    </article>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <h2>All Schedules</h2>
+            <p>Add Schedules for Vaccine</p>
+            <br>
+            <div class="row">
+                {% for sched in s %}
+                {% include 'includes/delete_modal.html' %}
+                <div class="col-md-6">
+                    <div style="margin-bottom: 5px" class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">Date: {{ sched.availability_date }}</h5>
+                        <h5 class="card-title">Start: {{ sched.availability_time1 }}</h5>
+                        <h5 class="card-title">End: {{ sched.availability_time2 }}</h5>
+                        <button class="btn btn-outline btn-info" data-toggle="modal" data-target="#Modal-updateSched-{{ sched.schedule_id }}">Select</button>
+                        <button class="btn btn-outline btn-danger" data-toggle="modal" data-target="#Modal-deleteSched-{{ sched.schedule_id }}">Delete</button>
+                        <p class="card-text"><strong>
+                            </strong>
+                        </p>
+                    </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    
+    </div>
+{% endblock %}
