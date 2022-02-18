@@ -2,6 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField,SelectField,DateField,TimeField
 from wtforms.validators import Length, EqualTo, Email, DataRequired, ValidationError
 from models.models import user_information, hospital
+
 cities = ['Alaminos', 'Bay', 'Biñan', 'Cabuyao','Calamba','Calauan','Cavinti','Famy','Kalayaan','Liliw',
     'Los Baños','Luisiana','Lumban','Mabitac','Magdalena','Majayjay','Nagcarlan','Paete','Pagsanjan','Pakil',
     'Pangil','Pila','Rizal','San Pablo','San Pedro','Santa Cruz','Santa Maria','Sta. Rosa','Siniloan','Victoria']
@@ -28,12 +29,6 @@ class RegisterForm(FlaskForm):
     submit = SubmitField(label='Create Account')
 
 class LoginForm(FlaskForm):
-    def validate_password(self, pass_to_check):
-        password = user_information.query.filter_by(pwd=pass_to_check.data).first()
-        
-        if password == None:
-            raise ValidationError('Incorrect Password')
-
     emailadd = StringField(label='Email Address:', validators=[DataRequired()])
     password = PasswordField(label='Password:', validators=[DataRequired()])
     submit = SubmitField(label='Sign in')

@@ -24,12 +24,10 @@ class mysqldb:
             first_name varchar(50) NOT NULL,
             middle_name varchar(50) NOT NULL,
             last_name varchar(50) NOT NULL,
-            region varchar(255) NOT NULL,
-            province varchar(255) NOT NULL,
             city varchar(255) NOT NULL,
             home_address varchar(255) NOT NULL,
             birthdate date NOT NULL,
-            contact_number numeric(11) NOT NULL,
+            contact_number varchar(50) NOT NULL,
             email_address varchar(50) NOT NULL,
             pwd varchar(255) NOT NULL,
             PRIMARY KEY (user_id)
@@ -86,3 +84,7 @@ class mysqldb:
     def close_connection(self):
         self.session.close()
         self.connection.close()
+
+
+db = mysqldb()
+db._init_db()

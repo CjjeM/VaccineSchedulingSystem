@@ -38,16 +38,16 @@ def login():
             flash(f'Success! You are logged in as: {attempted_user.email_address}', category='success')
             return redirect(url_for('ViewAppointment'))
         else:
-            flash('Incorrect Email or Passowrd, Try Again', category='danger')
+            flash('Incorrect Email or Password, Try Again', category='danger')
     if form.errors != {}: 
-        flash('Incorrect Email or Passowrd, Try Again', category='danger')
+        flash('Incorrect Email or Password, Try Again', category='danger')
 
     return render_template('login.html',form=form)
 
 @app.route('/adminlogin', methods=['GET', 'POST'])
 def adminlogin():
     form = AdminLoginForm()
-    session["account_type"] =None
+    session["account_type"] = None
     
     if form.validate_on_submit():
         
@@ -68,7 +68,7 @@ def adminlogin():
 @login_required
 def index():
     s=[]
-    session["schedid"] =0
+    session["schedid"] = 0
     form1 = UpdateItemForm()
     form2 = DeleteItemForm()
     items =  hospital.query.filter_by(hosp_name=session["user"]).first()
