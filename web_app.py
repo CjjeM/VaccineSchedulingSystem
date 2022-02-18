@@ -28,7 +28,7 @@ login_manager.login_message_category = "info"
 from views.user_views import RegisterView, UserLoginView, LogoutView
 from views.home_view import HomeView
 from views.appointment_views import ScheduleAppointmentView, ViewAppointmentView
-from views.admin_views import 
+from views.admin_views import AdminLoginView
 
 home_view = HomeView.as_view('Home')
 app.add_url_rule('/', methods=['GET'], view_func=home_view)
