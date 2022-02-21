@@ -101,6 +101,25 @@ List of Vaccines
                 </div>
                 {% endfor %}
             </div>
+            <h2>All Users in Schedule</h2>
+            <p>Select schedule for vaccine to view</p>
+            <br>
+            <div class="row">
+                {% for s in u %}
+                <div class="col-md-6">
+                    <div style="margin-bottom: 5px" class="card text-left">
+                    <div class="card-body">
+                        <h5 class="card-title">ID: {{ s.id }}</h5>
+                        <h5 class="card-title">Last Name: {{ s.last_name }}</h5>
+                        <h5 class="card-title">City: {{ s.city }}</h5>
+                        <p class="card-text"><strong>
+                            </strong>
+                        </p>
+                    </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
         </div>
     
     </div>

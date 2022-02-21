@@ -4,8 +4,6 @@
 {% block title %}Add Vaccine{% endblock %}
 {% block content %}
 <div class="container mt-5 mb-5">
-    <form method="POST" class="form-signin" >
-        {{ adform.hidden_tag() }}
         <div class="row justify-content-center">
             <div class="col-lg-8">
                 <div class="card">
@@ -13,17 +11,28 @@
                         <h4 class="card-title mt-2">Add Vaccine</h4>
                     </header>
                     {% include 'includes/add_modal.html' %}
+                    <form method="POST">
+                        {{ adform.hidden_tag() }}
                     <article class="card-body">
                         <h6 class="card-text">Vaccine Name:</h6>
                         {{ adform.vaccinename(class="form-control", placeholder="Vaccine Name") }}
+                        <h6 class="card-text">Vaccine Expiration Date:</h6>
+                        {{ adform.expiration(class="form-control", placeholder="Expiration Date") }}
+                        <h6 class="card-text">Vaccine Manufacturer:</h6>
+                        {{ adform.manufacturer(class="form-control", placeholder="Manufacturer") }}
+                        <h6 class="card-text">Vaccine Supplier:</h6>
+                        {{ adform.supplier(class="form-control", placeholder="Supplier") }}
+                        <h6 class="card-text">Additional Information:</h6>
+                        {{ adform.information(class="form-control", placeholder="Additional Information") }}
                         <br>
                         <div class="d-grid gap-2">
-                            <button class="btn btn-outline btn-info" data-toggle="modal" data-target="#Modal-add">Add</button>
+                            {{ adform.add(class="btn btn-outline-success btn-block") }}
                         </div>
                     </article>
+                </form>
                 </div>
             </div>
         </div>
-    </form>
+    
 </div>
 {% endblock %}
