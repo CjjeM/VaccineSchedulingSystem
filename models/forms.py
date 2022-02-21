@@ -6,8 +6,6 @@ from models.models import user_information, hospital
 cities = ['Alaminos', 'Bay', 'Biñan', 'Cabuyao','Calamba','Calauan','Cavinti','Famy','Kalayaan','Liliw',
     'Los Baños','Luisiana','Lumban','Mabitac','Magdalena','Majayjay','Nagcarlan','Paete','Pagsanjan','Pakil',
     'Pangil','Pila','Rizal','San Pablo','San Pedro','Santa Cruz','Santa Maria','Sta. Rosa','Siniloan','Victoria']
-vactime=['1','2','3','4','5','6','7','8','9','10','11','12']
-timeofday=['AM','PM']
 
 class RegisterForm(FlaskForm):
 
@@ -29,6 +27,12 @@ class RegisterForm(FlaskForm):
     submit = SubmitField(label='Create Account')
 
 class LoginForm(FlaskForm):
+    def validate_password(self, pass_to_check):
+        password = user_information.query.filter_by(pwd=pass_to_check.data).first()
+        
+        if password == None:
+            raise ValidationError('Incorrect Password')
+
     emailadd = StringField(label='Email Address:', validators=[DataRequired()])
     password = PasswordField(label='Password:', validators=[DataRequired()])
     submit = SubmitField(label='Sign in')
@@ -44,30 +48,27 @@ class AdminLoginForm(FlaskForm):
 
 class UpdateItemForm(FlaskForm):
     submit = SubmitField(label='Update')
-
-class DeleteItemForm(FlaskForm):
     delete = SubmitField(label='Delete')
-
-class UpdateSchedForm(FlaskForm):
-    update = SubmitField(label='Update')
-
-class AddSchedForm(FlaskForm):
-    add = SubmitField(label='Add')
-
-class DeleteSchedForm(FlaskForm):
-    deletesched = SubmitField(label='Delete')
+    
 
 class NonValidatingSelectField(SelectField):
     def pre_validate(self, UpdateVaccineForm):
         pass 
 
 class UpdateVaccineForm(FlaskForm):
-    vaccinedate = DateField(label='Vaccine Date:',validators=[DataRequired()])
+    vaccinedate = DateField(label='Vaccine Date:')
     time1 = TimeField()
     time2 = TimeField()
+    update = SubmitField(label='Update')
+    add = SubmitField(label='Add')
+    deletesched = SubmitField(label='Delete')
     addtime = SubmitField(label='Update Schedule')
 
 class AddVaccineForm(FlaskForm):
     vaccinename=StringField(label='Vaccine Name:', validators=[DataRequired()])
+    expiration=DateField(label='Vaccine Date:',validators=[DataRequired()])
+    supplier=StringField(label='Vaccine Name:', validators=[DataRequired()])
+    manufacturer=StringField(label='Vaccine Name:', validators=[DataRequired()])
+    information=StringField(label='Vaccine Name:')
     add = SubmitField(label='Add')
 

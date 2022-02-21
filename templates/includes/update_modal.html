@@ -14,7 +14,7 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
  </div>
  <div class="modal-body">
    <form method="POST">
-     {{ udsched.hidden_tag() }}
+     {{ form.hidden_tag() }}
      <h4 class="text-center">
        Are you sure you want to update this schedule?
      </h4>
@@ -24,7 +24,7 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
      </h6>
      <br>
      <input id="finalize_schedule" name="finalize_schedule" type="hidden" value="update">
-     {{ udsched.addtime(class="btn btn-lg btn-block btn-primary") }}
+     {{ form.addtime(class="btn btn-lg btn-block btn-primary") }}
    </form>
  </div>
  <div class="modal-footer">

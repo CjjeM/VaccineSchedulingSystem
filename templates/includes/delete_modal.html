@@ -15,7 +15,7 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
  </div>
  <div class="modal-body">
    <form method="POST">
-     {{ up.hidden_tag() }}
+     {{ udsched.hidden_tag() }}
      <h4 class="text-center">
        Are you sure you want to edit this schedule?
      </h4>
@@ -25,7 +25,7 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
      </h6>
      <br>
      <input id="update_schedule" name="update_schedule" type="hidden" value="{{sched.schedule_id}}">
-     {{ up.update(class="btn btn-outline-success btn-block") }}
+     {{ udsched.update(class="btn btn-outline-success btn-block") }}
    </form>
  </div>
  <div class="modal-footer">
@@ -54,7 +54,7 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
  </div>
  <div class="modal-body">
    <form method="POST">
-     {{ delsched.hidden_tag() }}
+     {{ udsched.hidden_tag() }}
      <h4 class="text-center">
        Are you sure you want to delete this schedule?
      </h4>
@@ -64,7 +64,7 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
      </h6>
      <br>
      <input id="delete_schedule" name="delete_schedule" type="hidden" value="{{sched.schedule_id}}">
-     {{ delsched.deletesched(class="btn btn-outline-danger btn-block") }}
+     {{ udsched.deletesched(class="btn btn-outline-danger btn-block") }}
    </form>
  </div>
  <div class="modal-footer">

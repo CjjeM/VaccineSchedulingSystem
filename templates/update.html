@@ -32,13 +32,13 @@ List of Vaccines
                                 </div>
                             </div>
                             <form method="POST" class="form-signin" >
-                                {{ udsched.hidden_tag() }}
+                                {{ form.hidden_tag() }}
                             <div class="form-row mt-3">
                                 <div class="col form-group">
                                 <h6 class="card-text">Schedule Date:</h6>
                                 <div class="row">
                                     <div class="col">
-                                        {{ udsched.vaccinedate(class="form-control") }}
+                                        {{ form.vaccinedate(class="form-control") }}
                                     </div>
                                     <div class="col">
                                     </div>
@@ -52,11 +52,11 @@ List of Vaccines
                                 <h6 class="card-text">Schedule Time:</h6>
                                 <div class="row">
                                     <div class="col">
-                                        {{ udsched.time1(class="form-control") }}
+                                        {{ form.time1(class="form-control") }}
                                     </div>
                                     TO
                                     <div class="col">
-                                        {{ udsched.time2( class="form-control") }}
+                                        {{ form.time2( class="form-control") }}
                                     </div>
                                 </div>
                                 </div>
@@ -64,10 +64,10 @@ List of Vaccines
                             <div class="row">
                                 <div class="col">
                                     
-                                    {{ udsched.addtime(class="btn btn-lg btn-block btn-primary") }}
+                                    {{ form.addtime(class="btn btn-lg btn-block btn-primary") }}
                                 </div>
                                 <div class="col">
-                                    {{ adsched.add(class="btn btn-lg btn-block btn-primary") }}
+                                    {{ form.add(class="btn btn-lg btn-block btn-primary") }}
                                 </div>
                               </div>
                                 

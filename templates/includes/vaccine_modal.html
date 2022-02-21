@@ -16,7 +16,7 @@
       </div>
       <div class="modal-body">
         <form method="POST">
-          {{ form1.hidden_tag() }}
+          {{ form.hidden_tag() }}
           <h4 class="text-center">
             Are you sure you want to edit {{ item.vaccine_name }}?
           </h4>
@@ -26,7 +26,7 @@
           </h6>
           <br>
           <input id="current_vaccine" name="current_vaccine" type="hidden" value="{{item.vaccine_id}}">
-          {{ form1.submit(class="btn btn-outline-success btn-block") }}
+          {{ form.submit(class="btn btn-outline-success btn-block") }}
         </form>
       </div>
       <div class="modal-footer">
@@ -56,7 +56,7 @@
       </div>
       <div class="modal-body">
         <form method="POST">
-          {{ form2.hidden_tag() }}
+          {{ form.hidden_tag() }}
           <h4 class="text-center">
             Are you sure you want to delete {{ item.vaccine_name }}?
           </h4>
@@ -66,7 +66,7 @@
           </h6>
           <br>
           <input id="delete_vaccine" name="delete_vaccine" type="hidden" value="{{item.vaccine_id}}">
-          {{ form2.delete(class="btn btn-outline-danger btn-block") }}
+          {{ form.delete(class="btn btn-outline-danger btn-block") }}
         </form>
       </div>
       <div class="modal-footer">

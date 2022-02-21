@@ -12,21 +12,21 @@
                     </header>
                     {% include 'includes/add_modal.html' %}
                     <form method="POST">
-                        {{ adform.hidden_tag() }}
+                        {{ form.hidden_tag() }}
                     <article class="card-body">
                         <h6 class="card-text">Vaccine Name:</h6>
-                        {{ adform.vaccinename(class="form-control", placeholder="Vaccine Name") }}
+                        {{ form.vaccinename(class="form-control", placeholder="Vaccine Name") }}
                         <h6 class="card-text">Vaccine Expiration Date:</h6>
-                        {{ adform.expiration(class="form-control", placeholder="Expiration Date") }}
+                        {{ form.expiration(class="form-control", placeholder="Expiration Date") }}
                         <h6 class="card-text">Vaccine Manufacturer:</h6>
-                        {{ adform.manufacturer(class="form-control", placeholder="Manufacturer") }}
+                        {{ form.manufacturer(class="form-control", placeholder="Manufacturer") }}
                         <h6 class="card-text">Vaccine Supplier:</h6>
-                        {{ adform.supplier(class="form-control", placeholder="Supplier") }}
+                        {{ form.supplier(class="form-control", placeholder="Supplier") }}
                         <h6 class="card-text">Additional Information:</h6>
-                        {{ adform.information(class="form-control", placeholder="Additional Information") }}
+                        {{ form.information(class="form-control", placeholder="Additional Information") }}
                         <br>
                         <div class="d-grid gap-2">
-                            {{ adform.add(class="btn btn-outline-success btn-block") }}
+                            {{ form.add(class="btn btn-outline-success btn-block") }}
                         </div>
                     </article>
                 </form>
