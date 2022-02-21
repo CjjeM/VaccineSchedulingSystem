@@ -73,9 +73,8 @@
                             Would you like to schedule an appointment in this vaccination site?
                           </div>
                           <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal" id = "CancelBtn" onclick="HideBtn()">Cancel</button>
                             <div id="liveAlertPlaceholder"></div>
-                            <input type="submit" value="Schedule" class="btn btn-primary" id = "ScheduleBtn" onclick="HideBtn()">
+                              <input type="submit" value="Schedule" class="btn btn-primary" id = "ScheduleBtn" onclick="HideBtn()">
                               <script>
                                 var alertPlaceholder = document.getElementById('liveAlertPlaceholder')
                                 var alertTrigger = document.getElementById('ScheduleBtn')
@@ -98,13 +97,10 @@
                               <script>
                                   function HideBtn() {
                                       var x = document.getElementById("ScheduleBtn");
-                                      var y = document.getElementById("CancelBtn");
                                       if (x.style.display === "none") {
                                         x.style.display = "block";
-                                        y.style.display = "block";
                                       } else {
                                         x.style.display = "none";
-                                        y.style.display = "none";
                                       }
                                     }
                               </script>
