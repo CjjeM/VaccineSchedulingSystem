@@ -30,13 +30,21 @@ class mysqldb:
             contact_number varchar(50) NOT NULL,
             email_address varchar(50) NOT NULL,
             pwd varchar(255) NOT NULL,
-            PRIMARY KEY (user_id)
+            schedule int,
+            PRIMARY KEY (user_id).
+            FOREIGN KEY (schedule) REFERENCES Availability_Details(id),
         )""")
 
         cursor.execute("""CREATE TABLE IF NOT EXISTS Vaccine (
             vaccine_id int NOT NULL AUTO_INCREMENT,
             vaccine_name varchar(50) NOT NULL,
-            PRIMARY KEY (vaccine_id)
+            hos int,
+            vacine_expiration varchar(50) NOT NULL,
+            vaccine_manufacturer varchar(50) NOT NULL,
+            vaccine_supplier varchar(50) NOT NULL,
+            vaccine_information varchar(50),
+            PRIMARY KEY (vaccine_id),
+            FOREIGN KEY (hos) REFERENCES Hospital(hosp_id)
         )""")
 
         cursor.execute("""CREATE TABLE IF NOT EXISTS Hospital (
@@ -48,12 +56,14 @@ class mysqldb:
 
         cursor.execute("""CREATE TABLE IF NOT EXISTS Availability_Details (
             id int NOT NULL AUTO_INCREMENT,
-            hosp_id int,
-            vaccine_id int,
+            vac int,
+            hos int,
             availability_date date NOT NULL,
+            availability_time1 time NOT NULL,
+            availability_time2 time NOT NULL,
             PRIMARY KEY (id),
-            FOREIGN KEY (hosp_id) REFERENCES Hospital(hosp_id),
-            FOREIGN KEY (vaccine_id) REFERENCES Vaccine(vaccine_id)
+            FOREIGN KEY (hos) REFERENCES Hospital(hosp_id),
+            FOREIGN KEY (vac) REFERENCES Vaccine(vaccine_id)
         )""")
 
         cursor.execute("""CREATE TABLE IF NOT EXISTS Appointment (
