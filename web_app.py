@@ -1,7 +1,8 @@
-from flask import Flask, session
+from flask import Flask, session, render_template
 from flask_login import LoginManager
 from flask_session import Session
 from flask_sqlalchemy import SQLAlchemy
+import folium
 
 user = "vaccinedb"
 pwd = "vaccine"
@@ -24,6 +25,20 @@ ses = Session(app)
 login_manager = LoginManager(app)
 login_manager.login_view = "adminlogin"
 login_manager.login_message_category = "info"
+
+@app.route('/')
+def index():
+    start_coords = (14.3141, 121.1134)
+    folium_map = folium.Map(
+        location=start_coords,
+        zoom_start=17
+    )
+    folium_map.save('templates/map.html')
+    return render_template('Home.html')
+
+@app.route('/map')
+def map():
+    return render_template('map.html')
 
 from views.user_views import RegisterView, UserLoginView, LogoutView
 from views.home_view import HomeView
