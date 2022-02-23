@@ -164,6 +164,6 @@ class AddVaccineView(MethodView):
             flash(f'Success! You have added: {user.vaccine_name}', category='success')
             flash(f'Add schedule to finish', category='success')
             return redirect(url_for('updatevaccine'))
-    if form.errors != {}: 
-        for err_msg in form.errors.values():
-            flash(f'There was an error with creating a user: {err_msg}', category='danger')
+        if form.errors != {}: 
+            for err_msg in form.errors.values():
+                flash(f'There was an error with creating a user: {err_msg}', category='danger')
