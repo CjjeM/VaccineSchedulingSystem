@@ -4,8 +4,8 @@ from flask_session import Session
 from flask_sqlalchemy import SQLAlchemy
 import folium
 
-user = "root"
-pwd = "123456"
+user = "vaccinedb"
+pwd = "vaccine"
 host = "localhost"
 database = "vaccinedb"
 
