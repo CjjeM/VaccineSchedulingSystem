@@ -91,8 +91,8 @@ List of Vaccines
                         <h5 class="card-title">Date: {{ sched.availability_date }}</h5>
                         <h5 class="card-title">Start: {{ sched.availability_time1 }}</h5>
                         <h5 class="card-title">End: {{ sched.availability_time2 }}</h5>
-                        <button class="btn btn-outline btn-info" data-toggle="modal" data-target="#Modal-updateSched-{{ sched.schedule_id }}">Select</button>
-                        <button class="btn btn-outline btn-danger" data-toggle="modal" data-target="#Modal-deleteSched-{{ sched.schedule_id }}">Delete</button>
+                        <button class="btn btn-outline btn-info" data-toggle="modal" data-target="#Modal-updateSched-{{ sched.id }}">Select</button>
+                        <button class="btn btn-outline btn-danger" data-toggle="modal" data-target="#Modal-deleteSched-{{ sched.id }}">Delete</button>
                         <p class="card-text"><strong>
                             </strong>
                         </p>
@@ -109,7 +109,7 @@ List of Vaccines
                 <div class="col-md-6">
                     <div style="margin-bottom: 5px" class="card text-left">
                     <div class="card-body">
-                        <h5 class="card-title">ID: {{ s.id }}</h5>
+                        <h5 class="card-title">ID: {{ s.user_id }}</h5>
                         <h5 class="card-title">Last Name: {{ s.last_name }}</h5>
                         <h5 class="card-title">City: {{ s.city }}</h5>
                         <p class="card-text"><strong>

@@ -14,7 +14,7 @@
       </div>
       <div class="modal-body">
         <form method="POST">
-          {{ adform.hidden_tag() }}
+          {{ form.hidden_tag() }}
           <h4 class="text-center">
             Are you sure you want to add this vaccine?
           </h4>
@@ -24,7 +24,7 @@
           </h6>
           <br>
           <input id="add_vac" name="add_vac" type="hidden" value="add">
-          {{ adform.add(class="btn btn-outline-danger btn-block") }}
+          {{ form.add(class="btn btn-outline-danger btn-block") }}
         </form>
       </div>
       <div class="modal-footer">

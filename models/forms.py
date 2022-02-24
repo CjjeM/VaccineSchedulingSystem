@@ -39,7 +39,7 @@ class LoginForm(FlaskForm):
 
 class AdminLoginForm(FlaskForm):
     def validate_hosid(self, pass_to_check):
-        hosid = hospital.query.filter_by(id=pass_to_check.data).first()
+        hosid = hospital.query.filter_by(hosp_id=pass_to_check.data).first()
         if hosid is None:
             raise ValidationError('Incorrect Password')
     hosname = StringField(label='Hospital Name:', validators=[DataRequired()])
