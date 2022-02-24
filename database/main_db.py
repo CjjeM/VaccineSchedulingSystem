@@ -19,20 +19,11 @@ class mysqldb:
 
         cursor.execute("USE vaccinedb")
 
-        cursor.execute("""CREATE TABLE IF NOT EXISTS User_Information (
-            user_id int NOT NULL AUTO_INCREMENT,
-            first_name varchar(50) NOT NULL,
-            middle_name varchar(50) NOT NULL,
-            last_name varchar(50) NOT NULL,
-            city varchar(255) NOT NULL,
-            home_address varchar(255) NOT NULL,
-            birthdate date NOT NULL,
-            contact_number varchar(50) NOT NULL,
-            email_address varchar(50) NOT NULL,
-            pwd varchar(255) NOT NULL,
-            schedule int,
-            PRIMARY KEY (user_id).
-            FOREIGN KEY (schedule) REFERENCES Availability_Details(id),
+        cursor.execute("""CREATE TABLE IF NOT EXISTS Hospital (
+            hosp_id int NOT NULL AUTO_INCREMENT,
+            hosp_name varchar(100) NOT NULL,
+            hosp_address varchar(255) NOT NULL,
+            PRIMARY KEY (hosp_id)
         )""")
 
         cursor.execute("""CREATE TABLE IF NOT EXISTS Vaccine (
@@ -47,13 +38,6 @@ class mysqldb:
             FOREIGN KEY (hos) REFERENCES Hospital(hosp_id)
         )""")
 
-        cursor.execute("""CREATE TABLE IF NOT EXISTS Hospital (
-            hosp_id int NOT NULL AUTO_INCREMENT,
-            hosp_name varchar(100) NOT NULL,
-            hosp_address varchar(255) NOT NULL,
-            PRIMARY KEY (hosp_id)
-        )""")
-
         cursor.execute("""CREATE TABLE IF NOT EXISTS Availability_Details (
             id int NOT NULL AUTO_INCREMENT,
             vac int,
@@ -64,6 +48,22 @@ class mysqldb:
             PRIMARY KEY (id),
             FOREIGN KEY (hos) REFERENCES Hospital(hosp_id),
             FOREIGN KEY (vac) REFERENCES Vaccine(vaccine_id)
+        )""")
+
+        cursor.execute("""CREATE TABLE IF NOT EXISTS User_Information (
+            user_id int NOT NULL AUTO_INCREMENT,
+            first_name varchar(50) NOT NULL,
+            middle_name varchar(50) NOT NULL,
+            last_name varchar(50) NOT NULL,
+            city varchar(255) NOT NULL,
+            home_address varchar(255) NOT NULL,
+            birthdate date NOT NULL,
+            contact_number varchar(50) NOT NULL,
+            email_address varchar(50) NOT NULL,
+            pwd varchar(255) NOT NULL,
+            schedule int,
+            PRIMARY KEY (user_id),
+            FOREIGN KEY (schedule) REFERENCES Availability_Details(id)
         )""")
 
         cursor.execute("""CREATE TABLE IF NOT EXISTS Appointment (

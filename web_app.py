@@ -2,7 +2,6 @@ from flask import Flask, session, render_template
 from flask_login import LoginManager
 from flask_session import Session
 from flask_sqlalchemy import SQLAlchemy
-import folium
 
 user = "vaccinedb"
 pwd = "vaccine"
@@ -25,20 +24,6 @@ ses = Session(app)
 login_manager = LoginManager(app)
 login_manager.login_view = "adminlogin"
 login_manager.login_message_category = "info"
-
-@app.route('/')
-def index():
-    start_coords = (14.3141, 121.1134)
-    folium_map = folium.Map(
-        location=start_coords,
-        zoom_start=17
-    )
-    folium_map.save('templates/map.html')
-    return render_template('Home.html')
-
-@app.route('/map')
-def map():
-    return render_template('map.html')
 
 from views.user_views import RegisterView, UserLoginView, LogoutView
 from views.home_view import HomeView
@@ -63,11 +48,11 @@ app.add_url_rule('/ScheduleAppointment', methods=['GET', 'POST'], view_func=sche
 view_appointment_view = ViewAppointmentView.as_view('ViewAppointment')
 app.add_url_rule('/ViewAppointment', methods=['GET', 'POST'], view_func=view_appointment_view)
 
-index_view = IndexView.as_view('index')
-app.add_url_rule('/index', methods=['GET', 'POST'], view_func=register_view)
+index_view = IndexView.as_view('adminindex')
+app.add_url_rule('/adminindex', methods=['GET', 'POST'], view_func=index_view)
 
 adminlogin_view = AdminLoginView.as_view('adminlogin')
-app.add_url_rule('/adminlogin', methods=['GET', 'POST'], view_func=register_view)
+app.add_url_rule('/adminlogin', methods=['GET', 'POST'], view_func=adminlogin_view)
 
 updatevaccine_view = UpdateVaccineView.as_view('updatevaccine')
 app.add_url_rule('/updatevaccine', methods=['GET', 'POST'], view_func=updatevaccine_view)

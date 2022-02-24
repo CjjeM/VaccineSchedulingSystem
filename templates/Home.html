@@ -39,9 +39,11 @@
   </button>
 </div>
 
+{%if current_user.is_authenticated %}
  <div class="d-grid gap-2">
    <a class="btn btn-success" href="{{ url_for('ScheduleAppointment') }}" role="button">Schedule Appointment</a>
  </div>
+ {% endif %}
 &nbsp;
 
 <div class="container marketing">

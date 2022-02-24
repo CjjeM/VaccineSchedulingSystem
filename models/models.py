@@ -12,7 +12,10 @@ def load_user(user_id):
         return None
     
 class user_information(db.Model,UserMixin):
-    id=db.Column(db.Integer,primary_key=True)
+    def get_id(self):
+           return (self.user_id)    
+
+    user_id=db.Column(db.Integer,primary_key=True)
     first_name=db.Column(db.String(length=45))
     middle_name=db.Column(db.String(length=45))
     last_name=db.Column(db.String(length=45))
@@ -26,7 +29,7 @@ class user_information(db.Model,UserMixin):
 
 
     def __repr__(self):
-        return "id: {0} | first name: {1} | middle name: {2} | last name: {3} | city: {4} | home address: {5} | email address: {6} | password: {7} | contact number: {8} | birth date: {9}".format(self.id,self.first_name,self.middle_name,self.last_name,self.city,self.home_address,self.email_address,self.pwd,self.contact_number,self.birthdate,)
+        return "user_id: {0} | first name: {1} | middle name: {2} | last name: {3} | city: {4} | home address: {5} | email address: {6} | password: {7} | contact number: {8} | birth date: {9}".format(self.user_id,self.first_name,self.middle_name,self.last_name,self.city,self.home_address,self.email_address,self.pwd,self.contact_number,self.birthdate,)
 
 
 
