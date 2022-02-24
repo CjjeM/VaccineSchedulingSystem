@@ -28,7 +28,7 @@ login_manager.login_message_category = "info"
 from views.user_views import RegisterView, UserLoginView, LogoutView
 from views.home_view import HomeView
 from views.appointment_views import ScheduleAppointmentView, ViewAppointmentView
-from views.admin_views import AdminLoginView,AddVaccineView,UpdateVaccineView,IndexView
+from views.admin_views import AdminLoginView,AddVaccineView,UpdateVaccineView,VaccinesView
 
 home_view = HomeView.as_view('Home')
 app.add_url_rule('/', methods=['GET'], view_func=home_view)
@@ -48,8 +48,8 @@ app.add_url_rule('/ScheduleAppointment', methods=['GET', 'POST'], view_func=sche
 view_appointment_view = ViewAppointmentView.as_view('ViewAppointment')
 app.add_url_rule('/ViewAppointment', methods=['GET', 'POST'], view_func=view_appointment_view)
 
-index_view = IndexView.as_view('adminindex')
-app.add_url_rule('/adminindex', methods=['GET', 'POST'], view_func=index_view)
+vaccines_view = VaccinesView.as_view('vaccines')
+app.add_url_rule('/vaccines', methods=['GET', 'POST'], view_func=vaccines_view)
 
 adminlogin_view = AdminLoginView.as_view('adminlogin')
 app.add_url_rule('/adminlogin', methods=['GET', 'POST'], view_func=adminlogin_view)

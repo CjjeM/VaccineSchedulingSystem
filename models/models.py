@@ -37,7 +37,7 @@ class vaccine(db.Model):
     __tablename__="vaccine"
     vaccine_id=db.Column(db.Integer,primary_key=True)
     vaccine_name=db.Column(db.String(length=255))
-    hos=db.Column(db.Integer,db.ForeignKey('hospital.id'))
+    hos=db.Column(db.Integer,db.ForeignKey('hospital.hosp_id'))
     vaccine_expiration=db.Column(db.Date)
     vaccine_manufacturer=db.Column(db.String(length=255))
     vaccine_supplier=db.Column(db.String(length=255))
@@ -47,20 +47,21 @@ class vaccine(db.Model):
 
 class hospital(db.Model, UserMixin):
     __tablename__="hospital"
-    id=db.Column(db.Integer,primary_key=True)
+    hosp_id=db.Column(db.Integer,primary_key=True)
+    id=hosp_id
     hosp_name=db.Column(db.String(length=45))
     hosp_address=db.Column(db.String(length=255))
-    sched = db.relationship('avail', backref='hospital', lazy=True)
+    sched = db.relationship('availability_details', backref='hospital', lazy=True)
     vac = db.relationship('vaccine', backref='hospital', lazy=True)
     def __repr__(self):
         return f'<User: {self.hosp_name}>'
     
 
-class avail(db.Model):
-    schedule_id=db.Column(db.Integer,primary_key=True)
+class availability_details(db.Model):
+    id=db.Column(db.Integer,primary_key=True)
     availability_date=db.Column(db.Date)
     availability_time1=db.Column(db.Time)
     availability_time2=db.Column(db.Time)
     vac=db.Column(db.Integer,db.ForeignKey('vaccine.vaccine_id'))
-    hos=db.Column(db.Integer,db.ForeignKey('hospital.id'))
+    hos=db.Column(db.Integer,db.ForeignKey('hospital.hosp_id'))
     

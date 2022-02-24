@@ -1,5 +1,5 @@
 
-<div class="modal fade" id="Modal-updateSched-{{ sched.schedule_id }}"
+<div class="modal fade" id="Modal-updateSched-{{ sched.id }}"
 tabindex="-1"
 aria-labelledby="exampleModalLabel" aria-hidden="true">
 <div class="modal-dialog">
@@ -15,7 +15,7 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
  </div>
  <div class="modal-body">
    <form method="POST">
-     {{ udsched.hidden_tag() }}
+     {{ form.hidden_tag() }}
      <h4 class="text-center">
        Are you sure you want to edit this schedule?
      </h4>
@@ -24,8 +24,8 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
        By clicking Update, you will edit this item.
      </h6>
      <br>
-     <input id="update_schedule" name="update_schedule" type="hidden" value="{{sched.schedule_id}}">
-     {{ udsched.update(class="btn btn-outline-success btn-block") }}
+     <input id="update_schedule" name="update_schedule" type="hidden" value="{{sched.id}}">
+     {{ form.update(class="btn btn-outline-success btn-block") }}
    </form>
  </div>
  <div class="modal-footer">
@@ -38,7 +38,7 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
 </div>
 
 
-<div class="modal fade" id="Modal-deleteSched-{{ sched.schedule_id }}"
+<div class="modal fade" id="Modal-deleteSched-{{ sched.id }}"
 tabindex="-1"
 aria-labelledby="exampleModalLabel" aria-hidden="true">
 <div class="modal-dialog">
@@ -54,7 +54,7 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
  </div>
  <div class="modal-body">
    <form method="POST">
-     {{ udsched.hidden_tag() }}
+     {{ form.hidden_tag() }}
      <h4 class="text-center">
        Are you sure you want to delete this schedule?
      </h4>
@@ -63,8 +63,8 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
        By clicking Delete, you will delete this item from your hospital
      </h6>
      <br>
-     <input id="delete_schedule" name="delete_schedule" type="hidden" value="{{sched.schedule_id}}">
-     {{ udsched.deletesched(class="btn btn-outline-danger btn-block") }}
+     <input id="delete_schedule" name="delete_schedule" type="hidden" value="{{sched.id}}">
+     {{ form.deletesched(class="btn btn-outline-danger btn-block") }}
    </form>
  </div>
  <div class="modal-footer">
