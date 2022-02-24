@@ -71,7 +71,7 @@ class VaccinesView(MethodView):
             items2 =  vaccine.query.filter_by(vaccine_id=session["vacid"]).first()
             db.session.delete(items2)
             db.session.commit()
-            flash(f'Successfully Deleted Vaccine: {items3.vaccine_name}', category='success')
+            flash(f'Successfully Deleted Vaccine: {items2.vaccine_name}', category='success')
             return redirect(url_for('vaccines'))
 
 class UpdateVaccineView(MethodView):
@@ -86,6 +86,7 @@ class UpdateVaccineView(MethodView):
     def get(self):
         s=[]
         u=[]
+        print(session["schedid"])
         users =  user_information.query.filter_by(schedule=session["schedid"]).all()
         items =  hospital.query.filter_by(hosp_id=session["hosid"]).first()
         items1 = vaccine.query.filter_by(vaccine_id=session["vacid"]).first()
@@ -105,6 +106,7 @@ class UpdateVaccineView(MethodView):
                     continue
                 else:
                     u.append(i)
+        print(u)
         return render_template('update.html',form=self.form(),s=s,items=items,items1=items1,u=u)
     
     def post(self):
@@ -163,6 +165,7 @@ class AddVaccineView(MethodView):
             db.session.add(user)
             db.session.commit()
             session["vacid"]=user.vaccine_id
+            session["schedid"]=0
             flash(f'Success! You have added: {user.vaccine_name}', category='success')
             flash(f'Add schedule to finish', category='success')
             return redirect(url_for('updatevaccine'))
