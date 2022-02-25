@@ -7,20 +7,38 @@
         <div class="row justify-content-center">
             <div class="col-lg-8">
                 <div class="card">
-             <ul class="list-group list-group-flush">
-                 <li class="list-group-item"><h6>Name: </h6>
-                     <input type="text" class="form-control" placeholder="Name" aria-label="name" readonly></li>
-                <li class="list-group-item"><h6>Registration Number:</h6>
-                    <input type="text" class="form-control" placeholder="Registration Number" aria-label="registrationnumber" readonly></li>
-                <li class="list-group-item"><h6>Vaccine Name: </h6>
-                    <input type="text" class="form-control" placeholder="Vaccine Name" aria-label="vaccinename" readonly></li>
-                <li class="list-group-item"><h6>Vaccination Site: </h6>
-                     <input type="text" class="form-control" placeholder="Vaccination Site" aria-label="cvaccinesite" readonly></li>
-                 <li class="list-group-item"><h6>Vaccination Schedule: </h6>
-                     <input type="text" class="form-control" placeholder="Vaccination Date" aria-label="vaccinesched" readonly></li>
+                     <article class="card-body">
+                 <div class="form-row mt-3">
+                            <div class="row">
+                                  <div class="col">
+                                    <h6 class="card-text">First Name:</h6>
+                                     <input type="text" class="form-control" placeholder="First Name" aria-label="fname" readonly value ={{current_user.first_name}}></li>
+                                  </div>
+                                  <div class="col">
+                                    <h6 class="card-text">Middle Name:</h6>
+                                     <input type="text" class="form-control" placeholder="Middle Name" aria-label="mname" readonly value ={{current_user.middle_name}}></li>
+                                  </div>
+                                <div class="col">
+                                    <h6 class="card-text">Last Name:</h6>
+                                     <input type="text" class="form-control" placeholder="Last Name" aria-label="lname" readonly value ={{current_user.last_name}}></li>
+                                  </div>
+                            </div>
+                        </div>
+                         &nbsp;
+                         <h6 class="card-text">Registration Number:</h6>
+                         <input type="text" class="form-control" placeholder="Registration Number" aria-label="registrationnumber" readonly value ={{current_user.user_id}}></li>
+                        &nbsp;
+                         <h6 class="card-text">Vaccine Name:</h6>
+                            <input type="text" class="form-control" placeholder="Vaccine Name" aria-label="vaccinename" readonly></li>
+                        &nbsp;
+                         <h6 class="card-text">Vaccination Site:</h6>
+                             <input type="text" class="form-control" placeholder="Vaccination Site" aria-label="cvaccinesite" readonly></li>
+                         &nbsp;
+                         <h6 class="card-text">Vaccination Schedule:</h6>
+                             <input type="text" class="form-control" placeholder="Vaccination Date" aria-label="vaccinesched" readonly></li>
 
-            </ul>
-        </div>
+                    </article>
+                </div>
             </div>
         </div>
        </div>
