@@ -1,42 +1,36 @@
-from geopy.geocoders import Nominatim
-import openrouteservice as ors
-import folium
+import os
+from twilio.rest import Client
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
 
-nom = Nominatim(user_agent="vac_system")
+account_sid = os.environ["ACCOUNT_SID"]
+auth_token = os.environ["AUTH_TOKEN"]
+sendgrid_api = os.environ["SENDGRID_API"]
 
-ors_key = "5b3ce3597851110001cf6248c0c4c140d07742c4ac6cab0737c5984d"
+#twilio_client = Client(account_sid, auth_token)
 
-address1 = "Calamba Doctors Hospital"
-address2 = "mabuhay, mamatid, cabuyao, laguna"
-
-n1 = nom.geocode(address1)
-n2 = nom.geocode(address2)
-
-client = ors.Client(key=ors_key)
-
-start_coords = (14.217223350000001, 121.14196109281863)
-folium_map = folium.Map(
-    location=start_coords,
-    zoom_start=17
+"""
+twilio_client.messages.create(
+    to = os.environ["TEST_NUMBER"],
+    from_= "+19035609492",
+    body = "test message :D"
 )
+"""
 
-folium.Marker(
-    [n1.latitude, n1.longitude]
-).add_to(folium_map)
+"""
+message = Mail(from_email="EpicLegitPlayer@tutanota.com",
+               to_emails="EpicLegitPlayer@gmail.com",
+               subject="This is a test message2",
+               plain_text_content="This is a test content2")
 
-folium.Marker(
-    [n2.latitude, n2.longitude]
-).add_to(folium_map)
+try:
+    sg = SendGridAPIClient(sendgrid_api)
+    response = sg.send(message)
+    print(response.status_code)
+    print(response.body)
+    print(response.headers)
 
-directions = [[n1.longitude, n1.latitude], [n2.longitude, n2.latitude]]
+except Exception as e:
+    print(e)
+"""
 
-print(directions)
-
-route = client.directions(coordinates=directions,
-                          profile='driving-car',
-                          format='geojson'
-                        )
-
-folium.GeoJson(route, name="Route").add_to(folium_map)
-
-folium_map.save('static/map1.html')
