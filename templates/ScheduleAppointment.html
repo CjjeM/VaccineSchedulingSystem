@@ -12,6 +12,8 @@
                 <header class="card-header">
                     <h4 class="card-title mt-2">Hospital Locations</h4>
                 </header>
+                <form method="POST">
+                    {{ form.hidden_tag() }}
                 <article class="card-body">
                     <iframe class="map", src="{{url_for('static', filename='map.html')}}" width="720" height="620"></iframe>
                 </article>
@@ -35,95 +37,41 @@
                 </header>
                 <article class="card-body">
                     <h6 class="card-text">Hospital Name:</h6>
-                <input type="text" class="form-control" placeholder="" id="HospitalNameInfo" readonly></li>
-                  &nbsp;
+                    {{ form.hospitalname(class="form-control", id ="hospitalname") }}
+                    <script>
+                        $("#hospitalname").prop("readonly", false);
+                    </script>
+                    <br>
                 <h6 class="card-text">Hospital Address:</h6>
-                    <textarea type="text" class="form-control" id="HospitalAddressInfo" style="resize: none;" readonly></textarea>
-                  &nbsp;
+                    {{ form.hospitaladdress(class="form-control readonly", id="hospitaladdress") }}
+                    <script>
+                        $("#hospitaladdress").prop("readonly", false);
+                    </script>
+                    <br>
                 <h6 class="card-text">Available Vaccines: </h6>
                   <div class="form-group">
-                    <select class="form-select" id="AvailableVaccinesOptions">
-                        <option selected disabled>Please Select Vaccine Type</option>
-                        <option>SAMPLE 1</option>
-                        <option>SAMPLE 2</option>
-                        <option>SAMPLE 3</option>
-                        <option>SAMPLE 4</option>
-                        <option>SAMPLE 5</option>
-                    </select>
+                    {{ form.availablevaccines(class="form-select", placeholder="Available Vaccines") }}
                   </div>
-                  &nbsp;
-                  &nbsp;
+                    <br>
                   <h6 class="card-text">Expected Date of Vaccination:</h6>
                   <div class="form-group">
-                    <select class="form-select" id="AvailableDatesOptions">
-                        <option selected disabled>Please Select Vaccine Date</option>
-                        <option>DATE 1</option>
-                        <option>DATE 2</option>
-                        <option>DATE 3</option>
-                        <option>DATE 4</option>
-                        <option>DATE 5</option>
-                    </select>
+                   <div class="form-group">
+                      {{ form.vaccineschedule(class="form-select", placeholder="Expected Date of Vaccination") }}
                   </div>
-                  &nbsp;
-                  <div class="d-grid gap-2">
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#MakeAppointmentModal" id = "MakeAppointmentBtn" >
-                      Make Appointment
-                    </button>
-                    <!-- Modal -->
-                    <div class="modal fade" id="MakeAppointmentModal" tabindex="-1" role="dialog" aria-labelledby="MakeAppointmentModalLabel" aria-hidden="true">
-                      <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="MakeAppointmentModalLabel">Schedule an Appointment</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
-                            Would you like to schedule an appointment in this vaccination site?
-                          </div>
-                          <div class="modal-footer">
-                            <div id="liveAlertPlaceholder"></div>
-                              <input type="submit" value="Schedule" class="btn btn-primary" id = "ScheduleBtn" onclick="HideBtn()">
-                              <script>
-                                var alertPlaceholder = document.getElementById('liveAlertPlaceholder')
-                                var alertTrigger = document.getElementById('ScheduleBtn')
-                                function alert(message, type)
-                                {
-                                  var wrapper = document.createElement('div')
-                                  wrapper.innerHTML = '<div class="alert alert-' + type + ' alert-dismissible" role="alert">' + message + '</div>'
-
-                                  alertPlaceholder.append(wrapper)
-                                }
-                                if (alertTrigger)
-                                {
-                                  alertTrigger.addEventListener('click', function ()
-                                  {
-                                    alert('We have made an appointment with this vaccination site! You may now view it.', 'success')
-                                  })
-                                 }
-                              </script>
-                                <!-- HIDE BUTTONS -->
-                              <script>
-                                  function HideBtn() {
-                                      var x = document.getElementById("ScheduleBtn");
-                                      if (x.style.display === "none") {
-                                        x.style.display = "block";
-                                      } else {
-                                        x.style.display = "none";
-                                      }
-                                    }
-                              </script>
-
+                    <br>
+                    <div class="d-grid gap-2">
+                            {{ form.schedule(class="btn btn-primary btn-block") }}
+                    </div>
                           </div>
                         </div>
                       </div>
+
                     </div>
                   </div>
                 </article>
             </div>
           </div>
+  </form>
     </div>
     </div>
 {% endblock %}

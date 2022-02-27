@@ -1,11 +1,12 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField,SelectField,DateField,TimeField
 from wtforms.validators import Length, EqualTo, Email, DataRequired, ValidationError
-from models.models import user_information, hospital
+from models.models import user_information, availability_details, vaccine, hospital, appointment
 
 cities = ['Alaminos', 'Bay', 'Biñan', 'Cabuyao','Calamba','Calauan','Cavinti','Famy','Kalayaan','Liliw',
     'Los Baños','Luisiana','Lumban','Mabitac','Magdalena','Majayjay','Nagcarlan','Paete','Pagsanjan','Pakil',
     'Pangil','Pila','Rizal','San Pablo','San Pedro','Santa Cruz','Santa Maria','Sta. Rosa','Siniloan','Victoria']
+
 
 class RegisterForm(FlaskForm):
 
@@ -71,4 +72,11 @@ class AddVaccineForm(FlaskForm):
     manufacturer=StringField(label='Vaccine Name:', validators=[DataRequired()])
     information=StringField(label='Vaccine Name:')
     add = SubmitField(label='Add')
+
+class AddAppointmentForm(FlaskForm):
+    hospitalname = StringField(label="Hospital Name:", validators=[DataRequired()])
+    hospitaladdress = StringField(label="Hospital Address:", validators=[DataRequired()])
+    availablevaccines = SelectField(label='Available Vaccines: :', choices=hosp_vaccines)
+    vaccineschedule: SelectField = SelectField(label="Expected Date of Vaccination:", choices=vac_dates)
+    schedule = SubmitField(label='Make Appointment')
 

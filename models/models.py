@@ -38,7 +38,7 @@ class vaccine(db.Model):
     vaccine_id=db.Column(db.Integer,primary_key=True)
     vaccine_name=db.Column(db.String(length=255))
     hos=db.Column(db.Integer,db.ForeignKey('hospital.hosp_id'))
-    vaccine_expiration=db.Column(db.Date)
+    vacine_expiration=db.Column(db.Date)
     vaccine_manufacturer=db.Column(db.String(length=255))
     vaccine_supplier=db.Column(db.String(length=255))
     vaccine_information=db.Column(db.String(length=255))
@@ -64,4 +64,9 @@ class availability_details(db.Model):
     availability_time2=db.Column(db.Time)
     vac=db.Column(db.Integer,db.ForeignKey('vaccine.vaccine_id'))
     hos=db.Column(db.Integer,db.ForeignKey('hospital.hosp_id'))
-    
+
+class appointment(db.Model):
+    __tablename__="appointment"
+    id = db.Column(db.Integer,primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user_information.user_id'))
+    availability_id = db.Column(db.Integer, db.ForeignKey('availability_details.id'))
