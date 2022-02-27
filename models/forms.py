@@ -76,7 +76,7 @@ class AddVaccineForm(FlaskForm):
 class AddAppointmentForm(FlaskForm):
     hospitalname = StringField(label="Hospital Name:", validators=[DataRequired()])
     hospitaladdress = StringField(label="Hospital Address:", validators=[DataRequired()])
-    availablevaccines = SelectField(label='Available Vaccines: :')
+    availablevaccines = SelectField(label='Available Vaccines: ')
     vaccineschedule: SelectField = SelectField(label="Expected Date of Vaccination:")
     schedule = SubmitField(label='Make Appointment')
 

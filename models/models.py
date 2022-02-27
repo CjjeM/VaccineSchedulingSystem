@@ -38,7 +38,7 @@ class vaccine(db.Model):
     vaccine_id=db.Column(db.Integer,primary_key=True)
     vaccine_name=db.Column(db.String(length=255))
     hos=db.Column(db.Integer,db.ForeignKey('hospital.hosp_id'))
-    vacine_expiration=db.Column(db.Date)
+    vaccine_expiration=db.Column(db.Date)
     vaccine_manufacturer=db.Column(db.String(length=255))
     vaccine_supplier=db.Column(db.String(length=255))
     vaccine_information=db.Column(db.String(length=255))
