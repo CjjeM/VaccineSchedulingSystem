@@ -20,7 +20,7 @@ class RegisterForm(FlaskForm):
     last_name = StringField(label='Last Name:',validators=[DataRequired()])
     city = SelectField(label='City:',choices=cities)
     home_address = StringField(label='Home Address:',validators=[DataRequired()])
-    contact_number = StringField(label='Contact Number:',validators=[Length(max=6),DataRequired()])
+    contact_number = StringField(label='Contact Number:',validators=[Length(max=13),DataRequired()])
     email_address = StringField(label='Email Address:', validators=[Email(), DataRequired()])
     birthdate = DateField(label='Birth Date:',validators=[DataRequired()])
     password = PasswordField(label='Password:',validators=[Length(min=6), DataRequired()])
