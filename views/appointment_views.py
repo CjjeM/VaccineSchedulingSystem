@@ -1,4 +1,4 @@
-from flask import render_template, session, Flask, redirect, url_for, flash,request
+from flask import render_template, session, Flask, redirect, url_for, flash, request, jsonify
 from flask.views import MethodView
 from flask_login import login_required
 from models.models import user_information, hospital, vaccine, availability_details, appointment
@@ -7,6 +7,7 @@ from web_app import db
 import folium
 from geopy.geocoders import Nominatim
 import openrouteservice as ors
+import json
 
 from math import radians, cos, sin, asin, sqrt
 from datetime import date, datetime
@@ -36,7 +37,10 @@ class ScheduleAppointmentView(MethodView):
 
     def get(self):
         low = self._render_map()
-        return render_template("ScheduleAppointment.html", lowestdistance=low, form=self.form())
+        print(low)
+        hospital_data = self._get_hospital_data()
+        json_data = json.dumps(hospital_data)
+        return render_template("ScheduleAppointment.html", lowestdistance=low, form=self.form(), hospital_data=hospital_data, json_data=json_data)
 
     def _render_map(self):
         nom = Nominatim(user_agent="vac_system")
@@ -95,17 +99,11 @@ class ScheduleAppointmentView(MethodView):
             available_time2 = []
             vaccines = []
 
-            print(f"current hospital -> {currhospital}")
-
-
             try:
                 for avail in range(vaxxcount):
                     curr_vax = availability_details.query.filter_by(id=f'{avail + 1}').first()
                     currdate = datetime.today()
                     curr_vax_availability = datetime.strptime(str(curr_vax.availability_date), '%Y-%m-%d')
-
-                    print(f"current avail -> {curr_vax.availability_date}")
-                    print(f"hospital available -> {curr_vax_availability >= currdate}")
 
                     if curr_vax_availability >= currdate:
                         available_vaccines += [curr_vax.vac]
@@ -117,7 +115,7 @@ class ScheduleAppointmentView(MethodView):
 
                         if curr_vax.availability_time2.strftime("%I:%M %p") not in available_time2:
                             available_time2 += [curr_vax.availability_time2.strftime("%I:%M %p")]
-                            
+
                     else:
                         continue
 
@@ -162,6 +160,36 @@ class ScheduleAppointmentView(MethodView):
         folium_map.save('static/map.html')
         folium_map
         return lowestdisthospital
+    
+    def _get_hospital_data(self):
+        hospno = hospital.query.count()
+
+        hospital_data = {}
+
+        for i in range(hospno):
+            hospital_id = i + 1
+            current_hospital = hospital.query.filter_by(hosp_id=hospital_id).first()
+
+            availability = availability_details.query.filter_by(hos=hospital_id).all()
+            vaccines = []
+
+            for avail in availability:
+                current_vaccine = vaccine.query.filter_by(vaccine_id=avail.vac).first()
+                vaccines.append(current_vaccine.vaccine_name)
+                
+            vaccines = list(set(vaccines))
+
+            avail_dates = []
+
+            for avail in availability:
+                avail_dates.append(datetime.strftime(avail.availability_date, '%Y-%m-%d'))
+
+            hospital_data[current_hospital.hosp_name] = [current_hospital.hosp_address,
+                                                        vaccines,
+                                                        avail_dates]
+
+        return hospital_data
+
 
     def post(self):
         form = self.form()
