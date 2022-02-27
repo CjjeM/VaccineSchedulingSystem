@@ -1,7 +1,7 @@
 from flask import render_template, session, Flask
 from flask.views import MethodView
 from flask_login import login_required
-from models.models import user_information, hospital, vaccine, availability_details
+from models.models import user_information, hospital, vaccine, availability_details, appointment
 import folium
 from geopy.geocoders import Nominatim
 import openrouteservice as ors
@@ -161,15 +161,20 @@ class ScheduleAppointmentView(MethodView):
 
 
 
-
-
-
-
-
-
-
-
 class ViewAppointmentView(MethodView):
     decorators = [login_required]
+
+
     def get(self):
-        return render_template("ViewAppointment.html")
+
+
+       view = vaccine.query\
+        .join(hospital, hospital.hosp_id == vaccine.vaccine_id) \
+        .add_columns(vaccine.vaccine_id, vaccine.vaccine_name,vaccine.hos, hospital.hosp_id,hospital.hosp_name,hospital.hosp_id) \
+        .join(availability_details, availability_details.vac == vaccine.vaccine_id)\
+        .add_columns(appointment.id, appointment.user_id,appointment.availability_id, availability_details.hos,availability_details.availability_date,availability_details.availability_time1,availability_details.vac) \
+        .join(appointment, appointment.availability_id == availability_details.id) \
+        .add_columns(user_information.user_id,user_information.first_name,user_information.middle_name,user_information.last_name,user_information.email_address) \
+        .filter(user_information.email_address == session["user"]).first()
+
+       return render_template("ViewAppointment.html", view=view)
