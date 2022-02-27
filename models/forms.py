@@ -7,9 +7,6 @@ cities = ['Alaminos', 'Bay', 'Biñan', 'Cabuyao','Calamba','Calauan','Cavinti','
     'Los Baños','Luisiana','Lumban','Mabitac','Magdalena','Majayjay','Nagcarlan','Paete','Pagsanjan','Pakil',
     'Pangil','Pila','Rizal','San Pablo','San Pedro','Santa Cruz','Santa Maria','Sta. Rosa','Siniloan','Victoria']
 
-hosp_vaccines = ['SAMPLE 1','SAMPLE 2','SAMPLE 3']
-
-vac_dates = ['DATE 1','DATE 2','DATE 3']
 
 class RegisterForm(FlaskForm):
 
