@@ -36,7 +36,7 @@ class ScheduleAppointmentView(MethodView):
 
     def get(self):
         low = self._render_map()
-        return render_template("ScheduleAppointment.html", lowestdistance=low)
+        return render_template("ScheduleAppointment.html", lowestdistance=low, form=self.form())
 
     def _render_map(self):
         nom = Nominatim(user_agent="vac_system")
@@ -100,10 +100,14 @@ class ScheduleAppointmentView(MethodView):
             try:
                 for avail in range(vaxxcount):
                     curr_vax = availability_details.query.filter_by(id=f'{avail + 1}').first()
-                    currdate = datetime.today().strftime('%Y-%m-%d')
+                    currdate = datetime.today()
+                    curr_vax_availability = datetime.strptime(str(curr_vax.availability_date), '%Y-%m-%d')
 
+                    print(curr_vax.hos)
+                    print(curr_vax.hos == h + 1)
 
-                    if str(curr_vax.availability_date) == str(currdate):
+                    if curr_vax_availability >= currdate :
+
                         if curr_vax.hos == h + 1:
                             available_vaccines += [curr_vax.vac]
                             if curr_vax.availability_date.strftime("%m/%d/%Y") not in available_dates:
