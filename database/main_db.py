@@ -30,10 +30,10 @@ class mysqldb:
             vaccine_id int NOT NULL AUTO_INCREMENT,
             vaccine_name varchar(50) NOT NULL,
             hos int,
-            vacine_expiration varchar(50) NOT NULL,
+            vaccine_expiration varchar(50) NOT NULL,
             vaccine_manufacturer varchar(50) NOT NULL,
             vaccine_supplier varchar(50) NOT NULL,
-            vaccine_information varchar(50),
+            vaccine_information varchar(1000),
             PRIMARY KEY (vaccine_id),
             FOREIGN KEY (hos) REFERENCES Hospital(hosp_id)
         )""")

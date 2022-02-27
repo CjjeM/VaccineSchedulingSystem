@@ -59,3 +59,4 @@ app.add_url_rule('/updatevaccine', methods=['GET', 'POST'], view_func=updatevacc
 
 addvaccine_view = AddVaccineView.as_view('addvaccine')
 app.add_url_rule('/addvaccine', methods=['GET', 'POST'], view_func=addvaccine_view)
+
