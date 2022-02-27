@@ -83,18 +83,19 @@ class ScheduleAppointmentView(MethodView):
 
 
         for h in range(hospno):
-
             currhospital = hospital.query.filter_by(hosp_id=f'{h + 1}').first()
             hospital1_geocode = nom.geocode(currhospital.hosp_name)
             hospital1_latitude = hospital1_geocode.latitude
             hospital1_longitude = hospital1_geocode.longitude
 
-            vaxxcount = availability_details.query.count()
+            vaxxcount = availability_details.query.filter_by(hos=f'{h + 1}').count()
             available_vaccines = []
             available_dates = []
             available_time1 = []
             available_time2 = []
             vaccines = []
+
+            print(f"current hospital -> {currhospital}")
 
 
             try:
@@ -103,25 +104,20 @@ class ScheduleAppointmentView(MethodView):
                     currdate = datetime.today()
                     curr_vax_availability = datetime.strptime(str(curr_vax.availability_date), '%Y-%m-%d')
 
-                    print(curr_vax.hos)
-                    print(curr_vax.hos == h + 1)
+                    print(f"current avail -> {curr_vax.availability_date}")
+                    print(f"hospital available -> {curr_vax_availability >= currdate}")
 
-                    if curr_vax_availability >= currdate :
+                    if curr_vax_availability >= currdate:
+                        available_vaccines += [curr_vax.vac]
+                        if curr_vax.availability_date.strftime("%m/%d/%Y") not in available_dates:
+                            available_dates += [curr_vax.availability_date.strftime("%m/%d/%Y")]
 
-                        if curr_vax.hos == h + 1:
-                            available_vaccines += [curr_vax.vac]
-                            if curr_vax.availability_date.strftime("%m/%d/%Y") not in available_dates:
-                                available_dates += [curr_vax.availability_date.strftime("%m/%d/%Y")]
+                        if curr_vax.availability_time1.strftime("%I:%M %p") not in available_time1:
+                            available_time1 += [curr_vax.availability_time1.strftime("%I:%M %p")]
 
-                            if curr_vax.availability_time1.strftime("%I:%M %p") not in available_time1:
-                                available_time1 += [curr_vax.availability_time1.strftime("%I:%M %p")]
-
-                            if curr_vax.availability_time2.strftime("%I:%M %p") not in available_time2:
-                                available_time2 += [curr_vax.availability_time2.strftime("%I:%M %p")]
-
-                        else:
-                            continue
-
+                        if curr_vax.availability_time2.strftime("%I:%M %p") not in available_time2:
+                            available_time2 += [curr_vax.availability_time2.strftime("%I:%M %p")]
+                            
                     else:
                         continue
 

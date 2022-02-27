@@ -39,24 +39,24 @@
                     <h6 class="card-text">Hospital Name:</h6>
                     {{ form.hospitalname(class="form-control", id ="hospitalname") }}
                     <script>
-                        $("#hospitalname").prop("readonly", false);
+                        $("#hospitalname").prop("readonly", true);
                     </script>
                     <br>
                 <h6 class="card-text">Hospital Address:</h6>
                     {{ form.hospitaladdress(class="form-control readonly", id="hospitaladdress") }}
                     <script>
-                        $("#hospitaladdress").prop("readonly", false);
+                        $("#hospitaladdress").prop("readonly", true);
                     </script>
                     <br>
                 <h6 class="card-text">Available Vaccines: </h6>
                   <div class="form-group">
-                    {{ form.availablevaccines(class="form-select", placeholder="Available Vaccines") }}
+                    {{ form.availablevaccines(class="form-select", placeholder="Available Vaccines", id="available_vaccines") }}
                   </div>
                     <br>
                   <h6 class="card-text">Expected Date of Vaccination:</h6>
                   <div class="form-group">
                    <div class="form-group">
-                      {{ form.vaccineschedule(class="form-select", placeholder="Expected Date of Vaccination") }}
+                      {{ form.vaccineschedule(class="form-select", placeholder="Expected Date of Vaccination", id="expected_date") }}
                   </div>
                     <br>
                     <div class="d-grid gap-2">
