@@ -1,7 +1,8 @@
-from flask import render_template, session, Flask
+from flask import render_template, session, Flask, redirect, url_for, flash
 from flask.views import MethodView
 from flask_login import login_required
 from models.models import user_information, hospital, vaccine, availability_details, appointment
+from web_app import db
 import folium
 from geopy.geocoders import Nominatim
 import openrouteservice as ors
@@ -158,13 +159,26 @@ class ScheduleAppointmentView(MethodView):
         folium_map
         return lowestdisthospital
 
+    def post(self):
+        form = self.form()
+        if form.validate_on_submit() and form.schedule.data:
+            user = availability_details(hosp_name=form.hospitalname.data, hosp_address=form.hospitaladdress.data,
+                                        vaccine_name=form.availablevaccines.data,
+                                        availability_details=form.vaccineschedule.data)
+
+            db.session.add(user)
+            db.session.commit()
+            session["vacid"] = user.vaccine_id
+            session["hospid"] = user.hosp_id
+            session["schedid"] = 0
+            flash(f'You have made an appointment!', category = 'success')
+
+            return redirect(url_for('ViewAppointment'))
+
 
 class ViewAppointmentView(MethodView):
     decorators = [login_required]
-
-
     def get(self):
-
 
        view = vaccine.query\
         .join(hospital, hospital.hosp_id == vaccine.vaccine_id) \
