@@ -108,35 +108,35 @@ class ScheduleAppointmentView(MethodView):
                     print(f"hospital available -> {curr_vax_availability >= currdate}")
 
                     if curr_vax_availability >= currdate:
-                        available_vaccines += [curr_vax.vac]
+                        available_vaccines.append(curr_vax.vac)
                         if curr_vax.availability_date.strftime("%m/%d/%Y") not in available_dates:
-                            available_dates += [curr_vax.availability_date.strftime("%m/%d/%Y")]
+                            available_dates.append(curr_vax.availability_date.strftime("%m/%d/%Y"))
 
                         if curr_vax.availability_time1.strftime("%I:%M %p") not in available_time1:
-                            available_time1 += [curr_vax.availability_time1.strftime("%I:%M %p")]
+                            available_time1.append(curr_vax.availability_time1.strftime("%I:%M %p"))
 
                         if curr_vax.availability_time2.strftime("%I:%M %p") not in available_time2:
-                            available_time2 += [curr_vax.availability_time2.strftime("%I:%M %p")]
+                            available_time2.append(curr_vax.availability_time2.strftime("%I:%M %p"))
                             
                     else:
                         continue
 
                 for v in available_vaccines:
                     vaxno = vaccine.query.filter_by(vaccine_id=f'{v}').first()
-                    vaccines += [vaxno.vaccine_name]
+                    vaccines.append(vaxno.vaccine_name)
             except:
-                vaccines += "NO VACCINES AVAILABLE"
-                available_dates += "NO SCHEDULE DATES"
-                available_time1 += "NO AVAILABLE"
-                available_time2 += "TIMES"
+                vaccines.append("NO VACCINES AVAILABLE")
+                available_dates.append("NO SCHEDULE DATES")
+                available_time1.append("NO AVAILABLE")
+                available_time2.append("TIMES")
 
             html = f'''
                         <b>{currhospital.hosp_name}</b><br>
                         <i>Available Vaccines and Dates:<br> 
-                        {(', '.join(vaccines))}</i><br>
-                        {(', '.join(available_dates))}<br>
-                        {(', '.join(available_time1))}<br>
-                        {(', '.join(available_time2))}<br>
+                        {(", ".join(vaccines))}</i><br>
+                        {(", ".join(available_dates))}<br>
+                        {(", ".join(available_time1))}<br>
+                        {(", ".join(available_time2))}<br>
 
                         <form action="/my-link/">
                         <input type="submit" value="Select" />
