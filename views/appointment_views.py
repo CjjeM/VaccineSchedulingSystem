@@ -2,6 +2,7 @@ from flask import render_template, session, Flask
 from flask.views import MethodView
 from flask_login import login_required
 from models.models import user_information, hospital, vaccine, availability_details, appointment
+from models.forms import AddAppointmentForm
 import folium
 from geopy.geocoders import Nominatim
 import openrouteservice as ors
@@ -29,9 +30,12 @@ def haversine(lat1, lon1, lat2, lon2):
 class ScheduleAppointmentView(MethodView):
     decorators = [login_required]
 
+    def form(self):
+        return AddAppointmentForm()
+
     def get(self):
         low = self._render_map()
-        return render_template("ScheduleAppointment.html", lowestdistance=low)
+        return render_template("ScheduleAppointment.html", lowestdistance=low, form=self.form())
 
     def _render_map(self):
         nom = Nominatim(user_agent="vac_system")
