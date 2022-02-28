@@ -188,15 +188,15 @@ class ScheduleAppointmentView(MethodView):
 
     def post(self):
         form = self.form()
-        if form.validate_on_submit():
-            user = availability_details(hosp_name=form.hospitalname.data, hosp_address=form.hospitaladdress.data,
-                                        vaccine_name=form.availablevaccines.data, availability_date=form.vaccineschedule.data)
-
-            db.session.add(user)
+        if form.validate_on_submit() and form.schedule.data:
+            
+            vac1=vaccine.query.filter_by(vaccine_name=form.availablevaccines.data).first()
+            hos1=hospital.query.filter_by(hosp_name=form.hospitalname.data).first()
+            hos2=hos1.hosp_id
+            scheds=availability_details.query.filter_by(availability_date=form.vaccineschedule.data).filter_by(hos=hos2).filter_by(vac=vac1.vaccine_id).first()
+            us=user_information.query.filter_by(email_address=session["user"]).first()
+            us.schedule=scheds.id
             db.session.commit()
-            session["vacid"] = user.vaccine_id
-            session['hospid'] = user.hosp_id
-            session["schedid"] = 0
             flash(f'You have made an appointment' , category = 'success')
             return redirect(url_for('ViewAppointment'))
 
