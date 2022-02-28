@@ -74,9 +74,16 @@ class AddVaccineForm(FlaskForm):
     add = SubmitField(label='Add')
 
 class AddAppointmentForm(FlaskForm):
-    hospitalname = StringField(label="Hospital Name:", validators=[DataRequired()])
+    all_hospitals = [hosp.hosp_name for hosp in hospital.query.filter_by().all()]
+    hospitalname = SelectField(label="Hospital Name:", validators=[DataRequired()], choices=all_hospitals)
+
     hospitaladdress = StringField(label="Hospital Address:", validators=[DataRequired()])
-    availablevaccines = SelectField(label='Available Vaccines: ')
-    vaccineschedule: SelectField = SelectField(label="Expected Date of Vaccination:")
+
+    all_vaccines = [vac.vaccine_name for vac in vaccine.query.filter_by().all()]
+    availablevaccines = SelectField(label='Available Vaccines: ', choices=all_vaccines)
+
+    all_sched = [sched.availability_date for sched in availability_details.query.filter_by().all()]
+    vaccineschedule: SelectField = SelectField(label="Expected Date of Vaccination:", choices=all_sched)
+
     schedule = SubmitField(label='Make Appointment')
 

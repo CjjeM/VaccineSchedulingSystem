@@ -2,6 +2,7 @@ import os
 from twilio.rest import Client
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
+import json
 
 account_sid = os.environ["ACCOUNT_SID"]
 auth_token = os.environ["AUTH_TOKEN"]
@@ -34,3 +35,10 @@ except Exception as e:
     print(e)
 """
 
+test = {"a": ["1", 2],
+        "b": [1, "2"],
+        "c": "abc"}
+
+new_test = json.dumps(test)
+
+print(type(new_test))

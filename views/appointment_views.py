@@ -135,11 +135,6 @@ class ScheduleAppointmentView(MethodView):
                         {(", ".join(available_dates))}<br>
                         {(", ".join(available_time1))}<br>
                         {(", ".join(available_time2))}<br>
-
-                        <form action="/my-link/">
-                        <input type="submit" value="Select" />
-                        </form>
-
                     '''
 
             iframe = folium.IFrame(html,
@@ -193,7 +188,7 @@ class ScheduleAppointmentView(MethodView):
 
     def post(self):
         form = self.form()
-        if form.validate_on_submit() and form.add.data:
+        if form.validate_on_submit():
             user = availability_details(hosp_name=form.hospitalname.data, hosp_address=form.hospitaladdress.data,
                                         vaccine_name=form.availablevaccines.data, availability_date=form.vaccineschedule.data)
 
@@ -204,6 +199,8 @@ class ScheduleAppointmentView(MethodView):
             session["schedid"] = 0
             flash(f'You have made an appointment' , category = 'success')
             return redirect(url_for('ViewAppointment'))
+
+        return redirect(url_for('ScheduleAppointment'))
 
 
 class ViewAppointmentView(MethodView):
