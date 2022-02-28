@@ -249,7 +249,7 @@ class ScheduleAppointmentView(MethodView):
             #session["schedid"] = 0
             flash(f'You have made an appointment' , category = 'success')
             return redirect(url_for('ViewAppointment'))
-
+            
         return redirect(url_for('ScheduleAppointment'))
 
 
