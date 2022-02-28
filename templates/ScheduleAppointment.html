@@ -11,6 +11,8 @@
           $("#hospitaladdress").empty();
 
           var current_hospital_name = nearest;
+          $('#hospitalname').val(current_hospital_name);
+
           var hospital_data = JSON.parse(json_data);
 
           var hospital_address = hospital_data[current_hospital_name][0];
