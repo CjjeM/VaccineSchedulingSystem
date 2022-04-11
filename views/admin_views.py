@@ -1,11 +1,13 @@
-from flask import render_template, session, redirect, url_for, flash,request
+from flask import render_template, session, redirect, url_for, flash,request,Response
 from flask_login import login_user, login_required
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask.views import MethodView
 from models.forms import AdminLoginForm,UpdateVaccineForm,AddVaccineForm,AdminLoginForm,UpdateItemForm
 from models.models import hospital,vaccine,availability_details,user_information
 from web_app import db
-
+import io
+import xlwt
+import pymysql
 
 class AdminLoginView(MethodView):
     
@@ -51,7 +53,7 @@ class VaccinesView(MethodView):
             
                 s.append(i)
         
-        return render_template('index.html',form=self.form(),s=s)
+        return render_template('admin_index.html',form=self.form(),s=s)
     
     def post(self):
         form = self.form()
@@ -172,3 +174,93 @@ class AddVaccineView(MethodView):
         if form.errors != {}: 
             for err_msg in form.errors.values():
                 flash(f'There was an error with creating a user: {err_msg}', category='danger')
+
+class GenerateReportView(MethodView):
+    def form(self):
+        return GenerateReportView()
+
+    def get(self):
+        conn = None
+        cursor = None
+    
+        items1 = vaccine.query.all()
+        #conn = mysql.connect()
+        #cursor = conn.cursor(pymysql.cursors.DictCursor)
+        
+        #cursor.execute("SELECT emp_id, emp_first_name, emp_last_name, emp_designation FROM employee")
+        #result = cursor.fetchall()
+        
+        #output in bytes
+        output = io.BytesIO()
+        #create WorkBook object
+        workbook = xlwt.Workbook()
+        #add a sheet
+        sh = workbook.add_sheet('Vaccine Report')
+        
+        #add headers
+        sh.write(0, 0, 'Vaccine ID')
+        sh.write(0, 1, 'Vaccine Name')
+        sh.write(0, 2, 'Hospital')
+        sh.write(0, 3, 'Vaccine Manufacturer')
+        sh.write(0, 4, 'Vaccine Supplier')
+        sh.write(0, 5, 'Vaccine Information')
+        
+        idx = 0
+        for row in items1:
+            print(row.vaccine_id)
+            sh.write(idx+1, 0, row.vaccine_id)
+            sh.write(idx+1, 1, row.vaccine_name)
+            sh.write(idx+1, 2, row.hos)
+            sh.write(idx+1, 3, row.vaccine_manufacturer)
+            sh.write(idx+1, 4, row.vaccine_supplier)
+            sh.write(idx+1, 5, row.vaccine_information)
+            idx += 1
+        
+        workbook.save(output)
+        output.seek(0)
+        
+        return Response(output, mimetype="application/ms-excel", headers={"Content-Disposition":"attachment;filename=vaccine_report.xls"})
+    
+    def post(self):
+        conn = None
+        cursor = None
+        try:
+            user=vaccine()
+            #conn = mysql.connect()
+            #cursor = conn.cursor(pymysql.cursors.DictCursor)
+            
+            #cursor.execute("SELECT emp_id, emp_first_name, emp_last_name, emp_designation FROM employee")
+            #result = cursor.fetchall()
+            
+            #output in bytes
+            output = io.BytesIO()
+            #create WorkBook object
+            workbook = xlwt.Workbook()
+            #add a sheet
+            sh = workbook.add_sheet('Vaccine Report')
+            
+            #add headers
+            sh.write(0, 0, 'Vaccine Name')
+            sh.write(0, 1, 'Hospital')
+            sh.write(0, 2, 'Vaccine Manufacturer')
+            sh.write(0, 3, 'Vaccine Supplier')
+            sh.write(0, 3, 'Vaccine Information')
+            
+            idx = 0
+            for row in user:
+                sh.write(idx+1, 0, str(row['vaccine_name']))
+                sh.write(idx+1, 1, row['hos'])
+                sh.write(idx+1, 2, row['vaccine_manufacturer'])
+                sh.write(idx+1, 3, row['vaccine_supplier'])
+                sh.write(idx+1, 4, row['vaccine_information'])
+                idx += 1
+            
+            workbook.save(output)
+            output.seek(0)
+            
+            return Response(output, mimetype="application/ms-excel", headers={"Content-Disposition":"attachment;filename=vaccine_report.xls"})
+        except Exception as e:
+            print(e)
+        finally:
+            cursor.close() 
+            conn.close()
