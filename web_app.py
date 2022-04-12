@@ -4,7 +4,7 @@ from flask_session import Session
 from flask_sqlalchemy import SQLAlchemy
 
 user = "vaccinedb"
-pwd = "vaccinedb"
+pwd = "vaccine"
 host = "localhost"
 database = "vaccinedb"
 
