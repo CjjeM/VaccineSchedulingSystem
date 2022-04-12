@@ -39,6 +39,27 @@
   </button>
 </div>
 
+<script>
+    $(document).ready(function(){
+        $("#myModal").modal('show');
+    });
+</script>
+
+<div id="myModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">First Time User?</h5>
+            </div>
+            <div class="modal-body">
+              <strong>Follow these simple steps to proceed with your scheduling:</strong> <a href="{{ url_for('Steps') }}" class="stretched-link">Step-by-Step Procedure</a>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 {%if current_user.is_authenticated %}
  <div class="d-grid gap-2">
    <a class="btn btn-success" href="{{ url_for('ScheduleAppointment') }}" role="button">Schedule Appointment</a>

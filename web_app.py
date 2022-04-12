@@ -26,7 +26,7 @@ login_manager.login_view = "adminlogin"
 login_manager.login_message_category = "info"
 
 from views.user_views import RegisterView, UserLoginView, LogoutView
-from views.home_view import HomeView, FAQView
+from views.home_view import HomeView, FAQView, StepsView
 from views.appointment_views import ScheduleAppointmentView, ViewAppointmentView
 from views.admin_views import AdminLoginView,AddVaccineView,UpdateVaccineView,VaccinesView,GenerateReportView
 
@@ -65,4 +65,7 @@ app.add_url_rule('/download/report/excel', methods=['GET', 'POST'], view_func=ge
 
 FAQ_view = FAQView.as_view('FAQs')
 app.add_url_rule('/FAQs', methods=['GET'], view_func=FAQ_view)
+
+Steps_View = StepsView.as_view('Steps')
+app.add_url_rule('/Steps', methods=['GET'], view_func = Steps_View)
 

@@ -18,3 +18,6 @@ class FAQView(MethodView):
     def get(self):
         return render_template("FAQs.html")
 
+class StepsView(MethodView):
+    def get(self):
+        return render_template("Steps.html")
