@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<head>    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_2fe8ffb01cf1444fbc510a4bc5916917 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+            </style>
+        
+</head>
+<body>    
+    
+            <div class="folium-map" id="map_2fe8ffb01cf1444fbc510a4bc5916917" ></div>
+        
+</body>
+<script>    
+    
+            var map_2fe8ffb01cf1444fbc510a4bc5916917 = L.map(
+                "map_2fe8ffb01cf1444fbc510a4bc5916917",
+                {
+                    center: [14.217223350000001, 121.14196109281863],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 15,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_d7b2e8d6f09544f08c0326351361f438 = L.tileLayer(
+                "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "Data by \u0026copy; \u003ca href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            ).addTo(map_2fe8ffb01cf1444fbc510a4bc5916917);
+        
+    
+            var marker_6d7f1a9da4634426949e5a79a7e69eba = L.marker(
+                [14.2364903, 121.1576987],
+                {}
+            ).addTo(map_2fe8ffb01cf1444fbc510a4bc5916917);
+        
+    
+            var icon_431510d5f640484b83b168211fd8a482 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "fa-home", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_6d7f1a9da4634426949e5a79a7e69eba.setIcon(icon_431510d5f640484b83b168211fd8a482);
+        
+    
+            marker_6d7f1a9da4634426949e5a79a7e69eba.bindTooltip(
+                `<div>
+                     Your Address
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var feature_group_90c14c5511ae49e6b18f021deead44d6 = L.featureGroup(
+                {}
+            ).addTo(map_2fe8ffb01cf1444fbc510a4bc5916917);
+        
+    
+            var marker_e528b02c2d4c4020a21298acc57e4a4f = L.marker(
+                [14.317646199999999, 121.09873834936656],
+                {}
+            ).addTo(feature_group_90c14c5511ae49e6b18f021deead44d6);
+        
+    
+            var icon_c93450acd4da494bae174e907f960890 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "fa-hospital-o", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_e528b02c2d4c4020a21298acc57e4a4f.setIcon(icon_c93450acd4da494bae174e907f960890);
+        
+    
+        var popup_e5ae647e3e3e4eccaf9b8fd3c2bd12e7 = L.popup({"maxWidth": 1000});
+
+        
+            var i_frame_eb8f0a7352404b79965f741681f04f83 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgICAgICAgICAgICAgICAgICAgICAgPGI+TmV3IFNpbmFpIE1ESSBIb3NwaXRhbDwvYj48YnI+CiAgICAgICAgICAgICAgICAgICAgICAgIDxpPkF2YWlsYWJsZSBWYWNjaW5lcyBhbmQgRGF0ZXM6PGJyPiAKICAgICAgICAgICAgICAgICAgICAgICAgdGVzdDwvaT48YnI+CiAgICAgICAgICAgICAgICAgICAgICAgIDAzLzI4LzIwMjI8YnI+CiAgICAgICAgICAgICAgICAgICAgICAgIDA2OjAwIEFNPGJyPgogICAgICAgICAgICAgICAgICAgICAgICAxMDoxMCBBTTxicj4KICAgICAgICAgICAgICAgICAgICA=" width="600" style="border:none !important;" height="100"></iframe>`)[0];
+            popup_e5ae647e3e3e4eccaf9b8fd3c2bd12e7.setContent(i_frame_eb8f0a7352404b79965f741681f04f83);
+        
+
+        marker_e528b02c2d4c4020a21298acc57e4a4f.bindPopup(popup_e5ae647e3e3e4eccaf9b8fd3c2bd12e7)
+        ;
+
+        
+    
+    
+            marker_e528b02c2d4c4020a21298acc57e4a4f.bindTooltip(
+                `<div>
+                     New Sinai MDI Hospital
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var feature_group_7ea05935bba848f4813aa3b4dcf21593 = L.featureGroup(
+                {}
+            ).addTo(map_2fe8ffb01cf1444fbc510a4bc5916917);
+        
+    
+            var marker_474636b061ed47988eb648e9068ea793 = L.marker(
+                [14.217223350000001, 121.14196109281863],
+                {}
+            ).addTo(feature_group_7ea05935bba848f4813aa3b4dcf21593);
+        
+    
+            var icon_f536cda5558a4838b99b3f09c20fb0c9 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "fa-hospital-o", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_474636b061ed47988eb648e9068ea793.setIcon(icon_f536cda5558a4838b99b3f09c20fb0c9);
+        
+    
+        var popup_b95b84ec89814583a1e635b6a89cbc89 = L.popup({"maxWidth": 1000});
+
+        
+            var i_frame_0a9fe3564b78404fb7f1e59423a79afa = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgICAgICAgICAgICAgICAgICAgICAgPGI+Q2FsYW1iYSBEb2N0b3JzIEhvc3BpdGFsPC9iPjxicj4KICAgICAgICAgICAgICAgICAgICAgICAgPGk+QXZhaWxhYmxlIFZhY2NpbmVzIGFuZCBEYXRlczo8YnI+IAogICAgICAgICAgICAgICAgICAgICAgICB0ZXN0LCBuZXdfdGVzdDwvaT48YnI+CiAgICAgICAgICAgICAgICAgICAgICAgIDAzLzI4LzIwMjIsIDA0LzI4LzIwMjI8YnI+CiAgICAgICAgICAgICAgICAgICAgICAgIDA2OjAwIEFNPGJyPgogICAgICAgICAgICAgICAgICAgICAgICAxMDoxMCBBTTxicj4KICAgICAgICAgICAgICAgICAgICA=" width="600" style="border:none !important;" height="100"></iframe>`)[0];
+            popup_b95b84ec89814583a1e635b6a89cbc89.setContent(i_frame_0a9fe3564b78404fb7f1e59423a79afa);
+        
+
+        marker_474636b061ed47988eb648e9068ea793.bindPopup(popup_b95b84ec89814583a1e635b6a89cbc89)
+        ;
+
+        
+    
+    
+            marker_474636b061ed47988eb648e9068ea793.bindTooltip(
+                `<div>
+                     Calamba Doctors Hospital
+                 </div>`,
+                {"sticky": true}
+            );
+        
+</script>

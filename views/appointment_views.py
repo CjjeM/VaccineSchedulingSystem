@@ -229,6 +229,8 @@ class ScheduleAppointmentView(MethodView):
         sg = SendGridAPIClient(sendgrid_api)
         response = sg.send(mail_message)
 
+        print(response.status_code)
+
 
     def post(self):
         form = self.form()
@@ -241,7 +243,7 @@ class ScheduleAppointmentView(MethodView):
             user.schedule = availability.id
             db.session.commit()
 
-            self._send_sms(form)
+            #self._send_sms(form)
             self._send_email(form)
 
             #session["vacid"] = user.vaccine_id
