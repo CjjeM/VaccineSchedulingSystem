@@ -4,7 +4,7 @@ from flask_session import Session
 from flask_sqlalchemy import SQLAlchemy
 
 user = "vaccinedb"
-pwd = "vaccine"
+pwd = "vaccinedb"
 host = "localhost"
 database = "vaccinedb"
 
@@ -28,7 +28,7 @@ login_manager.login_message_category = "info"
 from views.user_views import RegisterView, UserLoginView, LogoutView
 from views.home_view import HomeView
 from views.appointment_views import ScheduleAppointmentView, ViewAppointmentView
-from views.admin_views import AdminLoginView,AddVaccineView,UpdateVaccineView,VaccinesView
+from views.admin_views import AdminLoginView,AddVaccineView,UpdateVaccineView,VaccinesView,GenerateReportView
 
 home_view = HomeView.as_view('Home')
 app.add_url_rule('/', methods=['GET'], view_func=home_view)
@@ -59,4 +59,7 @@ app.add_url_rule('/updatevaccine', methods=['GET', 'POST'], view_func=updatevacc
 
 addvaccine_view = AddVaccineView.as_view('addvaccine')
 app.add_url_rule('/addvaccine', methods=['GET', 'POST'], view_func=addvaccine_view)
+
+generatereport_view = GenerateReportView.as_view('download_report')
+app.add_url_rule('/download/report/excel', methods=['GET', 'POST'], view_func=generatereport_view)
 
