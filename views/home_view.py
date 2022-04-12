@@ -13,3 +13,8 @@ class HomeView(MethodView):
         register_vaccine=register_vaccine,
         vaccine_pic=vaccine_pic,
         what_are_covid_vaccines=what_are_covid_vaccines)
+
+class FAQView(MethodView):
+    def get(self):
+        return render_template("FAQs.html")
+
