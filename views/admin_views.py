@@ -60,6 +60,7 @@ class VaccinesView(MethodView):
         if form.validate_on_submit()  and form.submit.data:
             print(request.form.get('current_vaccine'))
             session["vacid"] =request.form.get('current_vaccine')
+            session["schedid"] =0
             items1 =  vaccine.query.filter_by(vaccine_id=session["vacid"]).first()
             flash(f'Editing Vaccine: {items1.vaccine_name}', category='success')
             return redirect(url_for('updatevaccine'))
@@ -88,7 +89,7 @@ class UpdateVaccineView(MethodView):
     def get(self):
         s=[]
         u=[]
-        print(session["schedid"])
+        
         users =  user_information.query.filter_by(schedule=session["schedid"]).all()
         items =  hospital.query.filter_by(hosp_id=session["hosid"]).first()
         items1 = vaccine.query.filter_by(vaccine_id=session["vacid"]).first()
@@ -183,16 +184,9 @@ class GenerateReportView(MethodView):
         conn = None
         cursor = None
     
-        items1 = vaccine.query.all()
-        #conn = mysql.connect()
-        #cursor = conn.cursor(pymysql.cursors.DictCursor)
+        items1 = vaccine.query.filter_by(hos=session["hosid"])
         
-        #cursor.execute("SELECT emp_id, emp_first_name, emp_last_name, emp_designation FROM employee")
-        #result = cursor.fetchall()
-        
-        #output in bytes
         output = io.BytesIO()
-        #create WorkBook object
         workbook = xlwt.Workbook()
         #add a sheet
         sh = workbook.add_sheet('Vaccine Report')
@@ -221,46 +215,4 @@ class GenerateReportView(MethodView):
         
         return Response(output, mimetype="application/ms-excel", headers={"Content-Disposition":"attachment;filename=vaccine_report.xls"})
     
-    def post(self):
-        conn = None
-        cursor = None
-        try:
-            user=vaccine()
-            #conn = mysql.connect()
-            #cursor = conn.cursor(pymysql.cursors.DictCursor)
-            
-            #cursor.execute("SELECT emp_id, emp_first_name, emp_last_name, emp_designation FROM employee")
-            #result = cursor.fetchall()
-            
-            #output in bytes
-            output = io.BytesIO()
-            #create WorkBook object
-            workbook = xlwt.Workbook()
-            #add a sheet
-            sh = workbook.add_sheet('Vaccine Report')
-            
-            #add headers
-            sh.write(0, 0, 'Vaccine Name')
-            sh.write(0, 1, 'Hospital')
-            sh.write(0, 2, 'Vaccine Manufacturer')
-            sh.write(0, 3, 'Vaccine Supplier')
-            sh.write(0, 3, 'Vaccine Information')
-            
-            idx = 0
-            for row in user:
-                sh.write(idx+1, 0, str(row['vaccine_name']))
-                sh.write(idx+1, 1, row['hos'])
-                sh.write(idx+1, 2, row['vaccine_manufacturer'])
-                sh.write(idx+1, 3, row['vaccine_supplier'])
-                sh.write(idx+1, 4, row['vaccine_information'])
-                idx += 1
-            
-            workbook.save(output)
-            output.seek(0)
-            
-            return Response(output, mimetype="application/ms-excel", headers={"Content-Disposition":"attachment;filename=vaccine_report.xls"})
-        except Exception as e:
-            print(e)
-        finally:
-            cursor.close() 
-            conn.close()
+    

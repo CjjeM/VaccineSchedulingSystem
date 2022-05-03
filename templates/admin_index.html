@@ -33,9 +33,11 @@ Update Vaccine Information
                                 </tr>
                             {% endfor %}
                             <a href="{{ url_for('addvaccine') }}" class="btn btn-info" role="button">Add Vaccine</a>
-                            <a href="{{ url_for('.download_report') }}">Generate Excel Report</a>
+                            
                         </tbody>
+                        
                     </table>
+                    <a href="{{ url_for('.download_report') }}">Generate Excel Report</a>
                 </article>
             </div>
         </div>
