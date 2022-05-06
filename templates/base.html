@@ -62,16 +62,14 @@
             <li class="nav-item active">
                 <a class="nav-link" href="{{ url_for('FAQs') }}">FAQs</a>
             </li>
-        </ul>
-        {%if current_user.is_authenticated %}
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
+            <li class="nav-item active">
             <a class="nav-link" href="{{ url_for('ScheduleAppointment') }}">Schedule Appointment</a>
           </li>
           <li class="nav-item active">
             <a class="nav-link" href="{{ url_for('ViewAppointment') }}">View Appointment</a>
           </li>
         </ul>
+        {%if current_user.is_authenticated %}
         <ul class="navbar-nav ms-auto">
 
               <li class="nav-item active">
@@ -83,11 +81,8 @@
           </ul>>
         {%else%}
           <ul class="navbar-nav ms-auto">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Account</a>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="{{ url_for('Login') }}">Login</a></li>
-                    <li><a class="dropdown-item" href="{{ url_for('Register') }}">Register</a></li>
+                <li><a class="nav-link" href="{{ url_for('Login') }}">Login</a></li>
+                <li><a class="nav-link" href="{{ url_for('Register') }}">Register</a></li>
                 </ul>
             </li>
           </ul>
