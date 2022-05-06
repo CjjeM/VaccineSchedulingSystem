@@ -3,6 +3,7 @@
 {% extends "base.html" %}
 {% block title %}View Appointment{% endblock %}
 {% block content %}
+  <h3 class="text-center mb-4 pb-2 text-success fw-bold">VIEW YOUR APPOINTMENT HERE</h3>
        <div class="container mt-5 mb-5">
         <div class="row justify-content-center">
             <div class="col-lg-8">
@@ -31,6 +32,9 @@
                          <h6 class="card-text">Vaccine Name:</h6>
                             <input type="text" class="form-control" placeholder="Vaccine Name" aria-label="vaccinename" readonly value="{{view.vaccine.vaccine_name}}"></li>
                         <br>
+                         <h6 class="card-text">Vaccine Doses:</h6>
+                         <input type="text" class="form-control" placeholder="Vaccine Doses" aria-label="vaccinedoses" readonly value={{view.availability_details.availability_date}}></li>
+                         <br>
                          <h6 class="card-text">Vaccination Site:</h6>
                              <input type="text" class="form-control" placeholder="Vaccination Site" aria-label="cvaccinesite" readonly value="{{view.hospital.hosp_name}}"></li>
                           <br>
