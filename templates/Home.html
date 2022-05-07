@@ -56,8 +56,8 @@
                   alt="RESBAKUNA DOH Logo"
                   loading="lazy"/>
                </center>
-                <br><p style = "font-family: 'Poppins', sans-serif;">The COVID-19 Vaccine Scheduling System will help those unvaccinated to make an appointment at the
-                    nearest vaccination centers with the preference and availability of the vaccines on each site.</p>
+                <br><p style = "font-family: 'Poppins', sans-serif;">The COVID-19 Vaccine Scheduling System will help you make an appointment at the
+                    nearest vaccination centers with the availability of the vaccines and schedules on each site.</p>
              <br>
               <strong style = "font-family: 'Poppins', sans-serif;">Follow these simple steps to proceed with your scheduling:</strong>
                 <br><br><center><a href="{{ url_for('Steps') }}" class="stretched-link" style = "font-family: 'Poppins', sans-serif;">How to use the COVID-19 Vaccine Scheduling System</a></center>
@@ -68,29 +68,14 @@
         </div>
     </div>
 </div>
-     <script src=
-"https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity=
-"sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous">
-    </script>
-    <script src=
-"https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-        integrity=
-"sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-        crossorigin="anonymous">
-    </script>
-    <script src=
-"https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
-        integrity=
-"sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-        crossorigin="anonymous">
-    </script>
-{%if current_user.is_authenticated %}
- <div class="d-grid gap-2">
-   <a class="btn btn-success" href="{{ url_for('ScheduleAppointment') }}" role="button">Schedule Appointment</a>
- </div>
- {% endif %}
+         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    {%if current_user.is_authenticated %}
+     <div class="d-grid gap-2">
+       <a class="btn btn-success" href="{{ url_for('ScheduleAppointment') }}" role="button">Schedule Appointment</a>
+     </div>
+     {% endif %}
 &nbsp;
 <div class="container marketing">
 
