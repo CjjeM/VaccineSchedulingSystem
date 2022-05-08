@@ -84,7 +84,7 @@
             <div class="col-sm-6">
                 <div class="card">
                     <header class="card-header">
-                        <h4 class="card-title mt-2">Vaccination Sites Locations</h4>
+                        <h4 class="card-title mt-2" style = "font-family: 'Poppins', sans-serif;">Vaccination Sites Locations</h4>
                     </header>
                     <article class="card-body">
                         <iframe class="map", src="{{url_for('static', filename='map.html')}}" width="720" height="620"></iframe>
@@ -95,27 +95,27 @@
             <div class="col-sm-6">
                 <div class="card">
                     <header class="card-header">
-                      <h4 class="card-title mt-2">Vaccination Sites Locations</h4>
+                      <h4 class="card-title mt-2" style = "font-family: 'Poppins', sans-serif;">Vaccination Sites Locations</h4>
                     </header>
 
                     <article class="card-body">
-                      <h4 class="card-title mt-2">Suggested Vaccination Sites: {{lowestdistance}} </h4>
+                      <h4 class="card-title mt-2" style = "font-family: 'Poppins', sans-serif;">Suggested Vaccination Sites: {{lowestdistance}} </h4>
                     </article>
                 </div>
 
                 <div class="card my-3 py-2">
                   <header class="card-header">
-                      <h4 class="card-title mt-2">Vaccination Sites Appointments</h4>
+                      <h4 class="card-title mt-2" style = "font-family: 'Poppins', sans-serif;">Vaccination Sites Appointments</h4>
                   </header>
 
                   <article class="card-body">
-                      <h6 class="card-text">Vaccination Site Name:</h6>
+                      <h6 class="card-text" style = "font-family: 'Poppins', sans-serif;">Vaccination Site Name:</h6>
 
                       <div class="form-group">
                         {{ form.hospitalname(class="form-select", placeholder="Hospital Name", id ="hospitalname", onchange="changeHospInfo(this)") }}
                       </div>
 
-                      <h6 class="card-text">Vaccination Site Address:</h6>
+                      <h6 class="card-text" style = "font-family: 'Poppins', sans-serif;">Vaccination Site Address:</h6>
                       <div class="form-group">
                         {{ form.hospitaladdress(class="form-control readonly", id="hospitaladdress") }}
                       </div>
@@ -124,12 +124,12 @@
                       </script>
                       <br>
 
-                      <h6 class="card-text">Available Vaccines: </h6>
+                      <h6 class="card-text" style = "font-family: 'Poppins', sans-serif;">Available Vaccines: </h6>
                       <div class="form-group">
                         {{ form.availablevaccines(class="form-select", placeholder="Available Vaccines", id="available_vaccines") }}
                       </div>
 
-                      <h6 class="card-text">Expected Date of Vaccination:</h6>
+                      <h6 class="card-text" style = "font-family: 'Poppins', sans-serif;">Expected Date of Vaccination:</h6>
                       <div class="form-group">
                         {{ form.vaccineschedule(class="form-select", placeholder="Expected Date of Vaccination", id="expected_date") }}
                       </div>

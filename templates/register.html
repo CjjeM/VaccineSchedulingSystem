@@ -11,28 +11,28 @@ Register Page
             <div class="col-lg-8">
                 <div class="card">
                     <header class="card-header">
-                        <h4 class="card-title mt-2">User Registration</h4>
+                        <h4 class="card-title mt-2" style = "font-family: 'Poppins', sans-serif;">User Registration</h4>
                     </header>
                     <article class="card-body">
                         <div class="form-row mt-3">
                             <div class="row">
                                   <div class="col">
-                                    <h6 class="card-text">First Name:</h6>
+                                    <h6 class="card-text" style = "font-family: 'Poppins', sans-serif;">First Name:</h6>
                                     {{ form.first_name(class="form-control", placeholder="First Name") }}
                                   </div>
                                   <div class="col">
-                                    <h6 class="card-text">Middle Name:</h6>
+                                    <h6 class="card-text" style = "font-family: 'Poppins', sans-serif;">Middle Name:</h6>
                                     {{ form.middle_name(class="form-control", placeholder="Middle Name") }}
                                   </div>
                                 <div class="col">
-                                    <h6 class="card-text">Last Name:</h6>
+                                    <h6 class="card-text" style = "font-family: 'Poppins', sans-serif;">Last Name:</h6>
                                     {{ form.last_name(class="form-control", placeholder="Last Name") }}
                                   </div>
                             </div>
                         </div>
                         <div class="form-row mt-3">
                             <div class="col form-group">
-                                <h6 class="card-text">City:</h6>
+                                <h6 class="card-text" style = "font-family: 'Poppins', sans-serif;">City:</h6>
                                 <div class="row">
                                   <div class="col">
                                     {{ form.city(class="form-select", placeholder="City") }}
@@ -44,40 +44,40 @@ Register Page
 
                                 </div>
                             </div>
-                        </div>   
+                        </div>
                         <div class="form-row mt-2">
                                 <div class="col-md-12">
-                                    <h6 class="card-text">House Address:</h6>
+                                    <h6 class="card-text" style = "font-family: 'Poppins', sans-serif;">House Address:</h6>
                                     {{ form.home_address(class="form-control", placeholder="Home Address") }}
                                 </div>
                         </div>
                         <div class="form-row mt-3">
                             <div class="row">
                                   <div class="col-md-auto">
-                                    <h6 class="card-text">Date of Birth:</h6>
+                                    <h6 class="card-text" style = "font-family: 'Poppins', sans-serif;">Date of Birth:</h6>
                                     {{ form.birthdate(class="form-control", placeholder="Birth Date") }}
                                   </div>
                                   <div class="col-md-auto">
-                                      <h6 class="card-text">Contact Number:</h6>
+                                      <h6 class="card-text" style = "font-family: 'Poppins', sans-serif;">Contact Number:</h6>
                                       {{ form.contact_number(class="form-control", placeholder="Contact Number") }}
                                   </div>
                             </div>
-                         </div> 
+                         </div>
                         <div class="row mt-2">
                             <div class="col-md-12">
-                                <h6 class="card-text">Email Address:</h6>
+                                <h6 class="card-text" style = "font-family: 'Poppins', sans-serif;">Email Address:</h6>
                                 {{ form.email_address(class="form-control", placeholder="Email Address") }}
                             </div>
                         </div>
                         <div class="form-row mt-3">
                             <div class="row">
                                   <div class="col-md-auto">
-                                    <h6 class="card-text">Password:</h6>
+                                    <h6 class="card-text" style = "font-family: 'Poppins', sans-serif;">Password:</h6>
                                     {{ form.password(class="form-control", placeholder="Password") }}
                         
                                   </div>
                                   <div class="col-md-auto">
-                                    <h6 class="card-text">Confirm Password:</h6>
+                                    <h6 class="card-text" style = "font-family: 'Poppins', sans-serif;">Confirm Password:</h6>
                                     {{ form.password2(class="form-control", placeholder="Confirm Password") }}
                                   </div>
                             </div>
@@ -87,7 +87,7 @@ Register Page
                             {{ form.submit(class="btn btn-lg btn-block btn-primary") }}
                         </div>
                     </article>
-                    <div class="border-top card-body text-center">Have an account? <a href="{{ url_for('Login') }}">Log In</a></div>
+                    <div class="border-top card-body text-center" style = "font-family: 'Poppins', sans-serif;">Have an account? <a class="nav-link active" href="{{ url_for('Login') }}">Log In Now</a></div>
                 </div>
             </div>
         </div>

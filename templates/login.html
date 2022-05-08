@@ -10,13 +10,13 @@
             <div class="col-lg-8">
                 <div class="card">
                     <header class="card-header">
-                        <h4 class="card-title mt-2">User Login</h4>
+                        <h4 class="card-title mt-2" style = "font-family: 'Poppins', sans-serif;">User Login</h4>
                     </header>
                     <article class="card-body">
-                        <h6 class="card-text">Email:</h6>
+                        <h6 class="card-text" style = "font-family: 'Poppins', sans-serif;">Email:</h6>
                         {{ form.emailadd(class="form-control", placeholder="Email Address") }}
                         &nbsp;
-                        <h6 class="card-text">Password:</h6>
+                        <h6 class="card-text" style = "font-family: 'Poppins', sans-serif;">Password:</h6>
                         {{ form.password(class="form-control", placeholder="Password") }}
                         &nbsp;
                         <div class="d-grid gap-2">
@@ -25,7 +25,7 @@
                     </article>
                     
         
-                    <div class="border-top card-body text-center">Not yet a user? <a href="{{ url_for('Register') }}">Register</a></div>
+                    <div class="border-top card-body text-center" style = "font-family: 'Poppins', sans-serif;">Not yet a user? <a class="nav-link active" href="{{ url_for('Register') }}">Register Here</a></div>
                 </div>
             </div>
         </div>
