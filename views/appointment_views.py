@@ -35,7 +35,7 @@ def haversine(lat1, lon1, lat2, lon2):
     return R * c
 
 class ScheduleAppointmentView(MethodView):
-    decorators = [login_required]
+    #decorators = [login_required]
 
     def form(self):
         return AddAppointmentForm()
@@ -53,8 +53,14 @@ class ScheduleAppointmentView(MethodView):
         hospdist = 0
         lowestdisthospital = ""
 
-        current_user = user_information.query.filter_by(email_address=session["user"]).first()
-        current_geocode = nom.geocode(current_user.home_address)
+        try:
+            current_user = user_information.query.filter_by(email_address=session["user"]).first()
+        except:
+            current_user = None
+        if(current_user is None):
+             current_geocode = nom.geocode("malayan colleges laguna")
+        else:
+            current_geocode = nom.geocode(current_user.home_address)
         user_latitude = current_geocode.latitude
         user_longitude = current_geocode.longitude
 
@@ -244,7 +250,7 @@ class ScheduleAppointmentView(MethodView):
             db.session.commit()
 
             #self._send_sms(form)
-            self._send_email(form)
+            #self._send_email(form)
 
             #session["vacid"] = user.vaccine_id
             #session['hospid'] = user.hosp_id

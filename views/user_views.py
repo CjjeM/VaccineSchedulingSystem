@@ -58,7 +58,8 @@ class RegisterView(MethodView):
                                     email_address=register_form.email_address.data,
                                     pwd=hashed_password,
                                     contact_number=register_form.contact_number.data,
-                                    birthdate=register_form.birthdate.data)
+                                    birthdate=register_form.birthdate.data,
+                                    schedule=1)
 
             db.session.add(user)
             db.session.commit()
