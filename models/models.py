@@ -26,7 +26,9 @@ class user_information(db.Model,UserMixin):
     email_address=db.Column(db.String(length=45))
     pwd=db.Column(db.String(length=45))
     schedule=db.Column(db.Integer)
-
+    dose_count=db.Column(db.Integer)
+    booster_count=db.Column(db.Integer)
+    next_shot=db.Column(db.Date)
 
     def __repr__(self):
         return "user_id: {0} | first name: {1} | middle name: {2} | last name: {3} | city: {4} | home address: {5} | email address: {6} | password: {7} | contact number: {8} | birth date: {9}".format(self.user_id,self.first_name,self.middle_name,self.last_name,self.city,self.home_address,self.email_address,self.pwd,self.contact_number,self.birthdate,)
@@ -42,6 +44,7 @@ class vaccine(db.Model):
     vaccine_manufacturer=db.Column(db.String(length=255))
     vaccine_supplier=db.Column(db.String(length=255))
     vaccine_information=db.Column(db.String(length=255))
+    vaccine_type=db.Column(db.String(length=255))
     def __repr__(self):
         return f'<User: {self.vaccine_name}>'
 

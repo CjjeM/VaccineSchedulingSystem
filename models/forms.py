@@ -85,5 +85,8 @@ class AddAppointmentForm(FlaskForm):
     all_sched = [sched.availability_date for sched in availability_details.query.filter_by().all()]
     vaccineschedule: SelectField = SelectField(label="Expected Date of Vaccination:", choices=all_sched)
 
+    all_dose = [vac.vaccine_type for vac in vaccine.query.filter_by().all()]
+    vaccinetype: SelectField = SelectField(label="Type of Vaccination:", choices=all_dose)
+
     schedule = SubmitField(label='Make Appointment')
 

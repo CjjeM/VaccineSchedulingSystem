@@ -189,9 +189,15 @@ class ScheduleAppointmentView(MethodView):
             for avail in availability:
                 avail_dates.append(datetime.strftime(avail.availability_date, '%Y-%m-%d'))
 
+            vac_types = []
+
+            for avail in availability:
+                current_vaccine = vaccine.query.filter_by(vaccine_id=avail.vac).first()
+                vac_types.append(current_vaccine.vaccine_type)
+
             hospital_data[current_hospital.hosp_name] = [current_hospital.hosp_address,
                                                         vaccines,
-                                                        avail_dates]
+                                                        avail_dates,vac_types]
 
         return hospital_data
     
