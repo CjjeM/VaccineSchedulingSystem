@@ -15,8 +15,8 @@ from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 
 from math import radians, cos, sin, asin, sqrt
-from datetime import date, datetime
-
+from datetime import datetime, timedelta
+from dateutil. relativedelta import relativedelta
 
 app = Flask(__name__)
 
@@ -252,15 +252,35 @@ class ScheduleAppointmentView(MethodView):
             availability = availability_details.query.filter_by(availability_date=availability_date).first()
             user = user_information.query.filter_by(email_address=session["user"]).first()
             
-            user.schedule = availability.id
-            db.session.commit()
+            
+            dose=form.vaccinetype.data
 
+            date_1 = datetime.strptime(availability_date, '%Y-%m-%d')
+
+            
+            if(dose=="first dose"):
+                end_date = date_1 + timedelta(days=21)
+                dose=1
+                flash(f'You may get your next dose on '+str(end_date.date()) , category = 'success')
+            if(dose=="second dose"):
+                end_date = date_1 + relativedelta(months=6)
+                dose=2
+                flash(f'You may get your next dose on '+str(end_date.date()) , category = 'success')
+            if(dose=="booster"):
+                end_date = date_1 + relativedelta(months=6)
+                booster=1
+                flash(f'You may get your next dose on '+str(end_date.date()) , category = 'success')
             #self._send_sms(form)
             #self._send_email(form)
 
             #session["vacid"] = user.vaccine_id
             #session['hospid'] = user.hosp_id
             #session["schedid"] = 0
+            user.schedule = availability.id
+            user.dose_count = dose
+            user.booster_count = booster
+            user.next_shot = end_date.date()
+            db.session.commit()
             flash(f'You have made an appointment' , category = 'success')
             return redirect(url_for('ViewAppointment'))
             
