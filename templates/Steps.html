@@ -3,40 +3,82 @@
 {% extends "base.html" %}
 {% block title %}Steps{% endblock %}
 {% block content %}
-&nbsp;
+<script>
+    $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+        event.preventDefault();
+        $(this).ekkoLightbox();
+    });
+    $(this).ekkoLightbox({
+        alwaysShowClose: true,
+        onShown: function() {
+            console.log('Checking our the events huh?');
+        },
+        onNavigate: function(direction, itemIndex)
+            console.log('Navigating '+direction+'. Current item: '+itemIndex);
+        }
+        ...
+    });
+</script>
+<br>
 <h3 class="text-center mb-4 pb-2 text-success fw-bold" style = "font-family: 'Poppins', sans-serif;">HOW TO USE THE COVID-19 SCHEDULING SYSTEM</h3>
  <div class="container mt-5 mb-5">
-    <div class="row justify-content-center">
-        <div class="col-lg-8">
-            <div class="card">
-              <article class="card-body">
-                  <div>
-                      <span class="circle">1</span>
-                      <span class="label"><strong>Sign Up Page:</strong> </span>
-                      <ul style="list-style-position: inside; vertical-align: middle;">
-                          <li>A registered user will be able to use the full functionalities of the system.</li>
-                      </ul>
-                  </div>
-                  <div>
-                      <span class="circle">2</span>
-                      <span class="label"><strong>Schedule Appointment Page: </strong></span>
-                      <ul style="list-style-position: inside; vertical-align: middle;">
-                          <li><strong>Vaccination Sites Locations:</strong> First, select a nearest vaccination site in your area. </li>
-                          <li><strong>Vaccination Sites Appointments:</strong> Then, select your preferred vaccines that are available in that specific vaccination site and select your preferred schedule.</li>
-                      </ul>
-                  </div>
-                  <div>
-                      <span class="circle">3</span>
-                      <span class="label"><strong>View Appointment Page:</strong></span>
-                      <ul style="list-style-position: inside; vertical-align: middle;">
-                          <li>After making an appointment, you may now view it via our system and you will also receive an SMS notification about your appointment details.</li>
-                      </ul>
-                  </div>
-              </article>
-            </div>
-        </div>
-    </div>
-  </div>
+    <div class="card mb-3">
+      <img src="https://user-images.githubusercontent.com/85144867/168815902-8401eb96-fce6-4de2-9c93-e46a1025b7de.png" class="card-img-top" alt="Wild Landscape"/>
+      <div class="card-body">
+        <h5 class="card-title" style = "font-family: 'Poppins', sans-serif; font-weight: bold">STEP 1: Create an Account!</h5>
+        <p class="card-text" style = "font-family: 'Poppins', sans-serif;">
+          Creating an account is needed to fully utilize the system. <strong>The needed details are as follows:</strong> Name, City, House Address, Date of Birth, Contact Number, Email Address, and Password.
 
+        </p>
+          <p class="card-text">
+          <small class="text-muted" style = "font-family: 'Poppins', sans-serif;">The COVID-19 Vaccine Scheduling System: Step 1 of 4</small>
+        </p>
+      </div>
+    </div>
+ </div>
+<div class="container mt-5 mb-5">
+    <div class="card mb-3">
+      <img src="https://user-images.githubusercontent.com/85144867/168816157-54d18e45-edbd-4b85-b71d-fc2c578adb7b.png" class="card-img-top" alt="Wild Landscape"/>
+      <div class="card-body">
+        <h5 class="card-title" style = "font-family: 'Poppins', sans-serif; font-weight: bold">STEP 2: Login!</h5>
+        <p class="card-text" style = "font-family: 'Poppins', sans-serif;">
+          After creating an account, you may now login using your registered email address and password. Then, you can now make an appointment and view your appointment details.
+        </p>
+          <p class="card-text">
+          <small class="text-muted" style = "font-family: 'Poppins', sans-serif;">The COVID-19 Vaccine Scheduling System: Step 2 of 4</small>
+        </p>
+      </div>
+    </div>
+ </div>
+<div class="container mt-5 mb-5">
+    <div class="card mb-3">
+      <img src="https://user-images.githubusercontent.com/85144867/168817139-1a89ecbc-704b-4b5e-9be8-b39e8f1658c1.png" class="card-img-top" alt="Wild Landscape"/>
+      <div class="card-body">
+        <h5 class="card-title" style = "font-family: 'Poppins', sans-serif; font-weight: bold">STEP 3: Find Your Vaccination Site and Make an Appointment</h5>
+        <p class="card-text" style = "font-family: 'Poppins', sans-serif;">
+          With the help of your registered house address and city, the map will show all of the nearest vaccination sites and even suggest. Below the suggested vaccination sites,
+            you can see the vaccination sites appointments. This allows you to choose your preferred vaccination sites, vaccine, date of appointment, and the type of vaccination.
+            Click on Make Appointment for finalization.
+        </p>
+          <p class="card-text">
+          <small class="text-muted" style = "font-family: 'Poppins', sans-serif;">The COVID-19 Vaccine Scheduling System: Step 3 of 4</small>
+        </p>
+      </div>
+    </div>
+ </div>
+<div class="container mt-5 mb-5">
+    <div class="card mb-3">
+      <img src="https://user-images.githubusercontent.com/85144867/168817155-94903eb5-1e7d-4ad5-8ee3-2c5317b5c02f.png" class="card-img-top" alt="Wild Landscape"/>
+      <div class="card-body">
+        <h5 class="card-title" style = "font-family: 'Poppins', sans-serif; font-weight: bold">STEP 4: View your Appointment Details</h5>
+        <p class="card-text" style = "font-family: 'Poppins', sans-serif;">
+          After making an appointment, you may now view it via our system and at the same time you will receive an SMS notification regarding your appointment details.
+        </p>
+          <p class="card-text">
+          <small class="text-muted" style = "font-family: 'Poppins', sans-serif;">The COVID-19 Vaccine Scheduling System: Step 4 of 4</small>
+        </p>
+      </div>
+    </div>
+ </div>
 
 {% endblock %}

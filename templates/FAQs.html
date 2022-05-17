@@ -3,11 +3,27 @@
 {% extends "base.html" %}
 {% block title %}Frequently Asked Questions{% endblock %}
 {% block content %}
+<script>
+    $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+        event.preventDefault();
+        $(this).ekkoLightbox();
+    });
+    $(this).ekkoLightbox({
+        alwaysShowClose: true,
+        onShown: function() {
+            console.log('Checking our the events huh?');
+        },
+        onNavigate: function(direction, itemIndex)
+            console.log('Navigating '+direction+'. Current item: '+itemIndex);
+        }
+        ...
+    });
+</script>
 &nbsp;
   <h3 class="text-center mb-4 pb-2 text-success fw-bold" style = "font-family: 'Poppins', sans-serif;">FREQUENTLY ASKED QUESTIONS</h3>
 <center>
    <div class="embed-responsive embed-responsive-21by9">
-      <iframe class="embed-responsive-item" width="560" height="315" src="https://www.youtube.com/embed/TPmmwpY3B7w" allowfullscreen></iframe>
+      <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/TPmmwpY3B7w" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
 </center>
 &nbsp;
@@ -115,7 +131,7 @@
                       </h2>
                       <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven" data-bs-parent="#accordionExample">
                         <div class="accordion-body" style = "font-family: 'Poppins', sans-serif;">
-                          Yes, like all other vaccines, there are risks of complications <strong>BUT SEVERE OR LIFE-THREATENING REACTIONS ARE EXTREMELY RARE</strong>. The benefit of protection against severe COVID-19 is greater than the risk.
+                          Yes, like all other vaccines, there are risks of complications <mark><strong>BUT SEVERE OR LIFE-THREATENING REACTIONS ARE EXTREMELY RARE</strong></mark>. The benefit of protection against severe COVID-19 is greater than the risk.
                           Anyone who will get the vaccine will be properly evaluated and closely monitored by health professionals to further minimize any risk.
                         </div>
                       </div>
@@ -125,35 +141,20 @@
             </div>
         </div>
         <div class="col-lg-6 mb-4">
-                <div class="card">
-                    <header class="card-header">
-                      <h4 class="card-title mt-2" style = "font-family: 'Poppins', sans-serif;">How to use the COVID-19 Vaccine Scheduling System</h4>
-                    </header>
+                <div class="card mb-3">
+                    <a href="https://user-images.githubusercontent.com/85144867/168815179-3d6acf3b-a450-4def-9835-06f73f29391d.png" data-toggle="lightbox" data-title="A random title" data-footer="A custom footer text">
+                        <img src="https://user-images.githubusercontent.com/85144867/168815179-3d6acf3b-a450-4def-9835-06f73f29391d.png" class="card-img-top" alt="Wild Landscape"/>
+                    </a>
 
-                    <article class="card-body">
-                      <div>
-                      <span class="circle">1</span>
-                      <span class="label"><strong>Sign Up Page:</strong> </span>
-                      <ul style="list-style-position: inside; vertical-align: middle;">
-                          <li>A registered user will be able to use the full functionalities of the system.</li>
-                      </ul>
-                      </div>
-                      <div>
-                          <span class="circle">2</span>
-                          <span class="label"><strong>Schedule Appointment Page: </strong></span>
-                          <ul style="list-style-position: inside; vertical-align: middle;">
-                              <li><strong>Vaccination Sites Locations:</strong> First, select a nearest vaccination site in your area. </li>
-                              <li><strong>Vaccination Sites Appointments:</strong> Then, select your preferred vaccines that are available in that specific vaccination site and select your preferred schedule.</li>
-                          </ul>
-                      </div>
-                      <div>
-                          <span class="circle">3</span>
-                          <span class="label"><strong>View Appointment Page:</strong></span>
-                          <ul style="list-style-position: inside; vertical-align: middle;">
-                              <li>After making an appointment, you may now view it via our system and you will also receive an SMS notification about your appointment details.</li>
-                          </ul>
-                      </div>
-                    </article>
+                  <div class="card-body">
+                    <h5 class="card-title" style = "font-family: 'Poppins', sans-serif; font-weight: bold">The COVID-19 Vaccine Scheduling System</h5>
+                    <p class="card-text" style = "font-family: 'Poppins', sans-serif;">
+                      This is a simplified step-by-step guide that will help you understand how to use of this COVID-19 Vaccine Scheduling System. <strong>For further guidance, you may refer to this page:</strong> <center><a class="nav-link active" href="{{ url_for('Steps') }}" style = "font-family: 'Poppins', sans-serif;">HOW TO USE THE COVID-19 SCHEDULING SYSTEM</a></center>
+                    </p>
+                      <p class="card-text">
+                      <small class="text-muted" style = "font-family: 'Poppins', sans-serif;">Click on the image to enlarge it</small>
+                    </p>
+                  </div>
                 </div>
           </div>
     </div>
