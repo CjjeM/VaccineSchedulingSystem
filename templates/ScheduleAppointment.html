@@ -1,15 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
   <script type="text/javascript">
+        //THIS CODE IS FOR CASCADING DROPDOWN
         var nearest = "{{lowestdistance|safe}}";
 
         var json_data = {{ json_data|tojson|safe }};
+        var current_hospital_name;
+        window.onload = function() {
+          $("#available_vaccines").empty();
+          $("#expected_date").empty();
+          $("#hospitaladdress").empty();
+          $("#vac_type").empty();
+          $("#expected_time").empty();
+          var hospital = document.getElementById("hospitalname");
+          var vaccine = document.getElementById("available_vaccines");
+          var schedule = document.getElementById("expected_date");
+          var address = document.getElementById('hospitaladdress');
+          var current_hospital_name = nearest;
+          $('#hospitalname').val(current_hospital_name);
 
+          var hospital_data = JSON.parse(json_data);
+
+          var hospital_address = hospital_data[current_hospital_name][0];
+          var available_vaccines = hospital_data[current_hospital_name][1];
+          var expected_dates =[]
+          var vac_types =[]
+          
+          address.value = hospital_data[current_hospital_name][0];
+          for (const [key, value] of Object.entries(available_vaccines)) {
+           
+            $("#available_vaccines").append($("<option/>", {
+              "value": key,
+              "text": key
+            }));
+              for (const [key2, value2] of Object.entries(value)) {
+                
+                $("#expected_date").append($("<option/>", {
+                  "value": key2,
+                  "text": key2
+                }));
+              
+              var vac = document.getElementById('vac_type');
+              vac.value = value2[0];
+              var tim = document.getElementById('expected_time');
+              tim.value = value2[1];
+              };
+          };
+          hospital.onchange = function() {
+            $("#available_vaccines").empty();
+            $("#expected_date").empty();
+            $("#hospitaladdress").empty();
+            $("#vac_type").empty();
+            $("#expected_time").empty();
+
+            var hospital_address = hospital_data[this.value][0];
+            var available_vaccines = hospital_data[this.value][1];
+            address.value = hospital_data[this.value][0];
+            for (const [key, value] of Object.entries(available_vaccines)) {
+              
+              $("#available_vaccines").append($("<option/>", {
+                "value": key,
+                "text": key
+              }));
+                for (const [key2, value2] of Object.entries(value)) {
+                  
+                  $("#expected_date").append($("<option/>", {
+                    "value": key2,
+                    "text": key2
+                  }));
+                
+                  var vac = document.getElementById('vac_type');
+                  vac.value = value2[0];
+                  var tim = document.getElementById('expected_time');
+                  tim.value = value2[1];
+                };
+            };
+          }
+          vaccine.onchange = function() {
+            $("#expected_date").empty();
+            $("#hospitaladdress").empty();
+            $("#vac_type").empty();
+            $("#expected_time").empty();
+            for (const [key2, value2] of Object.entries(hospital_data[hospital.value][1][this.value])) {
+              
+              $("#expected_date").append($("<option/>", {
+                "value": key2,
+                "text": key2
+              }));
+                
+                  var vac = document.getElementById('vac_type');
+                  vac.value = value2[0];
+                  var tim = document.getElementById('expected_time');
+                  tim.value = value2[1];
+                };
+          }
+        }
+
+
+        //PREVIOUS CODES PREVIOUS CODES PREVIOUS CODES PREVIOUS CODES PREVIOUS CODES PREVIOUS CODES PREVIOUS CODES PREVIOUS CODES PREVIOUS CODES PREVIOUS CODES 
         function clearvalues() {
           $("#available_vaccines").empty();
           $("#expected_date").empty();
           $("#hospitaladdress").empty();
           $("#vac_type").empty();
+          $("#expected_time").empty();
 
           var current_hospital_name = nearest;
           $('#hospitalname').val(current_hospital_name);
@@ -18,74 +112,150 @@
 
           var hospital_address = hospital_data[current_hospital_name][0];
           var available_vaccines = hospital_data[current_hospital_name][1];
-          var expected_dates = hospital_data[current_hospital_name][2];
-          var vac_types = hospital_data[current_hospital_name][3];
-
-          var address = document.getElementById('hospitaladdress');
+          var expected_dates =[]
+          var vac_types =[]
+          //past code
+          //var expected_dates = hospital_data[current_hospital_name][2];
+          //var vac_types = hospital_data[current_hospital_name][3];
+          
+          // var address = document.getElementById('hospitaladdress');
+          //ends here
           address.value = hospital_data[current_hospital_name][0];
-
-          for (const vaccine of available_vaccines){
+          window.alert(address.value);
+          //past code
+          // for (const vaccine of available_vaccines){
+          //   $("#available_vaccines").append($("<option/>", {
+          //     "value": vaccine,
+          //     "text": vaccine
+          //   }));
+          // };
+          //ends here
+          for (const [key, value] of Object.entries(available_vaccines)) {
+           
             $("#available_vaccines").append($("<option/>", {
-              "value": vaccine,
-              "text": vaccine
+              "value": key,
+              "text": key
             }));
+              for (const [key2, value2] of Object.entries(value)) {
+                
+                $("#expected_date").append($("<option/>", {
+                  "value": key2,
+                  "text": key2
+                }));
+              
+              var vac = document.getElementById('vac_type');
+              vac.value = value2[0];
+              var tim = document.getElementById('expected_time');
+              tim.value = value2[1];
+              };
           };
+          
+          //past code for reference
+          // for (const date of expected_dates){
+          //   $("#expected_date").append($("<option/>", {
+          //     "value": date,
+          //     "text": date
+          //   }));
+          // };
 
-          for (const date of expected_dates){
-            $("#expected_date").append($("<option/>", {
-              "value": date,
-              "text": date
-            }));
-          };
-
-          for (const type of vac_types){
-            $("#vac_type").append($("<option/>", {
-              "value": type,
-              "text": type
-            }));
-          };
-
+          // for (const type of vac_types){
+          //   $("#vac_type").append($("<option/>", {
+          //     "value": type,
+          //     "text": type
+          //   }));
+          // };
+          //ends here  
         }
-
-        window.onload = clearvalues;
+        //important for og
+        // window.onload = clearvalues;
 
        function changeHospInfo(selectObject) {
         $("#available_vaccines").empty();
         $("#expected_date").empty();
         $("#hospitaladdress").empty();
         $("#vac_type").empty();
+        $("#expected_time").empty();
 
-        var current_hospital_name = selectObject.value;
+        current_hospital_name = selectObject.value;
 
         var hospital_data = JSON.parse(json_data);
 
         var hospital_address = hospital_data[current_hospital_name][0];
         var available_vaccines = hospital_data[current_hospital_name][1];
-        var expected_dates = hospital_data[current_hospital_name][2];
-        var vac_types = hospital_data[current_hospital_name][3];
+        //past code
+        // var expected_dates = hospital_data[current_hospital_name][2];
+        // var vac_types = hospital_data[current_hospital_name][3];
+        //ends here
         var address = document.getElementById('hospitaladdress');
         address.value = hospital_data[current_hospital_name][0];
+        window.alert("asda");
+        //past code
+        // for (const vaccine of available_vaccines){
+        //   $("#available_vaccines").append($("<option/>", {
+        //     "value": vaccine,
+        //     "text": vaccine
+        //   }));
+        // };
 
-        for (const vaccine of available_vaccines){
-          $("#available_vaccines").append($("<option/>", {
-            "value": vaccine,
-            "text": vaccine
-          }));
-        };
+        // for (const date of expected_dates){
+        //   $("#expected_date").append($("<option/>", {
+        //     "value": date,
+        //     "text": date
+        //   }));
+        // };
 
-        for (const date of expected_dates){
+        // for (const type of vac_types){
+        //   $("#vac_type").append($("<option/>", {
+        //     "value": type,
+        //     "text": type
+        //   }));
+        // };
+        //ends here
+        for (const [key, value] of Object.entries(available_vaccines)) {
+           
+           $("#available_vaccines").append($("<option/>", {
+             "value": key,
+             "text": key
+           }));
+             for (const [key2, value2] of Object.entries(value)) {
+               
+               $("#expected_date").append($("<option/>", {
+                 "value": key2,
+                 "text": key2
+               }));
+            
+              var vac = document.getElementById('vac_type');
+              vac.value = value2[0];
+              var tim = document.getElementById('expected_time');
+              tim.value = value2[1];
+             };
+         };
+        }
+        function changeVaccInfo(selectObject) {
+        
+        $("#expected_date").empty();
+
+        //current vaccine in dropdown
+        var current_vaccine = selectObject.value;
+
+        var hospital_data = JSON.parse(json_data);
+
+        window.alert(hospital.value);
+        window.alert(hospital_data[hospital.value][1][current_vaccine]);
+
+        for (const [key2, value2] of Object.entries(hospital_data[hosp][1][current_vaccine])) {
           $("#expected_date").append($("<option/>", {
-            "value": date,
-            "text": date
+            "value": key2,
+            "text": key2
           }));
-        };
-
-        for (const type of vac_types){
-          $("#vac_type").append($("<option/>", {
-            "value": type,
-            "text": type
-          }));
-        };
+            
+              var vac = document.getElementById('vac_type');
+              vac.value = value2[0];
+              var tim = document.getElementById('expected_time');
+              tim.value = value2[1];
+             };
+        
+        
         }
 
         
@@ -132,7 +302,7 @@
                       <h6 class="card-text" style = "font-family: 'Poppins', sans-serif;">Vaccination Site Name:</h6>
 
                       <div class="form-group">
-                        {{ form.hospitalname(class="form-select", placeholder="Hospital Name", id ="hospitalname", onchange="changeHospInfo(this)") }}
+                        {{ form.hospitalname(class="form-select", placeholder="Hospital Name", id ="hospitalname") }}<!--put onchange=changeHospInfo(this) if going back to previous code-->>
                       </div>
 
                       <h6 class="card-text" style = "font-family: 'Poppins', sans-serif;">Vaccination Site Address:</h6>
@@ -148,17 +318,26 @@
                       <div class="form-group">
                         {{ form.availablevaccines(class="form-select", placeholder="Available Vaccines", id="available_vaccines") }}
                       </div>
-
+                      
                       <h6 class="card-text" style = "font-family: 'Poppins', sans-serif;">Expected Date of Vaccination:</h6>
                       <div class="form-group">
                         {{ form.vaccineschedule(class="form-select", placeholder="Expected Date of Vaccination", id="expected_date") }}
                       </div>
 
+                      <h6 class="card-text" style = "font-family: 'Poppins', sans-serif;">Expected Time of Vaccination:</h6>
+                      <div class="form-group">
+                        {{ form.vaccinetime(class="form-control readonly", id="expected_time") }}
+                      </div>
+                      <script>
+                        $("#expected_time").prop("readonly", true);
+                    </script>
                       <h6 class="card-text" style = "font-family: 'Poppins', sans-serif;">Type of Vaccination:</h6>
                       <div class="form-group">
-                        {{ form.vaccinetype(class="form-select", placeholder="Type of Vaccination", id="vac_type") }}
+                        {{ form.vaccinetype(class="form-control readonly", id="vac_type") }}
                       </div>
-
+                      <script>
+                        $("#vac_type").prop("readonly", true);
+                    </script>
                       <div class="d-grid gap-2 my-2">
                         {{ form.schedule(class="btn btn-primary btn-block") }}
                       </div>

@@ -170,35 +170,54 @@ class ScheduleAppointmentView(MethodView):
         hospno = hospital.query.count()
 
         hospital_data = {}
-
+        #loop count of hospitals
         for i in range(hospno):
             hospital_id = i + 1
             current_hospital = hospital.query.filter_by(hosp_id=hospital_id).first()
 
             availability = availability_details.query.filter_by(hos=hospital_id).all()
-            vaccines = []
-
+            
+            # vaccines = []
+            # for avail in availability:
+            #     current_vaccine = vaccine.query.filter_by(vaccine_id=avail.vac).first()
+            #     vaccines.append(current_vaccine.vaccine_name)
+            vaccines={}
+            #loop for all schedules in all available hospitals
             for avail in availability:
-                current_vaccine = vaccine.query.filter_by(vaccine_id=avail.vac).first()
-                vaccines.append(current_vaccine.vaccine_name)
-                
-            vaccines = list(set(vaccines))
+                #vaccines.append(current_vaccine.vaccine_name)
+                #get all vaccines from each hospital
+                availability2 = availability_details.query.filter_by(vac=avail.vac).all()
+                avail_dates = {}
+                #loop to get schedule for single vaccine
+                for avail2 in availability2:
+                    current_vaccine = vaccine.query.filter_by(vaccine_id=avail2.vac).first()
+                    avail_dates[datetime.strftime(avail.availability_date, '%Y-%m-%d')]=current_vaccine.vaccine_type,(avail.availability_time1).strftime("%H:%M:%S")
+                #add to dictionary with vaccine as key and schedule and vaccine type as values
+                vaccines[current_vaccine.vaccine_name]=avail_dates
+                print(vaccines)
+            # vaccines = list(set(vaccines))
+            
+            # avail_dates = []
 
-            avail_dates = []
+            # for avail in availability:
+            #     avail_dates.append(datetime.strftime(avail.availability_date, '%Y-%m-%d'))
 
-            for avail in availability:
-                avail_dates.append(datetime.strftime(avail.availability_date, '%Y-%m-%d'))
+            # vac_types = []
 
-            vac_types = []
+            # for avail in availability:
+            #     current_vaccine = vaccine.query.filter_by(vaccine_id=avail.vac).first()
+            #     vac_types.append(current_vaccine.vaccine_type)
 
-            for avail in availability:
-                current_vaccine = vaccine.query.filter_by(vaccine_id=avail.vac).first()
-                vac_types.append(current_vaccine.vaccine_type)
-
+            # hospital_data[current_hospital.hosp_name] = [current_hospital.hosp_address,
+            #                                             vaccines,
+            #                                             avail_dates,vac_types]
             hospital_data[current_hospital.hosp_name] = [current_hospital.hosp_address,
-                                                        vaccines,
-                                                        avail_dates,vac_types]
-
+                                                         vaccines]
+            print(hospital_data)                                             
+            print(hospital_data["Calamba Doctors Hospital"][1])
+            for i in hospital_data["Calamba Doctors Hospital"][1]:
+                 print(i)
+            print("get")
         return hospital_data
     
 
