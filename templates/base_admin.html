@@ -4,33 +4,50 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <link rel="icon" href="https://healthypilipinas.ph/images/LOGO_BIDA_Plus_1.png" type="image/icon type">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-    
+    <link href="https://unpkg.com/bootstrap-table@1.20.1/dist/bootstrap-table.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Koulen&family=Montserrat:ital,wght@0,500;0,600;0,900;1,900&family=Roboto+Flex:opsz,wght@8..144,300&display=swap" rel="stylesheet">    <script src="https://unpkg.com/bootstrap-table@1.20.1/dist/bootstrap-table.min.js"></script>
     <title>{%block title%}
         {%endblock%}
     </title>
+    
   </head>
   <body>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-      <a class="navbar-brand" href="#">COVID-19 Vaccine Scheduling System</a>
+    <style>
+      .main-panel {
+  padding-left: 300px;
+}
+    </style>
+    <div class="main-panel">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark nabar-fixed">
+      
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="{{url_for('vaccines')}}">Update <span class="sr-only">(current)</span></a>
-            </li>
+            
         </ul>
+        
         {% if current_user.is_authenticated %}
         <ul class="navbar-nav">
-          <li class="nav-item">
-              <a class="nav-link">Welcome, {{ current_user.hosp_name }}</a>
+          <li class="nav-item text-success">
+              <a class="nav-link text-success" style="font-family: 'Roboto Flex';">Welcome, {{ current_user.hosp_name }}</a>
           </li>
           <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('Logout') }}">Logout</a>
+              <a class="nav-link text-success " style="font-family: 'Roboto Flex';" href="{{ url_for('Logout') }}">Logout</a>
           </li>
       </ul>
         {% else %}
@@ -47,6 +64,7 @@
         <!-- -->
       </div>
     </nav>
+  </div>
     {%with messages = get_flashed_messages(with_categories=true)%}
       {% if messages %}
         {%for category,message in messages%}
@@ -64,7 +82,44 @@
     {%endblock%}
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <section>
+      <footer class="bg-light">
+  <div class="container py-5">
+    <div class="row py-3">
 
+      <div class="col-lg-6">
+        <h6 class="text-uppercase font-weight-bold mb-4" style = "font-family: 'Poppins', sans-serif;">About</h6>
+          <p class="text-muted mb-4" style = "font-family: 'Poppins', sans-serif;">The COVID-19 Vaccine Scheduling System will help you make an appointment at the
+                  nearest vaccination centers with the availability of the vaccines and schedules on each site.</p>
+      </div>
+      <div class="col-lg-6">
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Resbakuna_logo.png/1200px-Resbakuna_logo.png"
+        height="80"
+        alt="RESBAKUNA DOH Logo"
+        loading="lazy"
+        align="right"
+      />
+      </div>
+    </div>
+  </div>
+  <hr class="p-0 m-0 b-0">
+
+
+  <div class="bg-light py-2">
+    <div class="container text-center">
+      <p class="text-muted mb-0 py-2" style = "font-family: 'Poppins', sans-serif;">&copy; 2022 RESBAKUNA All rights reserved.</p>
+
+      </div>
+    </div>
+
+</footer>
+  </section>
    
   </body>
   <style>

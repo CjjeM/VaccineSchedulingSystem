@@ -3,6 +3,57 @@
 List of Vaccines
 {% endblock %}
 {% block content %}
+<style>.sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    padding: 0 0 0; /* Height of navbar */
+    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
+    width: 300px;
+    z-index: 600;
+    }
+    
+    @media (max-width: 991.98px) {
+    .sidebar {
+    width: 100%;
+    }
+    }
+    .sidebar .active {
+    border-radius: 5px;
+    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+    }
+    
+    .sidebar-sticky {
+    position: relative;
+    top: 0;
+    height: calc(100vh - 48px);
+    padding-top: 0.5rem;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    }</style>
+<div class="row"> 
+    <div class="col-2">
+        <nav id="sidebar" class="collapse d-lg-block sidebar collapse bg-dark">
+            <div class="position-sticky">
+              <div class="list-group" id="list-tab" role="tablist">
+                <a class="navbar-brand mt-2 mt-lg-0">
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Resbakuna_logo.png/1200px-Resbakuna_logo.png"
+                      height="80"
+                      alt="RESBAKUNA DOH Logo"
+                      loading="lazy"
+                    />
+                  </a>
+                <a class="list-group-item list-group-item-action active bg-dark text-success text-center" style="font-family: 'Roboto Flex';" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home"><i class="bi bi-house-door-fill">  Home</i></a>
+                <a class="list-group-item list-group-item-action bg-dark text-success text-center" style="font-family: 'Roboto Flex';" id="list-profile-list"  href="{{ url_for('addvaccine') }}" role="tab" ><i class="bi bi-person-circle">
+                  Profile</i></a>
+                <a class="list-group-item list-group-item-action bg-dark text-success text-center" style="font-family: 'Roboto Flex';" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Messages</a>
+                <a class="list-group-item list-group-item-action bg-dark text-success text-center" style="font-family: 'Roboto Flex';" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Settings</a>
+              </div>
+              </div>
+        </nav>
+    </div>
     <div class="row" style="margin-top:20px; margin-left:20px">
     
         
@@ -122,5 +173,6 @@ List of Vaccines
             </div>
         </div>
     
+    </div>
     </div>
 {% endblock %}
