@@ -41,10 +41,11 @@ class ScheduleAppointmentView(MethodView):
         return AddAppointmentForm()
 
     def get(self):
-        low = self._render_map()
+        low = self._render_map()[0]
+        suggHosp = self._render_map()[1]
         hospital_data = self._get_hospital_data()
         json_data = json.dumps(hospital_data)
-        return render_template("ScheduleAppointment.html", lowestdistance=low, form=self.form(), hospital_data=hospital_data, json_data=json_data)
+        return render_template("ScheduleAppointment.html", lowestdistance=low, form=self.form(), hospital_data=hospital_data, json_data=json_data, suggHosp=suggHosp)
 
     def _render_map(self):
         nom = Nominatim(user_agent="vac_system")
@@ -52,6 +53,9 @@ class ScheduleAppointmentView(MethodView):
         lowestdist = 1000
         hospdist = 0
         lowestdisthospital = ""
+        hospList = []
+        listofSuggestedHosp = "| "
+        c = 0
 
         try:
             current_user = user_information.query.filter_by(email_address=session["user"]).first()
@@ -77,6 +81,8 @@ class ScheduleAppointmentView(MethodView):
                 lowestdisthospital = curhospital.hosp_name
             else:
                 lowestdist = lowestdist
+
+            hospList.append([hospdist,curhospital.hosp_name])
 
         starthosp = hospital.query.filter_by(hosp_name=f'{lowestdisthospital}').first()
         starthosp_geocode = nom.geocode(starthosp.hosp_name)
@@ -164,7 +170,18 @@ class ScheduleAppointmentView(MethodView):
             folium_map.add_child(fg)
         folium_map.save('static/map.html')
         folium_map
-        return lowestdisthospital
+        
+        hospList.sort()
+
+        for hav, hos in hospList:
+            listofSuggestedHosp += hos + " | "
+            c += 1
+
+            if c == 3:
+                break
+
+        return (lowestdisthospital, listofSuggestedHosp)
+    
     
     def _get_hospital_data(self):
         hospno = hospital.query.count()

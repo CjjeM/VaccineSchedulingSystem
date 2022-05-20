@@ -34,6 +34,7 @@ class mysqldb:
             vaccine_manufacturer varchar(50) NOT NULL,
             vaccine_supplier varchar(50) NOT NULL,
             vaccine_information varchar(1000),
+            vaccine_type varchar(50) NOT NULL,
             PRIMARY KEY (vaccine_id),
             FOREIGN KEY (hos) REFERENCES Hospital(hosp_id)
         )""")
@@ -62,6 +63,10 @@ class mysqldb:
             email_address varchar(50) NOT NULL,
             pwd varchar(255) NOT NULL,
             schedule int,
+            dose_count int,
+            schedule int,
+            booster_count int,
+            next_shot date,
             PRIMARY KEY (user_id),
             FOREIGN KEY (schedule) REFERENCES Availability_Details(id)
         )""")

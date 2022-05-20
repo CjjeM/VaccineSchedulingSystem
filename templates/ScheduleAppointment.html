@@ -289,7 +289,7 @@
                     </header>
 
                     <article class="card-body">
-                      <h4 class="card-title mt-2" style = "font-family: 'Poppins', sans-serif;">Suggested Vaccination Sites: {{lowestdistance}} </h4>
+                      <h4 class="card-title mt-2" style = "font-family: 'Poppins', sans-serif;">Suggested Vaccination Sites: {{suggHosp}} </h4>
                     </article>
                 </div>
 
@@ -302,7 +302,7 @@
                       <h6 class="card-text" style = "font-family: 'Poppins', sans-serif;">Vaccination Site Name:</h6>
 
                       <div class="form-group">
-                        {{ form.hospitalname(class="form-select", placeholder="Hospital Name", id ="hospitalname") }}<!--put onchange=changeHospInfo(this) if going back to previous code-->>
+                        {{ form.hospitalname(class="form-select", placeholder="Hospital Name", id ="hospitalname") }}<!--put onchange=changeHospInfo(this) if going back to previous code-->
                       </div>
 
                       <h6 class="card-text" style = "font-family: 'Poppins', sans-serif;">Vaccination Site Address:</h6>
