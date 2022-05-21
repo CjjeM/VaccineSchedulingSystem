@@ -38,6 +38,17 @@ class LoginForm(FlaskForm):
     password = PasswordField(label='Password:', validators=[DataRequired()])
     submit = SubmitField(label='Sign in')
 
+class RescheduleForm(FlaskForm):
+    def validate_password(self, pass_to_check):
+        password = user_information.query.filter_by(pwd=pass_to_check.data).first()
+        
+        if password == None:
+            raise ValidationError('Incorrect Password')
+
+    emailadd2 = StringField(label='Email Address:', validators=[DataRequired()])
+    password2 = PasswordField(label='Password:', validators=[DataRequired()])
+    submit2 = SubmitField(label='Sign in')
+
 class AdminLoginForm(FlaskForm):
     def validate_hosid(self, pass_to_check):
         hosid = hospital.query.filter_by(hosp_id=pass_to_check.data).first()

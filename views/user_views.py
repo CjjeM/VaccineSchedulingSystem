@@ -1,9 +1,9 @@
-from flask import render_template, session, redirect, url_for, flash
+from flask import render_template, session, redirect, url_for, flash, request
 from flask_login import login_user, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask.views import MethodView
-from models.forms import RegisterForm, LoginForm
-from models.models import user_information
+from models.forms import RegisterForm, LoginForm,RescheduleForm
+from models.models import availability_details, hospital, user_information
 from web_app import db
 
 
@@ -35,6 +35,42 @@ class UserLoginView(MethodView):
             flash('Incorrect Email or Password, Try Again', category='danger')
         
         return render_template('login.html',form=user_form)
+
+class RescheduleView(MethodView):
+    def form(self):
+        return RescheduleForm()
+
+    def get(self):
+        return render_template('RescheduleAppointment.html',form=self.form())
+
+    def post(self):
+        resched_form = RescheduleForm()
+        
+        if resched_form.validate_on_submit() or resched_form.errors != {}:
+            email = resched_form.emailadd2.data
+            password = resched_form.password2.data
+            
+            attempted_user = user_information.query.filter_by(email_address=email).first()
+
+            if attempted_user:
+                password_passed = check_password_hash(attempted_user.pwd, password)
+                if password_passed:
+                    if attempted_user.schedule==0 or attempted_user.schedule is None:
+                        flash('You currently do not have an appointment scheduled, Schedule an appointment first', category='danger')
+                    else:
+                        source = request.args.get('id')
+                        new_sched = availability_details.query.filter_by(id=int(source)).first()
+                        hosps = hospital.query.filter_by(hosp_id=new_sched.hos).first()
+                        login_user(attempted_user)
+                        attempted_user.schedule = new_sched.id
+                        db.session.commit()
+                        flash(f'Success! You are now Rescheduled to {hosps.hosp_name} on the date of {new_sched.availability_date} from {new_sched.availability_time1} to {new_sched.availability_time2}', category='success')
+                    
+            else:
+                flash('Incorrect Email or Password, Try Again', category='danger')
+        else:
+                flash('Incorrect Email or Password, Try Again', category='danger')
+        return render_template('RescheduleAppointment.html',form=resched_form)
         
 
 class RegisterView(MethodView):

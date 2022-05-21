@@ -91,6 +91,7 @@
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
+  {% block navbar %} 
     <nav class="navbar navbar-expand-md bg-success navbar-success">
       <!-- Brand -->
       <a class="navbar-brand mt-2 mt-lg-0" href="{{ url_for('Home') }}">
@@ -144,6 +145,7 @@
         {%endif%}
       </div>
     </nav>
+    {% endblock %}
     {%with messages = get_flashed_messages(with_categories=true)%}
       {% if messages %}
         {%for category,message in messages%}

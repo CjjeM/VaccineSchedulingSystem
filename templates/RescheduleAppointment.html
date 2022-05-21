@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% extends "base.html" %}
+{% block title %}Login{% endblock %}
+{% block content %}
+{% block navbar %}{% endblock %}
+<div class="container mt-5 mb-5">
+    <h1 class="text-center mb-4 pb-2 text-success fw-bold" style = "font-family: 'Poppins', sans-serif;">SCHEDULE YOUR APPOINTMENT HERE</h3>
+    <form method="POST" class="form-signin" >
+        {{ form.hidden_tag() }}
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card">
+                    <header class="card-header">
+                        <h4 class="card-title mt-2" style = "font-family: 'Poppins', sans-serif;">User Login</h4>
+                    </header>
+                    <article class="card-body">
+                        <h6 class="card-text" style = "font-family: 'Poppins', sans-serif;">Email:</h6>
+                        {{ form.emailadd2(class="form-control", placeholder="Email Address") }}
+                        &nbsp;
+                        <h6 class="card-text" style = "font-family: 'Poppins', sans-serif;">Password:</h6>
+                        {{ form.password2(class="form-control", placeholder="Password") }}
+                        &nbsp;
+                        <div class="d-grid gap-2">
+                            {{ form.submit2(class="btn btn-lg btn-block btn-primary") }}
+                        </div>
+                    </article>
+                    
+        
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<section>
+        <footer class="bg-white">
+    <div class="container py-5">
+      <div class="row py-3">
+
+        <div class="col-lg-4 col-md-6 mb-lg-0">
+          <h6 class="text-uppercase font-weight-bold mb-4" style = "font-family: 'Poppins', sans-serif;">About</h6>
+            <p class="text-muted mb-4" style = "font-family: 'Poppins', sans-serif;">The COVID-19 Vaccine Scheduling System will help you make an appointment at the
+                    nearest vaccination centers with the availability of the vaccines and schedules on each site.</p>
+        </div>
+
+        
+        <div class="col-lg-4 col-md-6 mb-lg-0">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Resbakuna_logo.png/1200px-Resbakuna_logo.png"
+          height="80"
+          alt="RESBAKUNA DOH Logo"
+          loading="lazy"
+          align="right"
+        />
+        </div>
+      </div>
+    </div>
+    <hr class="p-0 m-0 b-0">
+
+
+    <div class="bg-light py-2">
+      <div class="container text-center">
+        <p class="text-muted mb-0 py-2" style = "font-family: 'Poppins', sans-serif;">&copy; 2022 RESBAKUNA All rights reserved.</p>
+
+        </div>
+      </div>
+
+  </footer>
+    </section>
+{% endblock %}

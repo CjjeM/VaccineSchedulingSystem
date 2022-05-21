@@ -25,7 +25,7 @@ login_manager = LoginManager(app)
 login_manager.login_view = "adminlogin"
 login_manager.login_message_category = "info"
 
-from views.user_views import RegisterView, UserLoginView, LogoutView
+from views.user_views import RegisterView, UserLoginView, LogoutView,RescheduleView
 from views.home_view import HomeView, FAQView, StepsView
 from views.appointment_views import ScheduleAppointmentView, ViewAppointmentView
 from views.admin_views import AdminLoginView,AddVaccineView,UpdateVaccineView,VaccinesView,GenerateReportView
@@ -68,4 +68,7 @@ app.add_url_rule('/FAQs', methods=['GET'], view_func=FAQ_view)
 
 Steps_View = StepsView.as_view('Steps')
 app.add_url_rule('/Steps', methods=['GET'], view_func = Steps_View)
+
+Reschedule_View = RescheduleView.as_view('RescheduleAppointment')
+app.add_url_rule('/RescheduleAppointment', methods=['GET','POST'], view_func = Reschedule_View)
 
