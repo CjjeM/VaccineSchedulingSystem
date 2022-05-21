@@ -71,6 +71,8 @@ class AddVaccineForm(FlaskForm):
     supplier=StringField(label='Vaccine Name:', validators=[DataRequired()])
     manufacturer=StringField(label='Vaccine Name:', validators=[DataRequired()])
     information=StringField(label='Vaccine Name:')
+   
+    vaccinetype= SelectField = SelectField(label="Expected Date of Vaccination:", choices=["booster","not booster"])
     add = SubmitField(label='Add')
 
 class AddAppointmentForm(FlaskForm):

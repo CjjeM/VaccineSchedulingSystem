@@ -23,7 +23,9 @@ List of Vaccines
     border-radius: 5px;
     box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
     }
-    
+    .alert {
+   padding-left: 300px !important;
+}
     .sidebar-sticky {
     position: relative;
     top: 0;
@@ -45,22 +47,31 @@ List of Vaccines
                       loading="lazy"
                     />
                   </a>
-                <a class="list-group-item list-group-item-action active bg-dark text-success text-center" style="font-family: 'Roboto Flex';" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home"><i class="bi bi-house-door-fill">  Home</i></a>
-                <a class="list-group-item list-group-item-action bg-dark text-success text-center" style="font-family: 'Roboto Flex';" id="list-profile-list"  href="{{ url_for('addvaccine') }}" role="tab" ><i class="bi bi-person-circle">
-                  Profile</i></a>
-                <a class="list-group-item list-group-item-action bg-dark text-success text-center" style="font-family: 'Roboto Flex';" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Messages</a>
-                <a class="list-group-item list-group-item-action bg-dark text-success text-center" style="font-family: 'Roboto Flex';" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Settings</a>
+                <a class="list-group-item list-group-item-action active bg-dark text-success text-center" style="font-family: 'Roboto Flex';" id="list-home-list" href="{{ url_for('vaccines') }}" role="tab" aria-controls="home"><i class="bi bi-house-door-fill">  Home</i></a>
+                <a class="list-group-item list-group-item-action bg-dark text-success text-center " style="font-family: 'Roboto Flex';" id="list-profile-list"  href="{{ url_for('addvaccine') }}" role="tab" ><i class="bi bi-person-circle">
+                  Add Vaccine</i></a>
+                <a class="list-group-item list-group-item-action bg-dark text-success text-center" style="font-family: 'Roboto Flex';" id="list-messages-list" href="{{ url_for('.download_report') }}" role="tab" aria-controls="messages"><i class="bi bi-file-earmark-excel-fill"></i> Generate Report</a>
               </div>
               </div>
         </nav>
     </div>
-    <div class="row" style="margin-top:20px; margin-left:20px">
+    
     
         
-        <div class="col-8">
+        <div class="col-lg-10">
+            <br>
+            <div class="bg-light" style="font-family: 'Roboto Flex';"><div class="container-fluid">Home / Update Vaccine Schedule</div></div>
+                <header class="py-4">
+                    <div class="container-fluid ">
+                        <h1 class="text-left " style="font-family: 'Montserrat';">UPDATE VACCINE SCHEDULE</h1>
+                    </div>
+                    <div class="container-fluid ">
+                        <a class="text-left " style="font-family: 'Montserrat';">You can modify all vaccine schedules which are currently in your hospital's availability</a>
+                    </div>
+                </header>
             <div class="container mt-5 mb-5">
                 <div class="row justify-content-center">
-                    <div class="col-lg-8">
+                    <div class="col-lg-12">
                     <div class="card">
                         <header class="card-header">
                             <h4 class="card-title mt-2">Update Vaccine</h4>
@@ -115,10 +126,10 @@ List of Vaccines
                             <div class="row">
                                 <div class="col">
                                     
-                                    {{ form.addtime(class="btn btn-lg btn-block btn-primary") }}
+                                    {{ form.addtime(class="btn btn-lg btn-block btn-primary rounded-0") }}
                                 </div>
                                 <div class="col">
-                                    {{ form.add(class="btn btn-lg btn-block btn-primary") }}
+                                    {{ form.add(class="btn btn-lg btn-block btn-primary rounded-0") }}
                                 </div>
                               </div>
                                 
@@ -129,21 +140,24 @@ List of Vaccines
                 </div>
             </div>
         </div>
-        <div class="col-4">
+        <div class="col-lg-2">
+            </div>
+        <div class="col-lg-10">
+            
             <h2>All Schedules</h2>
             <p>Add Schedules for Vaccine</p>
             <br>
             <div class="row">
                 {% for sched in s %}
                 {% include 'includes/delete_modal.html' %}
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <div style="margin-bottom: 5px" class="card text-center">
                     <div class="card-body">
                         <h5 class="card-title">Date: {{ sched.availability_date }}</h5>
                         <h5 class="card-title">Start: {{ sched.availability_time1 }}</h5>
                         <h5 class="card-title">End: {{ sched.availability_time2 }}</h5>
-                        <button class="btn btn-outline btn-info" data-toggle="modal" data-target="#Modal-updateSched-{{ sched.id }}">Select</button>
-                        <button class="btn btn-outline btn-danger" data-toggle="modal" data-target="#Modal-deleteSched-{{ sched.id }}">Delete</button>
+                        <button class="btn btn-outline btn-info rounded-0" data-toggle="modal" data-target="#Modal-updateSched-{{ sched.id }}">Select</button>
+                        <button class="btn btn-outline btn-danger rounded-0" data-toggle="modal" data-target="#Modal-deleteSched-{{ sched.id }}">Delete</button>
                         <p class="card-text"><strong>
                             </strong>
                         </p>
@@ -157,7 +171,7 @@ List of Vaccines
             <br>
             <div class="row">
                 {% for s in u %}
-                <div class="col-md-6">
+                <div class="col-md-6" style="margin-top:20px; margin-left:20px">
                     <div style="margin-bottom: 5px" class="card text-left">
                     <div class="card-body">
                         <h5 class="card-title">ID: {{ s.user_id }}</h5>
@@ -173,6 +187,6 @@ List of Vaccines
             </div>
         </div>
     
-    </div>
+    
     </div>
 {% endblock %}

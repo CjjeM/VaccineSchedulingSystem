@@ -163,7 +163,7 @@ class AddVaccineView(MethodView):
         form = self.form()
         if form.validate_on_submit() and form.add.data:
             user=vaccine(vaccine_name=form.vaccinename.data,hos=session["hosid"],vaccine_expiration=form.expiration.data,vaccine_manufacturer=form.manufacturer.data
-            ,vaccine_supplier=form.supplier.data,vaccine_information=form.information.data)
+            ,vaccine_supplier=form.supplier.data,vaccine_information=form.information.data,vaccine_type=form.vaccinetype.data)
         
             db.session.add(user)
             db.session.commit()
