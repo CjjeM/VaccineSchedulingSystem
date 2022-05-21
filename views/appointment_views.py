@@ -299,7 +299,7 @@ class ScheduleAppointmentView(MethodView):
                 end_date = date_1 + relativedelta(months=6)
                 
                 if(user.dose_count==2):
-                     flash(f'You have exceeded the number of doses needed for this vaccine '+str(end_date.date()) , category = 'error')
+                     flash(f'You have exceeded the number of doses needed for this vaccine '+str(end_date.date()) , category = 'warning')
                 else:
                     end_date = date_1 + timedelta(days=21)
                     doser=2
@@ -316,17 +316,19 @@ class ScheduleAppointmentView(MethodView):
                     flash(f'You have made an appointment' , category = 'success')
                     return redirect(url_for('ViewAppointment'))
             if(dose=="booster"):
-                
-                end_date = date_1 + relativedelta(months=6)
-                booster=1
-                user.schedule = availability.id
-                user.dose_count = doser
-                user.booster_count = booster
-                user.next_shot = end_date.date()
-                db.session.commit()
-                flash(f'You may get your next dose on '+str(end_date.date()) , category = 'success')
-                flash(f'You have made an appointment' , category = 'success')
-                return redirect(url_for('ViewAppointment'))
+                if(user.dose_count<=1):
+                    flash(f'You are not elligible for booster' , category = 'warning')
+                else:
+                    end_date = date_1 + relativedelta(months=6)
+                    booster=1
+                    user.schedule = availability.id
+                    user.dose_count = doser
+                    user.booster_count = booster
+                    user.next_shot = end_date.date()
+                    db.session.commit()
+                    flash(f'You may get your next dose on '+str(end_date.date()) , category = 'success')
+                    flash(f'You have made an appointment' , category = 'success')
+                    return redirect(url_for('ViewAppointment'))
             #self._send_sms(form)
             #self._send_email(form)
 
