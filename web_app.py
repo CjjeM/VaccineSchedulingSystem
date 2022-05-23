@@ -2,6 +2,7 @@ from flask import Flask, session, render_template
 from flask_login import LoginManager
 from flask_session import Session
 from flask_sqlalchemy import SQLAlchemy
+from flask_apscheduler import APScheduler
 
 user = "vaccinedb"
 pwd = "vaccine"
@@ -23,8 +24,26 @@ ses = Session(app)
 
 login_manager = LoginManager(app)
 login_manager.login_view = "Login"
-login_manager.login_message_category = "info"
+login_manager.login_message_category = "info"   
 
+# Adding a scheduler in the background
+scheduler = APScheduler()
+scheduler.api_enabled = False
+scheduler.init_app(app)
+
+from static.background_worker import Worker
+worker = Worker(db)
+
+@scheduler.task("interval", id="bg_job", hours=12, misfire_grace_time=900)
+def job1():
+    # DON'T NOTIFY, MAUUBOS CREDITS KO WWWWWW
+    # worker.notify()
+    print('BACKGROUND JOB')
+    pass
+
+scheduler.start()
+
+# Setting up views
 from views.user_views import RegisterView, UserLoginView, LogoutView,RescheduleView
 from views.home_view import HomeView, FAQView, StepsView
 from views.appointment_views import ScheduleAppointmentView, ViewAppointmentView

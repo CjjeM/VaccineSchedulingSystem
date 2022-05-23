@@ -64,7 +64,6 @@ class ScheduleAppointmentView(MethodView):
         if(current_user is None):
              current_geocode = nom.geocode("malayan colleges laguna")
         else:
-            print(current_user.home_address)
             current_geocode = nom.geocode(current_user.home_address)
         
         user_latitude = current_geocode.latitude
@@ -201,12 +200,13 @@ class ScheduleAppointmentView(MethodView):
             #     current_vaccine = vaccine.query.filter_by(vaccine_id=avail.vac).first()
             #     vaccines.append(current_vaccine.vaccine_name)
             vaccines={}
+            avail_dates = {}
             #loop for all schedules in all available hospitals
             for avail in availability:
                 #vaccines.append(current_vaccine.vaccine_name)
                 #get all vaccines from each hospital
                 availability2 = availability_details.query.filter_by(vaccine_id=avail.vaccine_id).all()
-                avail_dates = {}
+                print(avail_dates)
                 #loop to get schedule for single vaccine
                 for avail2 in availability2:
                     current_vaccine = vaccine.query.filter_by(vaccine_id=avail2.vaccine_id).first()
@@ -231,12 +231,12 @@ class ScheduleAppointmentView(MethodView):
             #                                             vaccines,
             #                                             avail_dates,vac_types]
             hospital_data[current_hospital.hosp_name] = [current_hospital.hosp_address,
-                                                         vaccines]
-            print(hospital_data)                                             
-            print(hospital_data["Calamba Doctors Hospital"][1])
+                                                         vaccines]                                         
+            #print(hospital_data["Calamba Doctors Hospital"][1])
             for i in hospital_data["Calamba Doctors Hospital"][1]:
-                 print(i)
-            print("get")
+                 #print(i)
+                 pass
+            #print("get")
         return hospital_data
     
 
@@ -314,10 +314,11 @@ class ScheduleAppointmentView(MethodView):
 
                     end_date = date_1 + relativedelta(months=6)
                     booster=1
-                    user.schedule = availability.id
+                    user.schedule = appoint.appoint_id
                     user.dose_count = doser
                     user.booster_count = booster
                     user.next_shot = end_date.date()
+                    user.notified = 0
                     db.session.commit()
                     flash(f'You may get your next dose on '+str(end_date.date()) , category = 'success')
                     flash(f'You have made an appointment' , category = 'success')
@@ -326,12 +327,14 @@ class ScheduleAppointmentView(MethodView):
                 if(user.dose_count<=1):
                     flash(f'You are not elligible for booster' , category = 'warning')
                 else:
+                    db.session.add(appoint)
                     end_date = date_1 + relativedelta(months=6)
                     booster=1
-                    user.schedule = availability.avail_id
+                    user.schedule = appoint.appoint_id
                     user.dose_count = doser
                     user.booster_count = booster
                     user.next_shot = end_date.date()
+                    user.notified = 0
                     db.session.commit()
                     flash(f'You may get your next dose on '+str(end_date.date()) , category = 'success')
                     flash(f'You have made an appointment' , category = 'success')
@@ -355,15 +358,14 @@ class ViewAppointmentView(MethodView):
     def get(self):
 
         user = user_information.query.filter_by(email_address=session["user"]).first()
-        appoint = appointment.query.filter_by(avail_id=user_information.schedule).first()
+        appoint = appointment.query.filter_by(avail_id=user.schedule).first()
         
         view = db.session.query(user_information, appointment, availability_details, hospital, vaccine)\
             .join(appointment, appointment.user_id == user_information.user_id)\
             .join(availability_details, appointment.avail_id == availability_details.avail_id)\
             .join(hospital, hospital.hosp_id == availability_details.hosp_id)\
             .join(vaccine, vaccine.vaccine_id == availability_details.vaccine_id)\
+            .filter(user_information.email_address==session["user"])\
             .first()
 
-        print(appoint)
-        print(view)
         return render_template("ViewAppointment.html", user=user, appoint=appoint, view=view)

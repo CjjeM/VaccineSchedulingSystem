@@ -29,6 +29,7 @@ class user_information(db.Model,UserMixin):
     dose_count=db.Column(db.Integer)
     booster_count=db.Column(db.Integer)
     next_shot=db.Column(db.Date)
+    notified=db.Column(db.Integer)
 
     def __repr__(self):
         return "user_id: {0} | first name: {1} | middle name: {2} | last name: {3} | city: {4} | home address: {5} | email address: {6} | password: {7} | contact number: {8} | birth date: {9}".format(self.user_id,self.first_name,self.middle_name,self.last_name,self.city,self.home_address,self.email_address,self.pwd,self.contact_number,self.birthdate,)

@@ -66,6 +66,7 @@ class mysqldb:
             dose_count int,
             booster_count int,
             next_shot date,
+            notified bit,
             PRIMARY KEY (user_id)
         )""")
 
