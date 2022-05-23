@@ -29,26 +29,26 @@ class mysqldb:
         cursor.execute("""CREATE TABLE IF NOT EXISTS Vaccine (
             vaccine_id int NOT NULL AUTO_INCREMENT,
             vaccine_name varchar(50) NOT NULL,
-            hos int,
+            hosp_id int,
             vaccine_expiration varchar(50) NOT NULL,
             vaccine_manufacturer varchar(50) NOT NULL,
             vaccine_supplier varchar(50) NOT NULL,
             vaccine_information varchar(1000),
             vaccine_type varchar(50) NOT NULL,
             PRIMARY KEY (vaccine_id),
-            FOREIGN KEY (hos) REFERENCES Hospital(hosp_id)
+            FOREIGN KEY (hosp_id) REFERENCES Hospital(hosp_id)
         )""")
 
         cursor.execute("""CREATE TABLE IF NOT EXISTS Availability_Details (
-            id int NOT NULL AUTO_INCREMENT,
-            vac int,
-            hos int,
+            avail_id int NOT NULL AUTO_INCREMENT,
+            vaccine_id int,
+            hosp_id int,
             availability_date date NOT NULL,
             availability_time1 time NOT NULL,
             availability_time2 time NOT NULL,
-            PRIMARY KEY (id),
-            FOREIGN KEY (hos) REFERENCES Hospital(hosp_id),
-            FOREIGN KEY (vac) REFERENCES Vaccine(vaccine_id)
+            PRIMARY KEY (avail_id),
+            FOREIGN KEY (hosp_id) REFERENCES Hospital(hosp_id),
+            FOREIGN KEY (vaccine_id) REFERENCES Vaccine(vaccine_id)
         )""")
 
         cursor.execute("""CREATE TABLE IF NOT EXISTS User_Information (
@@ -64,20 +64,18 @@ class mysqldb:
             pwd varchar(255) NOT NULL,
             schedule int,
             dose_count int,
-            schedule int,
             booster_count int,
             next_shot date,
-            PRIMARY KEY (user_id),
-            FOREIGN KEY (schedule) REFERENCES Availability_Details(id)
+            PRIMARY KEY (user_id)
         )""")
 
         cursor.execute("""CREATE TABLE IF NOT EXISTS Appointment (
-            id int NOT NULL AUTO_INCREMENT,
+            appoint_id int NOT NULL AUTO_INCREMENT,
             user_id int,
-            availability_id int,
-            PRIMARY KEY (id),
+            avail_id int,
+            PRIMARY KEY (appoint_id),
             FOREIGN KEY (user_id) REFERENCES User_Information(user_id),
-            FOREIGN KEY (availability_id) REFERENCES Availability_Details(id)
+            FOREIGN KEY (avail_id) REFERENCES Availability_Details(avail_id)
         )""")
 
         db.commit()

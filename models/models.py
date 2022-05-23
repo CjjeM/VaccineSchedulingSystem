@@ -39,7 +39,7 @@ class vaccine(db.Model):
     __tablename__="vaccine"
     vaccine_id=db.Column(db.Integer,primary_key=True)
     vaccine_name=db.Column(db.String(length=255))
-    hos=db.Column(db.Integer,db.ForeignKey('hospital.hosp_id'))
+    hosp_id=db.Column(db.Integer,db.ForeignKey('hospital.hosp_id'))
     vaccine_expiration=db.Column(db.Date)
     vaccine_manufacturer=db.Column(db.String(length=255))
     vaccine_supplier=db.Column(db.String(length=255))
@@ -61,15 +61,17 @@ class hospital(db.Model, UserMixin):
     
 
 class availability_details(db.Model):
-    id=db.Column(db.Integer,primary_key=True)
+    avail_id=db.Column(db.Integer,primary_key=True)
+    id = avail_id
     availability_date=db.Column(db.Date)
     availability_time1=db.Column(db.Time)
     availability_time2=db.Column(db.Time)
-    vac=db.Column(db.Integer,db.ForeignKey('vaccine.vaccine_id'))
-    hos=db.Column(db.Integer,db.ForeignKey('hospital.hosp_id'))
+    vaccine_id=db.Column(db.Integer,db.ForeignKey('vaccine.vaccine_id'))
+    hosp_id=db.Column(db.Integer,db.ForeignKey('hospital.hosp_id'))
 
 class appointment(db.Model):
     __tablename__="appointment"
-    id = db.Column(db.Integer,primary_key=True)
+    appoint_id = db.Column(db.Integer,primary_key=True)
+    id = appoint_id
     user_id = db.Column(db.Integer, db.ForeignKey('user_information.user_id'))
-    availability_id = db.Column(db.Integer, db.ForeignKey('availability_details.id'))
+    avail_id = db.Column(db.Integer, db.ForeignKey('availability_details.avail_id'))

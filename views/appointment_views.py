@@ -64,7 +64,9 @@ class ScheduleAppointmentView(MethodView):
         if(current_user is None):
              current_geocode = nom.geocode("malayan colleges laguna")
         else:
+            print(current_user.home_address)
             current_geocode = nom.geocode(current_user.home_address)
+        
         user_latitude = current_geocode.latitude
         user_longitude = current_geocode.longitude
 
@@ -108,7 +110,7 @@ class ScheduleAppointmentView(MethodView):
             hospital1_latitude = hospital1_geocode.latitude
             hospital1_longitude = hospital1_geocode.longitude
 
-            vaxxcount = availability_details.query.filter_by(hos=f'{h + 1}').count()
+            vaxxcount = availability_details.query.filter_by(hosp_id=f'{h + 1}').count()
             available_vaccines = []
             available_dates = []
             available_time1 = []
@@ -192,7 +194,7 @@ class ScheduleAppointmentView(MethodView):
             hospital_id = i + 1
             current_hospital = hospital.query.filter_by(hosp_id=hospital_id).first()
 
-            availability = availability_details.query.filter_by(hos=hospital_id).all()
+            availability = availability_details.query.filter_by(hosp_id=hospital_id).all()
             
             # vaccines = []
             # for avail in availability:
@@ -348,11 +350,19 @@ class ViewAppointmentView(MethodView):
     def get(self):
 
         view = db.session.query(user_information, availability_details, hospital, vaccine)\
-            .select_from(user_information)\
-            .join(availability_details, availability_details.id == user_information.schedule)\
-            .join(hospital, hospital.hosp_id == availability_details.hos)\
-            .join(vaccine, vaccine.vaccine_id == availability_details.vac)\
-            .first()
+                         .select_from(user_information)\
+                         .join(availability_details, availability_details.avail_id == user_information.schedule)\
+                         .join(hospital, hospital.hosp_id == availability_details.hosp_id)\
+                         .join(vaccine, vaccine.vaccine_id == availability_details.vaccine_id)\
+                         .first()
 
-        print(view.user_information.first_name)
-        return render_template("ViewAppointment.html", view=view)
+        user = user_information.query.filter_by(email_address=session["user"]).first()
+        appoint = appointment.query.filter_by(avail_id=user_information.schedule).first()
+        
+        results = db.session.query(user_information, appointment)\
+            .join(appointment, appointment.user_id == user_information.user_id, isouter=True)\
+                .first()
+
+        print(session["user"])
+        print(user.first_name)
+        return render_template("ViewAppointment.html", user=user, appoint=appoint)
