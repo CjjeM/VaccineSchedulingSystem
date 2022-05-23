@@ -86,12 +86,16 @@
     .carousel-caption {
         background: rgba(0, 0, 0, 0.35);
     }
+    .nav-center {
+       position: absolute;
+       margin-left: 10%;
+    }
     </style>
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
-  {% block navbar %} 
+  {% block navbar %}
     <nav class="navbar navbar-expand-md bg-success navbar-success">
       <!-- Brand -->
       <a class="navbar-brand mt-2 mt-lg-0" href="{{ url_for('Home') }}">
@@ -117,6 +121,9 @@
             <li class="nav-item active">
                 <a class="nav-link text-white" style="font-family: 'Poppins', sans-serif; font-size: 18px;" href="{{ url_for('FAQs') }}">FAQs</a>
             </li>
+        </ul>
+        {%if current_user.is_authenticated %}
+        <ul class="navbar-nav mr-auto  nav-center">
             <li class="nav-item active">
             <a class="nav-link text-white" style="font-family: 'Poppins', sans-serif; font-size: 18px;" href="{{ url_for('ScheduleAppointment') }}">Schedule Appointment</a>
           </li>
@@ -124,8 +131,7 @@
             <a class="nav-link text-white" style="font-family: 'Poppins', sans-serif; font-size: 18px;" href="{{ url_for('ViewAppointment') }}">View Appointment</a>
           </li>
         </ul>
-        {%if current_user.is_authenticated %}
-        <ul class="navbar-nav ms-auto">
+          <ul class="navbar-nav ms-auto">
 
               <li class="nav-item active">
                   <a class="nav-link text-white" style="font-family: 'Poppins', sans-serif; font-size: 18px;">Welcome, {{ current_user.email_address }}</a>
@@ -187,8 +193,10 @@
           <ul class="list-unstyled mb-0" align="center">
             <li class="mb-2"><a href="{{ url_for('Login') }}" class="text-muted" style = "font-family: 'Poppins', sans-serif;">Login</a></li>
             <li class="mb-2"><a href="{{ url_for('Register') }}" class="text-muted" style = "font-family: 'Poppins', sans-serif;">Register</a></li>
-            <li class="mb-2"><a href="{{ url_for('ScheduleAppointment') }}" class="text-muted" style = "font-family: 'Poppins', sans-serif;">Schedule Appointment</a></li>
-            <li class="mb-2"><a href="{{ url_for('ViewAppointment') }}" class="text-muted" style = "font-family: 'Poppins', sans-serif;">View Appointment</a></li>
+              {%if current_user.is_authenticated %}
+                <li class="mb-2"><a href="{{ url_for('ScheduleAppointment') }}" class="text-muted" style = "font-family: 'Poppins', sans-serif;">Schedule Appointment</a></li>
+                <li class="mb-2"><a href="{{ url_for('ViewAppointment') }}" class="text-muted" style = "font-family: 'Poppins', sans-serif;">View Appointment</a></li>
+              {%endif%}
           </ul>
         </div>
         <div class="col-lg-4 col-md-6 mb-lg-0">
