@@ -22,7 +22,7 @@ db = SQLAlchemy(app)
 ses = Session(app)
 
 login_manager = LoginManager(app)
-login_manager.login_view = "adminlogin"
+login_manager.login_view = "Login"
 login_manager.login_message_category = "info"
 
 from views.user_views import RegisterView, UserLoginView, LogoutView,RescheduleView
