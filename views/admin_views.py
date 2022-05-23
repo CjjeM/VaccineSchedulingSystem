@@ -18,24 +18,29 @@ class AdminLoginView(MethodView):
         return render_template('login_admin.html',form=self.form())
     
     def post(self):
-        form = self.form()
-        session["account_type"] = None
-        
-        if form.validate_on_submit():
+        try:
             
-            attempted_user = hospital.query.filter_by(hosp_name=form.hosname.data).filter_by(hosp_id=form.hosid.data).first()
-            if attempted_user:
-                session["account_type"] ="Admin"
-                session["user"] =form.hosname.data
-                session["hosid"] =form.hosid.data
-                login_user(attempted_user)
-                flash(f'Success! You are logged in as: {attempted_user.hosp_name}', category='success')
-                return redirect(url_for('vaccines'))
-            else:
-                flash('Incorrect Name or Password, Try Again', category='danger')
+            form = AdminLoginForm()
+            session["account_type"] = None
+            
+            if form.validate_on_submit():
+                
+                attempted_user = hospital.query.filter_by(hosp_name=form.hosname.data).filter_by(hosp_id=form.hosid.data).first()
+                if attempted_user:
+                    session["account_type"] ="Admin"
+                    session["user"] =form.hosname.data
+                    session["hosid"] =form.hosid.data
+                    login_user(attempted_user)
+                    flash(f'Success! You are logged in as: {attempted_user.hosp_name}', category='success')
+                    return redirect(url_for('vaccines'))
+                else:
+                    flash('Incorrect Name or Password, Try Again', category='danger')
 
-        if form.errors != {}: 
+            if form.errors != {}: 
+                flash('Incorrect Name or Password, Try Again', category='danger')
+        except:
             flash('Incorrect Name or Password, Try Again', category='danger')
+        return redirect(url_for('adminlogin'))
 
 class VaccinesView(MethodView):
     decorators = [login_required]
@@ -44,7 +49,7 @@ class VaccinesView(MethodView):
 
     def get(self):
         s=[]
-        items3= vaccine.query.filter_by(hos=session["hosid"]).all()
+        items3= vaccine.query.filter_by(hosp_id=session["hosid"]).all()
         for i in items3:
             if i is None:
                 continue
@@ -67,7 +72,7 @@ class VaccinesView(MethodView):
     
         elif form.validate_on_submit() and form.delete.data:
             session["vacid"] =request.form.get('delete_vaccine')
-            items3 =  availability_details.query.filter_by(vac=session["vacid"]).all()
+            items3 =  availability_details.query.filter_by(vaccine_id=session["vacid"]).all()
             for i in items3:
                 db.session.delete(i)
                 db.session.commit()
@@ -79,7 +84,7 @@ class VaccinesView(MethodView):
 
 class UpdateVaccineView(MethodView):
     def form(self):
-        items2 =  availability_details.query.filter_by(id=session["schedid"]).first()
+        items2 =  availability_details.query.filter_by(avail_id=session["schedid"]).first()
         if items2 is None:
             man=""
         else:
@@ -93,7 +98,7 @@ class UpdateVaccineView(MethodView):
         users =  user_information.query.filter_by(schedule=session["schedid"]).all()
         items =  hospital.query.filter_by(hosp_id=session["hosid"]).first()
         items1 = vaccine.query.filter_by(vaccine_id=session["vacid"]).first()
-        items3= availability_details.query.filter_by(hos=session["hosid"]).filter_by(vac=session["vacid"]).all()
+        items3= availability_details.query.filter_by(hosp_id=session["hosid"]).filter_by(vaccine_id=session["vacid"]).all()
 
         for i in items3:
             if i is None:
@@ -114,44 +119,49 @@ class UpdateVaccineView(MethodView):
     
     def post(self):
         form = self.form()
-        if  form.deletesched.data: 
-            session["schedid"] =request.form.get('delete_schedule')
-            items2 =  availability_details.query.filter_by(id=session["schedid"]).filter_by(vac=session["vacid"]).filter_by(hos=session["hosid"]).first()
-            print(items2)
-            db.session.delete(items2)
-            db.session.commit()
-            flash(f'Deleted Schedule Successfully', category='success')
-            return redirect(url_for('updatevaccine'))
+        try:
+            if  form.deletesched.data: 
+                session["schedid"] =request.form.get('delete_schedule')
+                items2 =  availability_details.query.filter_by(avail_id=session["schedid"]).filter_by(vaccine_id=session["vacid"]).filter_by(hosp_id=session["hosid"]).first()
+                print(items2)
+                db.session.delete(items2)
+                db.session.commit()
+                flash(f'Deleted Schedule Successfully', category='success')
+                return redirect(url_for('updatevaccine'))
 
-        if form.validate_on_submit() and form.addtime.data:
-            items2 =  availability_details.query.filter_by(id=session["schedid"]).filter_by(vac=session["vacid"]).filter_by(hos=session["hosid"]).first()
-            if items2 is None:
-                flash(f'No schedule selected', category='danger')
-            else:
-                items2.availability_date=form.vaccinedate.data
-                db.session.commit()
-                items2.availability_time1=form.time1.data
-                db.session.commit()
-                items2.availability_time2=form.time2.data
+            if form.validate_on_submit() and form.addtime.data:
+                items2 =  availability_details.query.filter_by(avail_id=session["schedid"]).filter_by(vaccine_id=session["vacid"]).filter_by(hosp_id=session["hosid"]).first()
+                if items2 is None:
+                    flash(f'No schedule selected', category='danger')
+                else:
+                    items2.availability_date=form.vaccinedate.data
+                    db.session.commit()
+                    items2.availability_time1=form.time1.data
+                    db.session.commit()
+                    items2.availability_time2=form.time2.data
+                    db.session.commit()
+                    flash(f'Updated Schedule Successfully', category='success')
+                    return redirect(url_for('updatevaccine'))
+
+            if  form.validate_on_submit() and form.add.data:
+                user=availability_details(availability_date=form.vaccinedate.data,availability_time1=form.time1.data,availability_time2=form.time2.data,vaccine_id=session["vacid"],hosp_id=session["hosid"])
+                db.session.add(user)
                 db.session.commit()
                 flash(f'Updated Schedule Successfully', category='success')
                 return redirect(url_for('updatevaccine'))
-
-        if  form.add.data:
-            user=availability_details(availability_date=form.vaccinedate.data,availability_time1=form.time1.data,availability_time2=form.time2.data,vac=session["vacid"],hos=session["hosid"])
-            db.session.add(user)
-            db.session.commit()
-            flash(f'Updated Schedule Successfully', category='success')
-            return redirect(url_for('updatevaccine'))
-        
-        if form.validate_on_submit()  and form.update.data:
-            print(request.form.get('update_schedule'))
-            items2 =  availability_details.query.filter_by(id=request.form.get('update_schedule')).first()
-            session["schedid"] =request.form.get('update_schedule')
-            print(request.form.get('update_schedule'))
-            flash(f'Now editing schedule with date: {items2.availability_date}', category='success')
-            return redirect(url_for('updatevaccine'))
-
+            
+            if form.validate_on_submit()  and form.update.data:
+                print(request.form.get('update_schedule'))
+                items2 =  availability_details.query.filter_by(avail_id=request.form.get('update_schedule')).first()
+                session["schedid"] =request.form.get('update_schedule')
+                print(request.form.get('update_schedule'))
+                flash(f'Now editing schedule with date: {items2.availability_date}', category='success')
+                return redirect(url_for('updatevaccine'))
+            else:
+                flash(f'Invalid values', category='danger')
+        except:
+            flash(f'Invalid values', category='danger')
+        return redirect(url_for('updatevaccine'))
 class AddVaccineView(MethodView):
     def form(self):
         return AddVaccineForm()
@@ -162,7 +172,7 @@ class AddVaccineView(MethodView):
     def post(self):
         form = self.form()
         if form.validate_on_submit() and form.add.data:
-            user=vaccine(vaccine_name=form.vaccinename.data,hos=session["hosid"],vaccine_expiration=form.expiration.data,vaccine_manufacturer=form.manufacturer.data
+            user=vaccine(vaccine_name=form.vaccinename.data,hosp_id=session["hosid"],vaccine_expiration=form.expiration.data,vaccine_manufacturer=form.manufacturer.data
             ,vaccine_supplier=form.supplier.data,vaccine_information=form.information.data,vaccine_type=form.vaccinetype.data)
         
             db.session.add(user)
@@ -174,7 +184,9 @@ class AddVaccineView(MethodView):
             return redirect(url_for('updatevaccine'))
         if form.errors != {}: 
             for err_msg in form.errors.values():
-                flash(f'There was an error with creating a user: {err_msg}', category='danger')
+                flash(f'There was an error with creating a vaccine: {form.vaccinetype.data}', category='danger')
+                flash(f'There was an error with creating a vaccine: {err_msg}', category='danger')
+        return redirect(url_for('addvaccine'))
 
 class GenerateReportView(MethodView):
     def form(self):
@@ -184,7 +196,7 @@ class GenerateReportView(MethodView):
         conn = None
         cursor = None
     
-        items1 = vaccine.query.filter_by(hos=session["hosid"])
+        items1 = vaccine.query.filter_by(hosp_id=session["hosid"])
         
         output = io.BytesIO()
         workbook = xlwt.Workbook()

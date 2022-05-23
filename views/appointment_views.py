@@ -119,7 +119,7 @@ class ScheduleAppointmentView(MethodView):
 
             try:
                 for avail in range(vaxxcount):
-                    curr_vax = availability_details.query.filter_by(id=f'{avail + 1}').first()
+                    curr_vax = availability_details.query.filter_by(avail_id=f'{avail + 1}').first()
                     currdate = datetime.today()
                     curr_vax_availability = datetime.strptime(str(curr_vax.availability_date), '%Y-%m-%d')
 
@@ -205,7 +205,7 @@ class ScheduleAppointmentView(MethodView):
             for avail in availability:
                 #vaccines.append(current_vaccine.vaccine_name)
                 #get all vaccines from each hospital
-                availability2 = availability_details.query.filter_by(vac=avail.vac).all()
+                availability2 = availability_details.query.filter_by(vaccine_id=avail.vaccine_id).all()
                 avail_dates = {}
                 #loop to get schedule for single vaccine
                 for avail2 in availability2:
@@ -323,7 +323,7 @@ class ScheduleAppointmentView(MethodView):
                 else:
                     end_date = date_1 + relativedelta(months=6)
                     booster=1
-                    user.schedule = availability.id
+                    user.schedule = availability.avail_id
                     user.dose_count = doser
                     user.booster_count = booster
                     user.next_shot = end_date.date()
