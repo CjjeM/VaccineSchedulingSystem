@@ -10,7 +10,7 @@ class Worker:
     
     def notify(self):
         # combines all data then filters
-        # retrieve data if the schedule is not null and not notified
+        # retrieve data if the user's schedule is not null and not notified
         data = self.db.session.query(user_information, appointment, availability_details, hospital, vaccine)\
             .join(appointment, appointment.user_id == user_information.user_id)\
             .join(availability_details, appointment.avail_id == availability_details.avail_id)\
@@ -30,7 +30,7 @@ class Worker:
             if delta.days != 1: 
                 continue
 
-            # send sms a day before the scheduled date
+            # send sms a day before the scheduled date then set the user as notified
             self.send_sms(user)
             user.user_information.notified = 1
             self.db.session.commit()
