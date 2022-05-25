@@ -8,6 +8,7 @@ from web_app import db
 import io
 import xlwt
 import pymysql
+from datetime import datetime, timedelta
 
 class AdminLoginView(MethodView):
     
@@ -34,10 +35,10 @@ class AdminLoginView(MethodView):
                     flash(f'Success! You are logged in as: {attempted_user.hosp_name}', category='success')
                     return redirect(url_for('vaccines'))
                 else:
-                    flash('Incorrect Name or Password, Try Again', category='danger')
+                    flash('Incorrect Hospital Name or Password, Try Again', category='danger')
 
             if form.errors != {}: 
-                flash('Incorrect Name or Password, Try Again', category='danger')
+                flash('Incorrect Hospital Name or Password, Try Again', category='danger')
         except:
             flash('Incorrect Name or Password, Try Again', category='danger')
         return redirect(url_for('adminlogin'))
@@ -119,6 +120,8 @@ class UpdateVaccineView(MethodView):
     
     def post(self):
         form = self.form()
+        currdate = datetime.today()
+        currdate=currdate.date()
         try:
             if  form.deletesched.data: 
                 session["schedid"] =request.form.get('delete_schedule')
@@ -130,25 +133,33 @@ class UpdateVaccineView(MethodView):
                 return redirect(url_for('updatevaccine'))
 
             if form.validate_on_submit() and form.addtime.data:
+                
+
                 items2 =  availability_details.query.filter_by(avail_id=session["schedid"]).filter_by(vaccine_id=session["vacid"]).filter_by(hosp_id=session["hosid"]).first()
-                if items2 is None:
-                    flash(f'No schedule selected', category='danger')
+                if form.vaccinedate.data >= currdate:
+                    if items2 is None:
+                        flash(f'No schedule selected', category='danger')
+                    else:
+                        items2.availability_date=form.vaccinedate.data
+                        db.session.commit()
+                        items2.availability_time1=form.time1.data
+                        db.session.commit()
+                        items2.availability_time2=form.time2.data
+                        db.session.commit()
+                        flash(f'Updated Schedule Successfully', category='success')
+                        return redirect(url_for('updatevaccine'))
                 else:
-                    items2.availability_date=form.vaccinedate.data
-                    db.session.commit()
-                    items2.availability_time1=form.time1.data
-                    db.session.commit()
-                    items2.availability_time2=form.time2.data
+                    flash(f'Error! Entered date must be more than current date', category='danger')
+
+            if  form.validate_on_submit() and form.add.data:
+                if form.vaccinedate.data >= currdate:
+                    user=availability_details(availability_date=form.vaccinedate.data,availability_time1=form.time1.data,availability_time2=form.time2.data,vaccine_id=session["vacid"],hosp_id=session["hosid"])
+                    db.session.add(user)
                     db.session.commit()
                     flash(f'Updated Schedule Successfully', category='success')
                     return redirect(url_for('updatevaccine'))
-
-            if  form.validate_on_submit() and form.add.data:
-                user=availability_details(availability_date=form.vaccinedate.data,availability_time1=form.time1.data,availability_time2=form.time2.data,vaccine_id=session["vacid"],hosp_id=session["hosid"])
-                db.session.add(user)
-                db.session.commit()
-                flash(f'Updated Schedule Successfully', category='success')
-                return redirect(url_for('updatevaccine'))
+                else:
+                    flash(f'Error! Entered date must be more than current date', category='danger')
             
             if form.validate_on_submit()  and form.update.data:
                 print(request.form.get('update_schedule'))
@@ -171,20 +182,25 @@ class AddVaccineView(MethodView):
     
     def post(self):
         form = self.form()
+        currdate = datetime.today()
+        currdate=currdate.date()
+        #=datetime.strftime(form.expiration.data, '%Y-%m-%d')
         if form.validate_on_submit() and form.add.data:
-            user=vaccine(vaccine_name=form.vaccinename.data,hosp_id=session["hosid"],vaccine_expiration=form.expiration.data,vaccine_manufacturer=form.manufacturer.data
-            ,vaccine_supplier=form.supplier.data,vaccine_information=form.information.data,vaccine_type=form.vaccinetype.data)
-        
-            db.session.add(user)
-            db.session.commit()
-            session["vacid"]=user.vaccine_id
-            session["schedid"]=0
-            flash(f'Success! You have added: {user.vaccine_name}', category='success')
-            flash(f'Add schedule to finish', category='success')
-            return redirect(url_for('updatevaccine'))
+                if form.expiration.data >= currdate:
+                    user=vaccine(vaccine_name=form.vaccinename.data,hosp_id=session["hosid"],vaccine_expiration=form.expiration.data,vaccine_manufacturer=form.manufacturer.data
+                    ,vaccine_supplier=form.supplier.data,vaccine_information=form.information.data,vaccine_type=form.vaccinetype.data)
+                
+                    db.session.add(user)
+                    db.session.commit()
+                    session["vacid"]=user.vaccine_id
+                    session["schedid"]=0
+                    flash(f'Success! You have added: {user.vaccine_name}', category='success')
+                    flash(f'Add schedule to finish', category='success')
+                    return redirect(url_for('updatevaccine'))
+                else:
+                    flash(f'Error! Entered date must be more than current date', category='danger')
         if form.errors != {}: 
             for err_msg in form.errors.values():
-                flash(f'There was an error with creating a vaccine: {form.vaccinetype.data}', category='danger')
                 flash(f'There was an error with creating a vaccine: {err_msg}', category='danger')
         return redirect(url_for('addvaccine'))
 
@@ -216,7 +232,7 @@ class GenerateReportView(MethodView):
             print(row.vaccine_id)
             sh.write(idx+1, 0, row.vaccine_id)
             sh.write(idx+1, 1, row.vaccine_name)
-            sh.write(idx+1, 2, row.hos)
+            sh.write(idx+1, 2, row.hosp_id)
             sh.write(idx+1, 3, row.vaccine_manufacturer)
             sh.write(idx+1, 4, row.vaccine_supplier)
             sh.write(idx+1, 5, row.vaccine_information)

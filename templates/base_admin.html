@@ -34,6 +34,7 @@
 }
     </style>
     <div class="main-panel">
+      {% block navbar %}
     <nav class="navbar navbar-expand-md navbar-dark bg-dark nabar-fixed">
       
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
@@ -67,6 +68,7 @@
         <!-- -->
       </div>
     </nav>
+    {% endblock %}
   </div>
     {%with messages = get_flashed_messages(with_categories=true)%}
       {% if messages %}
