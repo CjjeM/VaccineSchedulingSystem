@@ -314,7 +314,7 @@ class ScheduleAppointmentView(MethodView):
 
                     end_date = date_1 + relativedelta(months=6)
                     booster=1
-                    user.schedule = appoint.appoint_id
+                    user.schedule = appoint.id
                     user.dose_count = doser
                     user.booster_count = booster
                     user.next_shot = end_date.date()
@@ -330,7 +330,7 @@ class ScheduleAppointmentView(MethodView):
                     db.session.add(appoint)
                     end_date = date_1 + relativedelta(months=6)
                     booster=1
-                    user.schedule = appoint.appoint_id
+                    user.schedule = appoint.id
                     user.dose_count = doser
                     user.booster_count = booster
                     user.next_shot = end_date.date()
