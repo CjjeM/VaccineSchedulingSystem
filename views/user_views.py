@@ -59,10 +59,10 @@ class RescheduleView(MethodView):
                         flash('You currently do not have an appointment scheduled, Schedule an appointment first', category='danger')
                     else:
                         source = request.args.get('id')
-                        new_sched = availability_details.query.filter_by(avail_id=int(source)).first()
+                        new_sched = availability_details.query.filter_by(id=int(source)).first()
                         hosps = hospital.query.filter_by(hosp_id=new_sched.hosp_id).first()
                         login_user(attempted_user)
-                        attempted_user.schedule = new_sched.avail_id
+                        attempted_user.schedule = new_sched.id
                         db.session.commit()
                         flash(f'Success! You are now Rescheduled to {hosps.hosp_name} on the date of {new_sched.availability_date} from {new_sched.availability_time1} to {new_sched.availability_time2}', category='success')
                     

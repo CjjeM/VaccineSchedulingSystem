@@ -86,6 +86,16 @@ class AddVaccineForm(FlaskForm):
     vaccinetype: SelectField = SelectField(label="Expected Date of Vaccination:", choices=["booster","not booster"])
     add = SubmitField(label='Add')
 
+class ChecklistForm(FlaskForm):
+    vaccinename=StringField(label='Vaccine Name:', validators=[DataRequired()])
+    expiration=DateField(label='Vaccine Date:',validators=[DataRequired()])
+    supplier=StringField(label='Vaccine Name:', validators=[DataRequired()])
+    manufacturer=StringField(label='Vaccine Name:', validators=[DataRequired()])
+    information=StringField(label='Vaccine Name:')
+   
+    vaccinetype: SelectField = SelectField(label="Expected Date of Vaccination:", choices=["booster","not booster"])
+    add = SubmitField(label='Add')
+
 class AddAppointmentForm(FlaskForm):
     all_hospitals = [hosp.hosp_name for hosp in hospital.query.filter_by().all()]
     hospitalname = SelectField(label="Hospital Name:", validators=[DataRequired()], choices=all_hospitals)

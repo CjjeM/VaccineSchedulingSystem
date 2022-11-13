@@ -1,0 +1,105 @@
+{% extends 'base_admin.html' %}
+{% block title %}
+List of Users on Site
+{% endblock %}
+{% block content %}
+{% block navbar %}{% endblock %}
+<style>.sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    padding: 0 0 0; /* Height of navbar */
+    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
+    width: 300px;
+    z-index: 600;
+    }
+    
+    @media (max-width: 991.98px) {
+    .sidebar {
+    width: 100%;
+    }
+    }
+    .sidebar .active {
+    border-radius: 5px;
+    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+    }
+    .alert {
+   padding-left: 300px !important;
+}
+    .sidebar-sticky {
+    position: relative;
+    top: 0;
+    height: calc(100vh - 48px);
+    padding-top: 0.5rem;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    }
+    .col-centered{
+    margin: 0 auto;
+    float: none;
+}
+    .container {
+  padding: 2rem 0rem;
+}
+.input-lg {
+  font-size: 32px;
+}</style>
+<div class="row"> 
+    <div class="col-2">
+        <nav id="sidebar" class="collapse d-lg-block sidebar collapse bg-dark">
+            <div class="position-sticky">
+              <div class="list-group" id="list-tab" role="tablist">
+                <a class="navbar-brand mt-2 mt-lg-0">
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Resbakuna_logo.png/1200px-Resbakuna_logo.png"
+                      height="80"
+                      alt="RESBAKUNA DOH Logo"
+                      loading="lazy"
+                    />
+                  </a>
+                <a class="list-group-item list-group-item-action  bg-dark text-success text-center" style="font-family: 'Roboto Flex';" id="list-home-list" href="{{ url_for('vaccines') }}" role="tab" aria-controls="home"><i class="bi bi-house-door-fill">  Home</i></a>
+                <a class="list-group-item list-group-item-action bg-dark text-success text-center " style="font-family: 'Roboto Flex';" id="list-profile-list"  href="{{ url_for('addvaccine') }}" role="tab" ><i class="bi bi-person-circle">
+                  Add Vaccine</i></a>
+                <a class="list-group-item list-group-item-action bg-dark text-success text-center active" style="font-family: 'Roboto Flex';" id="list-profile-list"  href="{{ url_for('Checklist') }}" role="tab" ><i class="bi bi-clipboard-check-fill"> On-Site Checklist</i></a>
+                <a class="list-group-item list-group-item-action bg-dark text-success text-center" style="font-family: 'Roboto Flex';" id="list-messages-list" href="{{ url_for('.download_report') }}" role="tab" aria-controls="messages"><i class="bi bi-file-earmark-excel-fill"></i> Generate Report</a>
+              </div>
+              </div>
+        </nav>
+    </div>
+    <div class="col-10">
+        <br>
+            <div class="bg-light" style="font-family: 'Roboto Flex';"><div class="container-fluid">Home / On-Site Checklist</div></div><br><br>
+                <header class="py-4">
+                    <div class="container-fluid ">
+                        <h1 class="text-left " style="font-family: 'Montserrat';">VACCINEE CHECKLIST ON-SITE</h1>
+                    </div>
+                    <div class="container-fluid ">
+                        <a class="text-left " style="font-family: 'Montserrat';">View all vaccinees on a specific schedule to be checked when being vaccinated on-site</a>
+                    </div>
+                    
+                </header><br><br><br><br><br><br><br><br><div class="text-center" style="font-family: 'Montserrat';"><H1>SEARCH FOR CHECKLIST OF SPECIFIC SCHEDULE</H1>
+                    <br><br>
+                    <div class="form-row">
+                        <div class="input-group input-group-lg col-md-8 mx-auto">
+                            <div class="input-group-prepend">
+                            </div>
+                            <input type="text" class="form-control" placeholder="Search" aria-describedby="basic-addon1">
+                        </div>
+                    </div>
+                </div>
+                
+        <div class="row" style="font-family: 'Roboto Flex'; ">
+          <div class="col-12">
+            
+            <br>
+              <div class="col-md-12  text-center">
+              
+              <a href="{{ url_for('.download_report') }}" class="btn btn-outline btn-primary rounded-0 text-center" role="button">Search for Specific Schedule</a>
+              <a href="{{ url_for('.download_report') }}" class="btn btn-outline btn-primary rounded-0 text-center" role="button">Generate Excel Report For All Schedules</a><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+            </div>
+            </div>
+        </div>
+      </div>
+      </div>
+{% endblock %}

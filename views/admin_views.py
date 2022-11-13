@@ -2,7 +2,7 @@ from flask import render_template, session, redirect, url_for, flash,request,Res
 from flask_login import login_user, login_required
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask.views import MethodView
-from models.forms import AdminLoginForm,UpdateVaccineForm,AddVaccineForm,AdminLoginForm,UpdateItemForm
+from models.forms import AdminLoginForm,UpdateVaccineForm,AddVaccineForm,AdminLoginForm,UpdateItemForm,ChecklistForm
 from models.models import hospital,vaccine,availability_details,user_information
 from web_app import db
 import io
@@ -203,6 +203,20 @@ class AddVaccineView(MethodView):
             for err_msg in form.errors.values():
                 flash(f'There was an error with creating a vaccine: {err_msg}', category='danger')
         return redirect(url_for('addvaccine'))
+
+class ChecklistView(MethodView):
+    
+
+    def get(self):
+        
+        return render_template('checklist.html')
+
+class ChecklistScheduleView(MethodView):
+    
+
+    def get(self):
+        
+        return render_template('schedchecklist.html')
 
 class GenerateReportView(MethodView):
     def form(self):
